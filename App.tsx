@@ -11,6 +11,9 @@ import {
   SafeAreaProvider,
   useSafeAreaInsets,
 } from 'react-native-safe-area-context';
+import { NavigationContainer } from '@react-navigation/native';
+import RootNavigation from './src/navigation/RootNavigation';
+import { SharedTransitionProvider, SharedTransitionOverlay } from './src/components/sharedTransition';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -18,7 +21,12 @@ function App() {
   return (
     <SafeAreaProvider>
       <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <AppContent />
+      <SharedTransitionProvider>
+        <NavigationContainer>
+          <RootNavigation />
+        </NavigationContainer>
+        <SharedTransitionOverlay />
+      </SharedTransitionProvider>
     </SafeAreaProvider>
   );
 }
