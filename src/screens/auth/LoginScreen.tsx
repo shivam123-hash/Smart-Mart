@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Dimensions, KeyboardAvoidingView, Platform, ScrollView, Modal, FlatList, Animated, Easing, Image, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions, KeyboardAvoidingView, Platform, ScrollView, Modal, FlatList, Animated, TextInput } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import ImagePath from '../../units/ImagePath';
 import CustomInput from '../../components/CustomInput';
 import CustomButton from '../../components/CustomButton';
 import Icon from '@react-native-vector-icons/feather';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import FloatingItems from './FloatingItems';
 
 const { width, height } = Dimensions.get('window');
 
@@ -35,45 +35,10 @@ const LoginScreen = () => {
     const dot1Scale = useRef(new Animated.Value(1)).current;
     const dot2Scale = useRef(new Animated.Value(1)).current;
     const dot3Scale = useRef(new Animated.Value(1)).current;
-    // Rain Animation setup
-    const fallAnim1 = useRef(new Animated.Value(-100)).current;
-    const fallAnim2 = useRef(new Animated.Value(-150)).current;
-    const fallAnim3 = useRef(new Animated.Value(-200)).current;
-    const fallAnim4 = useRef(new Animated.Value(-50)).current;
-    const fallAnim5 = useRef(new Animated.Value(-120)).current;
-    const fallAnim6 = useRef(new Animated.Value(-180)).current;
-
     const pulseAnim = useRef(new Animated.Value(1)).current;
 
     useEffect(() => {
-        const createFallAnimation = (animValue: Animated.Value, duration: number, delay: number) => {
-            return Animated.loop(
-                Animated.sequence([
-                    Animated.timing(animValue, {
-                        toValue: height * 0.45 + 50, // Fall past the green section
-                        duration: duration,
-                        delay: delay,
-                        easing: Easing.linear,
-                        useNativeDriver: true,
-                    }),
-                    Animated.timing(animValue, {
-                        toValue: -100, // Reset to top instantly
-                        duration: 0,
-                        useNativeDriver: true,
-                    })
-                ])
-            );
-        };
-
-        createFallAnimation(fallAnim1, 4000, 0).start();
-        createFallAnimation(fallAnim2, 5000, 1000).start();
-        createFallAnimation(fallAnim3, 4500, 2000).start();
-        createFallAnimation(fallAnim4, 6000, 500).start();
-        createFallAnimation(fallAnim5, 5500, 1500).start();
-        createFallAnimation(fallAnim6, 4200, 2500).start();
-
-        // Pulsing background circles
-        Animated.loop(
+        const pulseAnimation = Animated.loop(
             Animated.sequence([
                 Animated.timing(pulseAnim, {
                     toValue: 1.1,
@@ -86,36 +51,42 @@ const LoginScreen = () => {
                     useNativeDriver: true,
                 })
             ])
-        ).start();
-    }, []);
+        );
+        pulseAnimation.start();
+
+        return () => {
+            pulseAnimation.stop();
+        };
+    }, [pulseAnim]);
 
     useEffect(() => {
+        let dotsAnimation: Animated.CompositeAnimation | undefined;
         if (isVerifying) {
-            const animateDots = () => {
-                Animated.loop(
-                    Animated.stagger(150, [
-                        Animated.sequence([
-                            Animated.timing(dot1Scale, { toValue: 1.5, duration: 250, useNativeDriver: true }),
-                            Animated.timing(dot1Scale, { toValue: 1, duration: 250, useNativeDriver: true }),
-                        ]),
-                        Animated.sequence([
-                            Animated.timing(dot2Scale, { toValue: 2, duration: 250, useNativeDriver: true }),
-                            Animated.timing(dot2Scale, { toValue: 1, duration: 250, useNativeDriver: true }),
-                        ]),
-                        Animated.sequence([
-                            Animated.timing(dot3Scale, { toValue: 1.5, duration: 250, useNativeDriver: true }),
-                            Animated.timing(dot3Scale, { toValue: 1, duration: 250, useNativeDriver: true }),
-                        ])
+            dotsAnimation = Animated.loop(
+                Animated.stagger(150, [
+                    Animated.sequence([
+                        Animated.timing(dot1Scale, { toValue: 1.5, duration: 250, useNativeDriver: true }),
+                        Animated.timing(dot1Scale, { toValue: 1, duration: 250, useNativeDriver: true }),
+                    ]),
+                    Animated.sequence([
+                        Animated.timing(dot2Scale, { toValue: 2, duration: 250, useNativeDriver: true }),
+                        Animated.timing(dot2Scale, { toValue: 1, duration: 250, useNativeDriver: true }),
+                    ]),
+                    Animated.sequence([
+                        Animated.timing(dot3Scale, { toValue: 1.5, duration: 250, useNativeDriver: true }),
+                        Animated.timing(dot3Scale, { toValue: 1, duration: 250, useNativeDriver: true }),
                     ])
-                ).start();
-            };
-            animateDots();
+                ])
+            );
+            dotsAnimation.start();
         } else {
             dot1Scale.setValue(1);
             dot2Scale.setValue(1);
             dot3Scale.setValue(1);
         }
-    }, [isVerifying]);
+
+        return () => dotsAnimation?.stop();
+    }, [isVerifying, dot1Scale, dot2Scale, dot3Scale]);
 
     const toggleCountryPicker = () => {
         setIsPickerVisible(!isPickerVisible);
@@ -167,32 +138,16 @@ const LoginScreen = () => {
                         <Animated.View style={[styles.decorativeCircle1, { transform: [{ scale: pulseAnim }] }]} />
                         <Animated.View style={[styles.decorativeCircle2, { transform: [{ scale: pulseAnim }] }]} />
 
-                        {/* Falling Grocery Rain elements */}
-                        <Animated.View style={[styles.fallingIcon, { left: '15%', transform: [{ translateY: fallAnim1 }, { rotate: '15deg' }] }]}>
-                            <Image source={ImagePath.LoginImageOne} style={{ width: 65, height: 65 }} resizeMode="contain" />
-                        </Animated.View>
-                        <Animated.View style={[styles.fallingIcon, { left: '85%', transform: [{ translateY: fallAnim2 }, { rotate: '-20deg' }] }]}>
-                            <Image source={ImagePath.LoginImageTwo} style={{ width: 75, height: 75 }} resizeMode="contain" />
-                        </Animated.View>
-                        <Animated.View style={[styles.fallingIcon, { left: '30%', transform: [{ translateY: fallAnim3 }, { rotate: '10deg' }] }]}>
-                            <Image source={ImagePath.LoginImageThree} style={{ width: 80, height: 80 }} resizeMode="contain" />
-                        </Animated.View>
-                        <Animated.View style={[styles.fallingIcon, { left: '70%', transform: [{ translateY: fallAnim4 }, { rotate: '-10deg' }] }]}>
-                            <Image source={ImagePath.LoginImageFourth} style={{ width: 65, height: 65 }} resizeMode="contain" />
-                        </Animated.View>
-                        <Animated.View style={[styles.fallingIcon, { left: '50%', transform: [{ translateY: fallAnim5 }, { rotate: '5deg' }] }]}>
-                            <Image source={ImagePath.Snacks} style={{ width: 75, height: 75 }} resizeMode="contain" />
-                        </Animated.View>
-                        <Animated.View style={[styles.fallingIcon, { left: '10%', transform: [{ translateY: fallAnim6 }, { rotate: '-15deg' }] }]}>
-                            <Image source={ImagePath.LoginImageSixth} style={{ width: 60, height: 60 }} resizeMode="contain" />
-                        </Animated.View>
+                        <FloatingItems layer="back" />
+                        <View style={styles.headerContent}>
+                            <View style={styles.iconWrapper}>
+                                <Icon name="shopping-bag" size={50} color="#ffffff" />
+                            </View>
 
-                        <View style={styles.iconWrapper}>
-                            <Icon name="shopping-bag" size={50} color="#ffffff" />
+                            <Text style={styles.welcomeTitle}>Welcome to Smart Mart</Text>
+                            <Text style={styles.welcomeSubtitle}>Fresh groceries, snacks & daily needs at your door!</Text>
                         </View>
-
-                        <Text style={styles.welcomeTitle}>Welcome to Smart Mart</Text>
-                        <Text style={styles.welcomeSubtitle}>Fresh groceries, snacks & daily needs at your door!</Text>
+                        <FloatingItems layer="front" />
                     </View>
 
                     {/* Bottom Form Section */}
@@ -220,7 +175,29 @@ const LoginScreen = () => {
 
                         {/* Terms Text placed directly under the button */}
                         <Text style={styles.termsText}>
-                            By continuing, you agree to our <Text style={styles.termsLink}>Terms of Service</Text> and <Text style={styles.termsLink}>Privacy Policy</Text>
+                            By continuing, you agree to our{' '}
+                            <Text
+                                style={styles.termsLink}
+                                onPress={() => navigation.navigate('TermsOfServiceScreen')}
+                            >
+                                Terms of Service
+                            </Text>
+                            {' '}and{' '}
+                            <Text
+                                style={styles.termsLink}
+                                onPress={() => navigation.navigate('PrivacyPolicyScreen')}
+                            >
+                                Privacy Policy
+                            </Text>
+                        </Text>
+                        <Text style={styles.signupPrompt}>
+                            Don’t have an account?{' '}
+                            <Text
+                                style={styles.termsLink}
+                                onPress={() => navigation.navigate('SignupScreen')}
+                            >
+                                Sign up
+                            </Text>
                         </Text>
                     </View>
 
@@ -265,7 +242,9 @@ const LoginScreen = () => {
                             {[0, 1, 2, 3].map((index) => (
                                 <TextInput
                                     key={index}
-                                    ref={(ref: any) => otpInputs.current[index] = ref}
+                                    ref={(ref: any) => {
+                                        otpInputs.current[index] = ref;
+                                    }}
                                     style={[
                                         styles.otpInput,
                                         otp[index] ? styles.otpInputFilled : null
@@ -339,6 +318,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         position: 'relative',
         overflow: 'hidden',
+        zIndex: 0,
+        elevation: 0,
     },
     decorativeCircle1: {
         position: 'absolute',
@@ -358,10 +339,13 @@ const styles = StyleSheet.create({
         borderRadius: width * 0.3,
         backgroundColor: 'rgba(85, 204, 112, 0.1)',
     },
-    fallingIcon: {
-        position: 'absolute',
-        top: 0,
-        opacity: 0.5,
+    headerContent: {
+        flex: 1,
+        width: '100%',
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 1,
+        elevation: 1,
     },
     iconWrapper: {
         width: 90,
@@ -396,6 +380,8 @@ const styles = StyleSheet.create({
         zIndex: 2,
     },
     bottomCard: {
+        position: 'relative',
+        zIndex: 1,
         backgroundColor: '#ffffff',
         borderTopLeftRadius: 40,
         borderTopRightRadius: 40,
@@ -450,6 +436,13 @@ const styles = StyleSheet.create({
     termsLink: {
         color: '#55cc70',
         fontFamily: 'Poppins-Medium',
+    },
+    signupPrompt: {
+        marginTop: 14,
+        fontSize: 13,
+        fontFamily: 'Poppins-Regular',
+        color: '#7a7a7a',
+        textAlign: 'center',
     },
     modalOverlay: {
         flex: 1,

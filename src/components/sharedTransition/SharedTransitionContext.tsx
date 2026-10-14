@@ -10,14 +10,20 @@ export interface CardLayout {
 export interface SharedTransitionContextType {
   activeItem: any | null;
   sourceLayout: CardLayout | null;
+  isOverlayVisible: boolean;
   openProduct: (item: any, layout: CardLayout) => void;
+  hideProduct: () => void;
+  showProduct: () => void;
   closeProduct: () => void;
 }
 
 const SharedTransitionContext = createContext<SharedTransitionContextType>({
   activeItem: null,
   sourceLayout: null,
+  isOverlayVisible: false,
   openProduct: () => {},
+  hideProduct: () => {},
+  showProduct: () => {},
   closeProduct: () => {},
 });
 
@@ -30,15 +36,28 @@ interface SharedTransitionProviderProps {
 export const SharedTransitionProvider = ({ children }: SharedTransitionProviderProps) => {
   const [activeItem, setActiveItem] = useState<any | null>(null);
   const [sourceLayout, setSourceLayout] = useState<CardLayout | null>(null);
+  const [isOverlayVisible, setIsOverlayVisible] = useState(false);
 
   const openProduct = (item: any, layout: CardLayout) => {
     setActiveItem(item);
     setSourceLayout(layout);
+    setIsOverlayVisible(true);
+  };
+
+  const hideProduct = () => {
+    setIsOverlayVisible(false);
+  };
+
+  const showProduct = () => {
+    if (activeItem && sourceLayout) {
+      setIsOverlayVisible(true);
+    }
   };
 
   const closeProduct = () => {
     setActiveItem(null);
     setSourceLayout(null);
+    setIsOverlayVisible(false);
   };
 
   return (
@@ -46,7 +65,10 @@ export const SharedTransitionProvider = ({ children }: SharedTransitionProviderP
       value={{
         activeItem,
         sourceLayout,
+        isOverlayVisible,
         openProduct,
+        hideProduct,
+        showProduct,
         closeProduct,
       }}
     >

@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions, ViewStyle } from 'react-native';
 import Icon from '@react-native-vector-icons/feather';
 import { useSharedTransition } from './SharedTransitionContext';
+import { getProductReviews } from '../../data/productReviews';
 
 const { width } = Dimensions.get('window');
 
@@ -42,7 +43,7 @@ export const SharedProductCard: React.FC<SharedProductCardProps> = ({
 
     // Measure exact screen coordinates in window
     cardRef.current?.measureInWindow((x: number, y: number, cardWidth: number, cardHeight: number) => {
-      openProduct(item, {
+      openProduct({ ...item, reviews: getProductReviews(item) }, {
         x,
         y,
         width: cardWidth,

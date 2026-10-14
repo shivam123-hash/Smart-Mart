@@ -1,6 +1,8 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { View, Text, StyleSheet, SafeAreaView, ScrollView, TouchableOpacity, Image, Dimensions, FlatList, Animated, Platform } from 'react-native';
 import Icon from '@react-native-vector-icons/feather';
+import { getProductReviews } from '../../data/productReviews';
+import { useSharedTransition } from '../../components/sharedTransition';
 
 const { width } = Dimensions.get('window');
 
@@ -11,8 +13,20 @@ const SIMILAR_PRODUCTS = [
 
 const ProductDetailsScreen = ({ route, navigation }: any) => {
   const { item = {} } = route.params || {};
+  const productReviews = getProductReviews(item);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+  const averageReviewRating =
+    productReviews.reduce((total, review) => total + review.rating, 0) /
+    productReviews.length;
   const carouselRef = useRef<FlatList>(null);
+  const scrollRef = useRef<React.ElementRef<typeof ScrollView>>(null);
+  const similarCardRefs = useRef<
+    Record<string, React.ElementRef<typeof View> | null>
+  >({});
+  const { openProduct } = useSharedTransition();
+  const detailsLayoutY = useRef(0);
+  const reviewsLayoutY = useRef(0);
   const scrollX = useRef(new Animated.Value(0)).current;
   const bottomBarAnim = useRef(new Animated.Value(0)).current;
 
@@ -23,7 +37,7 @@ const ProductDetailsScreen = ({ route, navigation }: any) => {
       tension: 40,
       useNativeDriver: true,
     }).start();
-  }, []);
+  }, [bottomBarAnim]);
 
   interface SlideItem {
     id: string;
@@ -154,6 +168,43 @@ const ProductDetailsScreen = ({ route, navigation }: any) => {
     });
   };
 
+  const handleAddToCart = () => {
+    navigation.navigate('CartScreen');
+  };
+
+  const handleBuyNow = () => {
+    navigation.navigate('CartScreen');
+  };
+
+  const scrollToReviews = () => {
+    scrollRef.current?.scrollTo({
+      y: detailsLayoutY.current + reviewsLayoutY.current,
+      animated: true,
+    });
+  };
+
+  const openAllReviews = () => {
+    navigation.push('ReviewsScreen', { item });
+  };
+
+  const openSimilarProduct = (product: (typeof SIMILAR_PRODUCTS)[number]) => {
+    similarCardRefs.current[product.id]?.measureInWindow((x, y, cardWidth, cardHeight) => {
+      openProduct(
+        { ...product, reviews: getProductReviews(product) },
+        { x, y, width: cardWidth, height: cardHeight },
+      );
+    });
+  };
+
+  const openShop = () => {
+    navigation.push('ShopDetailsScreen', {
+      shop: {
+        name: 'Green Valley Organic Mart',
+        address: 'Delaware · 1.2 km away',
+      },
+    });
+  };
+
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.header}>
@@ -161,7 +212,7 @@ const ProductDetailsScreen = ({ route, navigation }: any) => {
           <Icon name="chevron-left" size={24} color="#1a1a1a" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Item Details</Text>
-        <TouchableOpacity style={styles.cartIconWrapper} activeOpacity={0.85}>
+        <TouchableOpacity style={styles.cartIconWrapper} activeOpacity={0.85} onPress={handleAddToCart}>
           <View style={styles.cartButton}>
             <Icon name="shopping-bag" size={20} color="#1a1a1a" />
             <View style={styles.cartBadge}>
@@ -171,7 +222,7 @@ const ProductDetailsScreen = ({ route, navigation }: any) => {
         </TouchableOpacity>
       </View>
 
-      <ScrollView showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
+      <ScrollView ref={scrollRef} showsVerticalScrollIndicator={false} contentContainerStyle={styles.scrollContent}>
         
         {/* Product Image Carousel */}
         <View style={styles.imageContainer}>
@@ -272,7 +323,12 @@ const ProductDetailsScreen = ({ route, navigation }: any) => {
           </View>
         </View>
 
-        <View style={styles.detailsContainer}>
+        <View
+          style={styles.detailsContainer}
+          onLayout={(event) => {
+            detailsLayoutY.current = event.nativeEvent.layout.y;
+          }}
+        >
           {/* Product Name with Heart in Circular Button on the Right */}
           <View style={styles.nameAndFavoriteRow}>
             <Text style={styles.productName}>{item.name}</Text>
@@ -299,19 +355,40 @@ const ProductDetailsScreen = ({ route, navigation }: any) => {
               </View>
             </View>
 
-            <View style={styles.ratingBadge}>
+            <TouchableOpacity
+              style={styles.ratingBadge}
+              activeOpacity={0.75}
+              onPress={scrollToReviews}
+              accessibilityRole="button"
+              accessibilityLabel="View product reviews"
+            >
               <Icon name="star" size={16} color="#0d3b29" style={styles.ratingStarIcon} />
-              <Text style={styles.ratingBadgeText}>4.5 Rating</Text>
-            </View>
+              <Text style={styles.ratingBadgeText}>{averageReviewRating.toFixed(1)} Rating</Text>
+            </TouchableOpacity>
           </View>
 
-          <Text style={styles.descriptionText}>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Orci, sem feugiat ut nullam nisl orci, volutpat, felis. Nunc elit, et mattis commodo condimentum tellus et. <Text style={styles.readMoreText}>Read More</Text>
+          <Text style={styles.descriptionText} numberOfLines={isDescriptionExpanded ? undefined : 2}>
+            {item.description || 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Orci, sem feugiat ut nullam nisl orci, volutpat, felis. Nunc elit, et mattis commodo condimentum tellus et. Carefully selected for freshness and quality, this product is a reliable choice for your everyday needs.'}
           </Text>
+          <TouchableOpacity
+            onPress={() => setIsDescriptionExpanded((expanded) => !expanded)}
+            activeOpacity={0.7}
+            accessibilityRole="button"
+          >
+            <Text style={[styles.readMoreText, styles.readMoreButton]}>
+              {isDescriptionExpanded ? 'Read Less' : 'Read More'}
+            </Text>
+          </TouchableOpacity>
 
           {/* Shop Section */}
           <Text style={styles.sectionTitle}>Shop</Text>
-          <View style={styles.shopCard}>
+          <TouchableOpacity
+            style={styles.shopCard}
+            activeOpacity={0.8}
+            onPress={openShop}
+            accessibilityRole="button"
+            accessibilityLabel="Browse Green Valley Organic Mart"
+          >
             <View style={styles.shopLeft}>
               <View style={styles.shopIconContainer}>
                 <Icon name="shopping-bag" size={20} color="#55cc70" />
@@ -325,56 +402,110 @@ const ProductDetailsScreen = ({ route, navigation }: any) => {
               <Icon name="star" size={15} color="#0d3b29" style={styles.ratingStarIcon} />
               <Text style={styles.ratingBadgeText}>4.8 Rating</Text>
             </View>
-          </View>
+          </TouchableOpacity>
 
           {/* Reviews Section */}
-          <Text style={styles.sectionTitle}>Reviews</Text>
-
-          {/* Single Review */}
-          <View style={styles.reviewItem}>
-            <View style={styles.reviewHeader}>
-              <View style={styles.reviewerInfo}>
-                <View style={styles.avatarPlaceholder} />
-                <View>
-                  <Text style={styles.reviewerName}>Johnson Smith</Text>
-                  <Text style={styles.reviewDate}>April 10, 2023</Text>
-                </View>
-              </View>
-              <View style={styles.starsContainer}>
-                {[1,2,3,4,5].map(i => <Icon key={i} name="star" size={14} color="#55cc70" style={styles.star} />)}
-              </View>
+          <View
+            onLayout={(event) => {
+              reviewsLayoutY.current = event.nativeEvent.layout.y;
+            }}
+          >
+            <View style={styles.reviewsHeadingRow}>
+              <Text style={styles.sectionTitle}>Reviews</Text>
+              <TouchableOpacity
+                onPress={openAllReviews}
+                activeOpacity={0.7}
+                accessibilityRole="button"
+                accessibilityLabel="See all product reviews"
+              >
+                <Text style={styles.seeAllReviews}>See all</Text>
+              </TouchableOpacity>
             </View>
-            <Text style={styles.reviewText}>
-              Recently I have purchased this product and it's quality is very nice. I loved it.
-            </Text>
+            {productReviews.slice(0, 3).map((review) => (
+              <View key={review.id} style={styles.reviewItem}>
+                <View style={styles.reviewHeader}>
+                  <View style={styles.reviewerInfo}>
+                    <View style={styles.avatarPlaceholder}>
+                      <Text style={styles.avatarInitial}>{review.name.charAt(0)}</Text>
+                    </View>
+                    <View>
+                      <Text style={styles.reviewerName}>{review.name}</Text>
+                      <Text style={styles.reviewDate}>{review.date}</Text>
+                    </View>
+                  </View>
+                  <View style={styles.starsContainer}>
+                    {[1, 2, 3, 4, 5].map((star) => (
+                      <Icon
+                        key={star}
+                        name="star"
+                        size={14}
+                        color={star <= review.rating ? '#55cc70' : '#dfe4e1'}
+                        style={styles.star}
+                      />
+                    ))}
+                  </View>
+                </View>
+                <Text style={styles.reviewText}>{review.text}</Text>
+                {review.images.length > 0 && (
+                  <View style={styles.reviewPhotos}>
+                    {review.images.slice(0, 2).map((image, index) => (
+                      <Image
+                        key={`${review.id}-preview-${index}`}
+                        source={{ uri: image }}
+                        style={styles.reviewPhoto}
+                      />
+                    ))}
+                  </View>
+                )}
+              </View>
+            ))}
+
+            <TouchableOpacity
+              style={styles.seeAllButton}
+              onPress={openAllReviews}
+              activeOpacity={0.75}
+              accessibilityRole="button"
+            >
+              <Text style={styles.seeAllButtonText}>See all {productReviews.length} reviews</Text>
+              <Icon name="arrow-right" size={16} color="#2fa64c" />
+            </TouchableOpacity>
           </View>
 
           {/* Similar Products */}
           <Text style={styles.sectionTitle}>Similar Products</Text>
           <View style={styles.similarProductsGrid}>
             {SIMILAR_PRODUCTS.map(prod => (
-              <TouchableOpacity 
+              <View
                 key={prod.id} 
+                ref={(ref) => {
+                  similarCardRefs.current[prod.id] = ref;
+                }}
+                collapsable={false}
                 style={styles.similarCard}
-                activeOpacity={0.9}
-                onPress={() => navigation.push('ProductDetailsScreen', { item: prod })}
               >
                 <TouchableOpacity style={styles.favoriteIcon}>
                   <Icon name="heart" size={18} color="#1a1a1a" />
                 </TouchableOpacity>
-                <Image source={{ uri: prod.image }} style={styles.similarImage} resizeMode="contain" />
-                <Text style={styles.similarName} numberOfLines={2}>{prod.name}</Text>
-                <Text style={styles.similarSize}>{prod.size}</Text>
+                <TouchableOpacity
+                  activeOpacity={0.9}
+                  onPress={() => openSimilarProduct(prod)}
+                  accessibilityRole="button"
+                  accessibilityLabel={`View ${prod.name}`}
+                >
+                  <Image source={{ uri: prod.image }} style={styles.similarImage} resizeMode="contain" />
+                  <Text style={styles.similarName} numberOfLines={2}>{prod.name}</Text>
+                  <Text style={styles.similarSize}>{prod.size}</Text>
+                </TouchableOpacity>
                 <View style={styles.similarPriceRow}>
                   <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                     <Text style={styles.similarCurrentPrice}>{prod.price}</Text>
                     <Text style={styles.similarOriginalPrice}>{prod.originalPrice}</Text>
                   </View>
-                  <TouchableOpacity style={styles.similarAddBtn}>
+                  <TouchableOpacity style={styles.similarAddBtn} onPress={handleAddToCart}>
                     <Text style={styles.similarAddBtnText}>Add</Text>
                   </TouchableOpacity>
                 </View>
-              </TouchableOpacity>
+              </View>
             ))}
           </View>
 
@@ -398,11 +529,11 @@ const ProductDetailsScreen = ({ route, navigation }: any) => {
           },
         ]}
       >
-        <TouchableOpacity style={styles.addToCartBtn} activeOpacity={0.85}>
+        <TouchableOpacity style={styles.addToCartBtn} activeOpacity={0.85} onPress={handleAddToCart}>
           <Icon name="shopping-bag" size={18} color="#55cc70" style={{ marginRight: 8 }} />
           <Text style={styles.addToCartBtnText}>Add to Cart</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.buyNowBtn} activeOpacity={0.85}>
+        <TouchableOpacity style={styles.buyNowBtn} activeOpacity={0.85} onPress={handleBuyNow}>
           <Text style={styles.buyNowBtnText}>Buy Now</Text>
         </TouchableOpacity>
       </Animated.View>
@@ -673,11 +804,14 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Regular',
     color: '#4a4a4a',
     lineHeight: 22,
-    marginBottom: 30,
+    marginBottom: 4,
   },
   readMoreText: {
     color: '#55cc70',
     fontFamily: 'Poppins-Medium',
+  },
+  readMoreButton: {
+    marginBottom: 26,
   },
   sectionTitle: {
     fontSize: 18,
@@ -727,7 +861,39 @@ const styles = StyleSheet.create({
     marginTop: 1,
   },
   reviewItem: {
-    marginBottom: 30,
+    padding: 14,
+    marginBottom: 12,
+    borderRadius: 16,
+    backgroundColor: '#f8faf8',
+  },
+  reviewsHeadingRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  seeAllReviews: {
+    fontSize: 13,
+    fontFamily: 'Poppins-SemiBold',
+    color: '#2fa64c',
+  },
+  seeAllButton: {
+    minHeight: 48,
+    marginTop: 2,
+    marginBottom: 22,
+    paddingHorizontal: 14,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: '#dcefe1',
+    backgroundColor: '#f4fbf6',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+  },
+  seeAllButtonText: {
+    fontSize: 13,
+    fontFamily: 'Poppins-SemiBold',
+    color: '#2fa64c',
   },
   reviewHeader: {
     flexDirection: 'row',
@@ -743,8 +909,15 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#e0e0e0',
+    backgroundColor: '#e8f6ec',
     marginRight: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  avatarInitial: {
+    fontSize: 16,
+    fontFamily: 'Poppins-Bold',
+    color: '#30984d',
   },
   reviewerName: {
     fontSize: 14,
@@ -761,6 +934,17 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Regular',
     color: '#4a4a4a',
     lineHeight: 20,
+  },
+  reviewPhotos: {
+    flexDirection: 'row',
+    gap: 8,
+    marginTop: 10,
+  },
+  reviewPhoto: {
+    width: 72,
+    height: 68,
+    borderRadius: 10,
+    backgroundColor: '#edf0ed',
   },
   similarProductsGrid: {
     flexDirection: 'row',

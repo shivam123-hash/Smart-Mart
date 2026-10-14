@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 import Icon from '@react-native-vector-icons/feather';
 import { useSharedTransition } from './SharedTransitionContext';
+import { getProductReviews } from '../../data/productReviews';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -22,6 +23,8 @@ const SIMILAR_PRODUCTS = [
   { id: '1', name: 'Fortune Soyabean Refined Oil', size: '5 L', price: '$10', originalPrice: '$12', image: 'https://cdn-icons-png.flaticon.com/512/2553/2553609.png' },
   { id: '2', name: 'Fortune Rice Bran Refined Oil', size: '5 L', price: '$15', originalPrice: '$18', image: 'https://cdn-icons-png.flaticon.com/512/2553/2553609.png' },
 ];
+const PRODUCT_DESCRIPTION =
+  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Orci, sem feugiat ut nullam nisl orci, volutpat, felis. Nunc elit, et mattis commodo condimentum tellus et. Carefully selected for freshness and quality, this product is a reliable choice for your everyday needs.';
 
 interface SlideItem {
   id: string;
@@ -106,12 +109,30 @@ const getProductGallery = (prodItem: any): SlideItem[] => {
   ];
 };
 
-export const SharedTransitionOverlay = () => {
-  const { activeItem, sourceLayout, closeProduct } = useSharedTransition();
+interface SharedTransitionOverlayProps {
+  onNavigateToCart: () => void;
+  onNavigateToShop: () => void;
+  onNavigateToReviews: (item: any) => void;
+}
+
+export const SharedTransitionOverlay = ({
+  onNavigateToCart,
+  onNavigateToShop,
+  onNavigateToReviews,
+}: SharedTransitionOverlayProps) => {
+  const {
+    activeItem,
+    sourceLayout,
+    isOverlayVisible,
+    closeProduct,
+    openProduct,
+  } = useSharedTransition();
 
   const [visible, setVisible] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const [isFavorite, setIsFavorite] = useState(false);
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
 
   const animProgress = useRef(new Animated.Value(0)).current;
   const contentProgress = useRef(new Animated.Value(0)).current;
@@ -120,59 +141,147 @@ export const SharedTransitionOverlay = () => {
   const backdropOpacity = useRef(new Animated.Value(0)).current;
 
   const carouselRef = useRef<FlatList>(null);
+  const scrollRef = useRef<React.ElementRef<typeof ScrollView>>(null);
+  const similarCardRefs = useRef<
+    Record<string, React.ElementRef<typeof View> | null>
+  >({});
+  const detailsLayoutY = useRef(0);
+  const reviewsLayoutY = useRef(0);
   const scrollX = useRef(new Animated.Value(0)).current;
+  const wasOverlayVisible = useRef(false);
+  const openingTimers = useRef<ReturnType<typeof setTimeout>[]>([]);
 
   useEffect(() => {
     if (activeItem && sourceLayout) {
       setVisible(true);
       setIsClosing(false);
+      setIsTransitioning(true);
+      setIsFavorite(false);
+      setIsDescriptionExpanded(false);
       dragY.setValue(0);
       contentProgress.setValue(0);
       bottomBarAnim.setValue(0);
       animProgress.setValue(0);
       backdropOpacity.setValue(0);
+      scrollX.setValue(0);
+      scrollRef.current?.scrollTo({ y: 0, animated: false });
+      carouselRef.current?.scrollToOffset({ offset: 0, animated: false });
 
-      // 1. Smooth cubic-bezier card expansion (slightly slower for premium, cinematic feel)
-      Animated.parallel([
-        Animated.timing(animProgress, {
-          toValue: 1,
-          duration: 500,
-          easing: Easing.bezier(0.4, 0.0, 0.2, 1),
-          useNativeDriver: false,
-        }),
-        Animated.timing(backdropOpacity, {
-          toValue: 1,
-          duration: 450,
-          easing: Easing.out(Easing.ease),
-          useNativeDriver: false,
-        }),
-      ]).start();
-
-      // 2. Secondary content & bottom buttons reveal with smooth stagger
-      const timer = setTimeout(() => {
+      const openingFrame = requestAnimationFrame(() => {
         Animated.parallel([
-          Animated.timing(contentProgress, {
+          Animated.timing(animProgress, {
             toValue: 1,
-            duration: 340,
+            duration: 500,
             easing: Easing.bezier(0.4, 0.0, 0.2, 1),
-            useNativeDriver: true,
+            useNativeDriver: Platform.OS === 'android',
           }),
-          Animated.spring(bottomBarAnim, {
+          Animated.timing(backdropOpacity, {
             toValue: 1,
-            friction: 8,
-            tension: 38,
+            duration: 450,
+            easing: Easing.out(Easing.ease),
             useNativeDriver: true,
           }),
         ]).start();
-      }, 240);
 
-      return () => clearTimeout(timer);
+        const contentTimer = setTimeout(() => {
+          Animated.parallel([
+            Animated.timing(contentProgress, {
+              toValue: 1,
+              duration: 340,
+              easing: Easing.bezier(0.4, 0.0, 0.2, 1),
+              useNativeDriver: true,
+            }),
+            Animated.spring(bottomBarAnim, {
+              toValue: 1,
+              friction: 8,
+              tension: 38,
+              useNativeDriver: true,
+            }),
+          ]).start();
+        }, 240);
+
+        const hardwareLayerTimer = setTimeout(() => {
+          setIsTransitioning(false);
+        }, 620);
+
+        openingTimers.current = [contentTimer, hardwareLayerTimer];
+      });
+
+      return () => {
+        cancelAnimationFrame(openingFrame);
+        openingTimers.current.forEach(clearTimeout);
+        openingTimers.current = [];
+      };
     }
-  }, [activeItem, sourceLayout]);
+  }, [
+    activeItem,
+    sourceLayout,
+    animProgress,
+    backdropOpacity,
+    bottomBarAnim,
+    contentProgress,
+    dragY,
+    scrollX,
+  ]);
+
+  useEffect(() => {
+    if (!isOverlayVisible) {
+      wasOverlayVisible.current = false;
+      return;
+    }
+
+    if (!wasOverlayVisible.current || !activeItem || !sourceLayout) {
+      wasOverlayVisible.current = true;
+      return;
+    }
+
+    wasOverlayVisible.current = true;
+    setIsTransitioning(true);
+    contentProgress.setValue(0);
+    bottomBarAnim.setValue(0);
+    backdropOpacity.setValue(0);
+
+    const returnAnimation = Animated.parallel([
+      Animated.timing(contentProgress, {
+        toValue: 1,
+        duration: 240,
+        easing: Easing.out(Easing.cubic),
+        useNativeDriver: true,
+      }),
+      Animated.spring(bottomBarAnim, {
+        toValue: 1,
+        friction: 8,
+        tension: 42,
+        useNativeDriver: true,
+      }),
+      Animated.timing(backdropOpacity, {
+        toValue: 1,
+        duration: 220,
+        easing: Easing.out(Easing.ease),
+        useNativeDriver: true,
+      }),
+    ]);
+
+    returnAnimation.start(({ finished }) => {
+      if (finished) {
+        setIsTransitioning(false);
+      }
+    });
+
+    return () => returnAnimation.stop();
+  }, [
+    isOverlayVisible,
+    activeItem,
+    sourceLayout,
+    contentProgress,
+    bottomBarAnim,
+    backdropOpacity,
+  ]);
 
   const handleClose = () => {
     if (isClosing) return;
     setIsClosing(true);
+    setIsTransitioning(true);
 
     // Reverse flow: quick content fade out, smooth cubic-bezier shrink to card position
     Animated.parallel([
@@ -190,21 +299,22 @@ export const SharedTransitionOverlay = () => {
         toValue: 0,
         duration: 420,
         easing: Easing.bezier(0.4, 0.0, 0.2, 1),
-        useNativeDriver: false,
+        useNativeDriver: Platform.OS === 'android',
       }),
       Animated.timing(dragY, {
         toValue: 0,
         duration: 380,
-        useNativeDriver: false,
+        useNativeDriver: Platform.OS === 'android',
       }),
       Animated.timing(backdropOpacity, {
         toValue: 0,
         duration: 380,
-        useNativeDriver: false,
+        useNativeDriver: true,
       }),
     ]).start(() => {
       setVisible(false);
       setIsClosing(false);
+      setIsTransitioning(false);
       closeProduct();
     });
   };
@@ -229,24 +339,48 @@ export const SharedTransitionOverlay = () => {
             toValue: 0,
             friction: 8,
             tension: 50,
-            useNativeDriver: false,
+            useNativeDriver: Platform.OS === 'android',
           }).start();
         }
       },
     })
   ).current;
 
-  if (!visible || !activeItem || !sourceLayout) {
+  if (!visible || !isOverlayVisible || !activeItem || !sourceLayout) {
     return null;
   }
 
   const gallery = getProductGallery(activeItem);
+  const productReviews = getProductReviews(activeItem);
+  const averageReviewRating =
+    productReviews.reduce((total, review) => total + review.rating, 0) /
+    productReviews.length;
 
   const handleDotPress = (index: number) => {
     carouselRef.current?.scrollToOffset({
       offset: index * SCREEN_WIDTH,
       animated: true,
     });
+  };
+
+  const scrollToReviews = () => {
+    scrollRef.current?.scrollTo({
+      y: detailsLayoutY.current + reviewsLayoutY.current,
+      animated: true,
+    });
+  };
+
+  const openSimilarProduct = (product: (typeof SIMILAR_PRODUCTS)[number]) => {
+    similarCardRefs.current[product.id]?.measureInWindow((x, y, width, height) => {
+      openProduct(
+        { ...product, reviews: getProductReviews(product) },
+        { x, y, width, height },
+      );
+    });
+  };
+
+  const handleAddToCart = () => {
+    onNavigateToCart();
   };
 
   // Interpolated Card Dimensions & Position
@@ -284,6 +418,32 @@ export const SharedTransitionOverlay = () => {
     extrapolate: 'clamp',
   });
 
+  const cardTranslateX = animProgress.interpolate({
+    inputRange: [0, 1],
+    outputRange: [
+      sourceLayout.x + sourceLayout.width / 2 - SCREEN_WIDTH / 2,
+      0,
+    ],
+  });
+  const cardTranslateY = Animated.add(
+    animProgress.interpolate({
+      inputRange: [0, 1],
+      outputRange: [
+        sourceLayout.y + sourceLayout.height / 2 - SCREEN_HEIGHT / 2,
+        0,
+      ],
+    }),
+    dragY
+  );
+  const cardScaleX = animProgress.interpolate({
+    inputRange: [0, 1],
+    outputRange: [sourceLayout.width / SCREEN_WIDTH, 1],
+  });
+  const cardScaleY = animProgress.interpolate({
+    inputRange: [0, 1],
+    outputRange: [sourceLayout.height / SCREEN_HEIGHT, 1],
+  });
+
   // Delayed Secondary Content Reveal Interpolations
   const contentOpacity = contentProgress;
   const contentTranslateY = contentProgress.interpolate({
@@ -315,15 +475,27 @@ export const SharedTransitionOverlay = () => {
       <Animated.View
         style={[
           styles.expandedCard,
-          {
-            top: cardTop,
-            left: cardLeft,
-            width: cardWidth,
-            height: cardHeight,
-            borderRadius: cardBorderRadius,
-            transform: [{ scale: cardScale }],
-          },
+          Platform.OS === 'android'
+            ? {
+                ...styles.expandedCardAndroid,
+                transform: [
+                  { translateX: cardTranslateX },
+                  { translateY: cardTranslateY },
+                  { scaleX: cardScaleX },
+                  { scaleY: cardScaleY },
+                  { scale: cardScale },
+                ],
+              }
+            : {
+                top: cardTop,
+                left: cardLeft,
+                width: cardWidth,
+                height: cardHeight,
+                borderRadius: cardBorderRadius,
+                transform: [{ scale: cardScale }],
+              },
         ]}
+        renderToHardwareTextureAndroid={Platform.OS === 'android' && isTransitioning}
       >
         {/* Drag Gesture Handle Header */}
         <View style={styles.headerArea} {...panResponder.panHandlers}>
@@ -338,11 +510,17 @@ export const SharedTransitionOverlay = () => {
           />
 
           <View style={styles.header}>
-            <TouchableOpacity onPress={handleClose} style={styles.headerIcon} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
+            <TouchableOpacity onPress={() => handleClose()} style={styles.headerIcon} hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}>
               <Icon name="chevron-left" size={24} color="#1a1a1a" />
             </TouchableOpacity>
             <Text style={styles.headerTitle}>Item Details</Text>
-            <TouchableOpacity style={styles.cartIconWrapper} activeOpacity={0.85}>
+            <TouchableOpacity
+              style={styles.cartIconWrapper}
+              activeOpacity={0.85}
+              onPress={handleAddToCart}
+              accessibilityRole="button"
+              accessibilityLabel="Open cart"
+            >
               <View style={styles.cartButton}>
                 <Icon name="shopping-bag" size={20} color="#1a1a1a" />
                 <View style={styles.cartBadge}>
@@ -354,12 +532,20 @@ export const SharedTransitionOverlay = () => {
         </View>
 
         <ScrollView
+          ref={scrollRef}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.scrollContent}
           bounces={false}
         >
           {/* Hero Product Image Carousel (Swipeable with Liquid Dots) */}
-          <Animated.View style={[styles.imageContainer, { height: heroImageContainerHeight }]}>
+          <Animated.View
+            style={[
+              styles.imageContainer,
+              Platform.OS === 'android'
+                ? styles.androidImageContainer
+                : { height: heroImageContainerHeight },
+            ]}
+          >
             <FlatList
               ref={carouselRef}
               data={gallery}
@@ -466,6 +652,9 @@ export const SharedTransitionOverlay = () => {
                 transform: [{ translateY: contentTranslateY }],
               },
             ]}
+            onLayout={(event) => {
+              detailsLayoutY.current = event.nativeEvent.layout.y;
+            }}
           >
             {/* Product Name with Heart in Circular Button on the Right */}
             <View style={styles.nameAndFavoriteRow}>
@@ -493,20 +682,40 @@ export const SharedTransitionOverlay = () => {
                 </View>
               </View>
 
-              <View style={styles.ratingBadge}>
+              <TouchableOpacity
+                style={styles.ratingBadge}
+                activeOpacity={0.75}
+                onPress={scrollToReviews}
+                accessibilityRole="button"
+                accessibilityLabel="View product reviews"
+              >
                 <Icon name="star" size={16} color="#0d3b29" style={styles.ratingStarIcon} />
-                <Text style={styles.ratingBadgeText}>4.5 Rating</Text>
-              </View>
+                <Text style={styles.ratingBadgeText}>{averageReviewRating.toFixed(1)} Rating</Text>
+              </TouchableOpacity>
             </View>
 
-            <Text style={styles.descriptionText}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Orci, sem feugiat ut nullam nisl orci, volutpat, felis. Nunc elit, et mattis commodo condimentum tellus et.{' '}
-              <Text style={styles.readMoreText}>Read More</Text>
+            <Text style={styles.descriptionText} numberOfLines={isDescriptionExpanded ? undefined : 2}>
+              {activeItem.description || PRODUCT_DESCRIPTION}
             </Text>
+            <TouchableOpacity
+              onPress={() => setIsDescriptionExpanded((expanded) => !expanded)}
+              activeOpacity={0.7}
+              accessibilityRole="button"
+            >
+              <Text style={[styles.readMoreText, styles.readMoreButton]}>
+                {isDescriptionExpanded ? 'Read Less' : 'Read More'}
+              </Text>
+            </TouchableOpacity>
 
             {/* Shop Section */}
             <Text style={styles.sectionTitle}>Shop</Text>
-            <View style={styles.shopCard}>
+            <TouchableOpacity
+              style={styles.shopCard}
+              activeOpacity={0.8}
+              onPress={onNavigateToShop}
+              accessibilityRole="button"
+              accessibilityLabel="View Green Valley Organic Mart"
+            >
               <View style={styles.shopLeft}>
                 <View style={styles.shopIconContainer}>
                   <Icon name="shopping-bag" size={20} color="#55cc70" />
@@ -520,51 +729,114 @@ export const SharedTransitionOverlay = () => {
                 <Icon name="star" size={15} color="#0d3b29" style={styles.ratingStarIcon} />
                 <Text style={styles.ratingBadgeText}>4.8 Rating</Text>
               </View>
-            </View>
+            </TouchableOpacity>
 
             {/* Reviews Section */}
-            <Text style={styles.sectionTitle}>Reviews</Text>
-
-            {/* Customer Review Item */}
-            <View style={styles.reviewItem}>
-              <View style={styles.reviewHeader}>
-                <View style={styles.reviewerInfo}>
-                  <View style={styles.avatarPlaceholder} />
-                  <View>
-                    <Text style={styles.reviewerName}>Johnson Smith</Text>
-                    <Text style={styles.reviewDate}>April 10, 2023</Text>
-                  </View>
-                </View>
-                <View style={styles.starsContainer}>
-                  {[1, 2, 3, 4, 5].map((i) => (
-                    <Icon key={i} name="star" size={14} color="#55cc70" style={styles.star} />
-                  ))}
-                </View>
+            <View
+              onLayout={(event) => {
+                reviewsLayoutY.current = event.nativeEvent.layout.y;
+              }}
+            >
+              <View style={styles.reviewsHeadingRow}>
+                <Text style={styles.sectionTitle}>Reviews</Text>
+                <TouchableOpacity
+                  onPress={() => onNavigateToReviews(activeItem)}
+                  activeOpacity={0.7}
+                  accessibilityRole="button"
+                  accessibilityLabel="See all product reviews"
+                >
+                  <Text style={styles.seeAllReviews}>See all</Text>
+                </TouchableOpacity>
               </View>
-              <Text style={styles.reviewText}>
-                Recently I have purchased this product and it's quality is very nice. I loved it.
-              </Text>
+
+              {productReviews.slice(0, 3).map((review) => (
+                <View key={review.id} style={styles.reviewItem}>
+                  <View style={styles.reviewHeader}>
+                    <View style={styles.reviewerInfo}>
+                      <View style={styles.avatarPlaceholder}>
+                        <Text style={styles.avatarInitial}>{review.name.charAt(0)}</Text>
+                      </View>
+                      <View>
+                        <Text style={styles.reviewerName}>{review.name}</Text>
+                        <Text style={styles.reviewDate}>{review.date}</Text>
+                      </View>
+                    </View>
+                    <View style={styles.starsContainer}>
+                      {[1, 2, 3, 4, 5].map((star) => (
+                        <Icon
+                          key={star}
+                          name="star"
+                          size={14}
+                          color={star <= review.rating ? '#55cc70' : '#dfe4e1'}
+                          style={styles.star}
+                        />
+                      ))}
+                    </View>
+                  </View>
+                  <Text style={styles.reviewText}>{review.text}</Text>
+                  {review.images.length > 0 && (
+                    <View style={styles.reviewPhotos}>
+                      {review.images.slice(0, 2).map((image, index) => (
+                        <Image
+                          key={`${review.id}-preview-${index}`}
+                          source={{ uri: image }}
+                          style={styles.reviewPhoto}
+                        />
+                      ))}
+                    </View>
+                  )}
+                </View>
+              ))}
+              <TouchableOpacity
+                style={styles.seeAllButton}
+                onPress={() => onNavigateToReviews(activeItem)}
+                activeOpacity={0.75}
+                accessibilityRole="button"
+              >
+                <Text style={styles.seeAllButtonText}>
+                  See all {productReviews.length} reviews
+                </Text>
+                <Icon name="arrow-right" size={16} color="#2fa64c" />
+              </TouchableOpacity>
             </View>
 
             {/* Similar Products Grid */}
             <Text style={styles.sectionTitle}>Similar Products</Text>
             <View style={styles.similarProductsGrid}>
               {SIMILAR_PRODUCTS.map((prod) => (
-                <View key={prod.id} style={styles.similarCard}>
+                <View
+                  key={prod.id}
+                  ref={(ref) => {
+                    similarCardRefs.current[prod.id] = ref;
+                  }}
+                  collapsable={false}
+                  style={styles.similarCard}
+                >
                   <TouchableOpacity style={styles.favoriteIcon}>
                     <Icon name="heart" size={18} color="#1a1a1a" />
                   </TouchableOpacity>
-                  <Image source={{ uri: prod.image }} style={styles.similarImage} resizeMode="contain" />
-                  <Text style={styles.similarName} numberOfLines={2}>
-                    {prod.name}
-                  </Text>
-                  <Text style={styles.similarSize}>{prod.size}</Text>
+                  <TouchableOpacity
+                    activeOpacity={0.8}
+                    onPress={() => openSimilarProduct(prod)}
+                    accessibilityRole="button"
+                    accessibilityLabel={`View ${prod.name}`}
+                  >
+                    <Image source={{ uri: prod.image }} style={styles.similarImage} resizeMode="contain" />
+                    <Text style={styles.similarName} numberOfLines={2}>
+                      {prod.name}
+                    </Text>
+                    <Text style={styles.similarSize}>{prod.size}</Text>
+                  </TouchableOpacity>
                   <View style={styles.similarPriceRow}>
                     <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                       <Text style={styles.similarCurrentPrice}>{prod.price}</Text>
                       <Text style={styles.similarOriginalPrice}>{prod.originalPrice}</Text>
                     </View>
-                    <TouchableOpacity style={styles.similarAddBtn}>
+                    <TouchableOpacity
+                      style={styles.similarAddBtn}
+                      onPress={handleAddToCart}
+                      accessibilityRole="button"
+                    >
                       <Text style={styles.similarAddBtnText}>Add</Text>
                     </TouchableOpacity>
                   </View>
@@ -593,11 +865,19 @@ export const SharedTransitionOverlay = () => {
             },
           ]}
         >
-          <TouchableOpacity style={styles.addToCartBtn} activeOpacity={0.85}>
+          <TouchableOpacity
+            style={styles.addToCartBtn}
+            activeOpacity={0.85}
+            onPress={handleAddToCart}
+          >
             <Icon name="shopping-bag" size={18} color="#55cc70" style={{ marginRight: 8 }} />
             <Text style={styles.addToCartBtnText}>Add to Cart</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.buyNowBtn} activeOpacity={0.85}>
+          <TouchableOpacity
+            style={styles.buyNowBtn}
+            activeOpacity={0.85}
+            onPress={handleAddToCart}
+          >
             <Text style={styles.buyNowBtnText}>Buy Now</Text>
           </TouchableOpacity>
         </Animated.View>
@@ -622,6 +902,13 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 20,
     elevation: 25,
+  },
+  expandedCardAndroid: {
+    ...StyleSheet.absoluteFill,
+    borderRadius: 0,
+  },
+  androidImageContainer: {
+    height: 300,
   },
   headerArea: {
     paddingTop: Platform.OS === 'ios' ? 44 : 20,
@@ -893,11 +1180,14 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Regular',
     color: '#4a4a4a',
     lineHeight: 22,
-    marginBottom: 30,
+    marginBottom: 4,
   },
   readMoreText: {
     color: '#55cc70',
     fontFamily: 'Poppins-Medium',
+  },
+  readMoreButton: {
+    marginBottom: 26,
   },
   sectionTitle: {
     fontSize: 18,
@@ -905,6 +1195,36 @@ const styles = StyleSheet.create({
     color: '#1a1a1a',
     marginBottom: 14,
     marginTop: 6,
+  },
+  reviewsHeadingRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  seeAllReviews: {
+    fontSize: 13,
+    fontFamily: 'Poppins-SemiBold',
+    color: '#2fa64c',
+    marginBottom: 8,
+  },
+  seeAllButton: {
+    minHeight: 48,
+    marginTop: 2,
+    marginBottom: 22,
+    paddingHorizontal: 14,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: '#dcefe1',
+    backgroundColor: '#f4fbf6',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+  },
+  seeAllButtonText: {
+    fontSize: 13,
+    fontFamily: 'Poppins-SemiBold',
+    color: '#2fa64c',
   },
   shopCard: {
     flexDirection: 'row',
@@ -947,7 +1267,10 @@ const styles = StyleSheet.create({
     marginTop: 1,
   },
   reviewItem: {
-    marginBottom: 30,
+    padding: 14,
+    marginBottom: 12,
+    borderRadius: 16,
+    backgroundColor: '#f8faf8',
   },
   reviewHeader: {
     flexDirection: 'row',
@@ -963,8 +1286,15 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#e0e0e0',
+    backgroundColor: '#e8f6ec',
     marginRight: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  avatarInitial: {
+    fontSize: 16,
+    fontFamily: 'Poppins-Bold',
+    color: '#30984d',
   },
   reviewerName: {
     fontSize: 14,
@@ -981,6 +1311,17 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Regular',
     color: '#4a4a4a',
     lineHeight: 20,
+  },
+  reviewPhotos: {
+    flexDirection: 'row',
+    gap: 8,
+    marginTop: 10,
+  },
+  reviewPhoto: {
+    width: 72,
+    height: 68,
+    borderRadius: 10,
+    backgroundColor: '#edf0ed',
   },
   similarProductsGrid: {
     flexDirection: 'row',
