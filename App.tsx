@@ -7,7 +7,7 @@
 
 import { NewAppScreen } from '@react-native/new-app-screen';
 import { useRef } from 'react';
-import { Platform, StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
+import { Platform, StatusBar, StyleSheet, View } from 'react-native';
 import {
   SafeAreaProvider,
   useSafeAreaInsets,
@@ -18,24 +18,25 @@ import {
   ParamListBase,
   StackActions,
 } from '@react-navigation/native';
-import RootNavigation from './src/navigation/RootNavigation';
+import RootNavigation from './src/app/navigation/RootNavigation';
+import { LocalizationProvider } from './src/shared/i18n/LocalizationProvider';
 import {
   SharedTransitionProvider,
   SharedTransitionOverlay,
   useSharedTransition,
-} from './src/components/sharedTransition';
+} from './src/shared/components/sharedTransition';
 
 const navigationRef = createNavigationContainerRef<ParamListBase>();
 
 function App() {
-  const isDarkMode = useColorScheme() === 'dark';
-
   return (
     <SafeAreaProvider>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <SharedTransitionProvider>
-        <AppNavigation />
-      </SharedTransitionProvider>
+      <StatusBar barStyle="dark-content" />
+      <LocalizationProvider>
+        <SharedTransitionProvider>
+          <AppNavigation />
+        </SharedTransitionProvider>
+      </LocalizationProvider>
     </SafeAreaProvider>
   );
 }

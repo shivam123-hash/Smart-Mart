@@ -1,5 +1,52 @@
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
+## Application structure
+
+Application code is organized by feature, with app setup and reusable code kept separate:
+
+```text
+src/
+  app/
+    navigation/       # Root, customer-tab, delivery-tab navigation
+  assets/
+    fonts/
+    images/
+  features/
+    account/
+      components/     # Account sheets and reusable account UI
+      screens/
+    auth/
+      components/
+      screens/
+    cart/
+      screens/
+    catalog/
+      data/
+      screens/
+    delivery/
+      screens/
+    home/
+      components/animations/
+      screens/
+    legal/
+      screens/
+    orders/
+      components/
+      screens/
+    support/
+      screens/
+  shared/
+    components/       # Reusable controls and shared transitions
+    constants/        # Shared asset references
+    i18n/             # Language preference, translation catalogs and localized controls
+```
+
+Keep feature-specific screens, components, and data inside their feature. Put code in `shared/` only when it is reused across features. React Native entry points and native projects remain at the repository root.
+
+## Adding a language
+
+The language picker is backed by the registry in `src/shared/i18n/languages.ts` and the phrase catalogs in `src/shared/i18n/translations.ts`. To add a language, add its code and native name to `SUPPORTED_LANGUAGES`, then add translations for that code in `TRANSLATIONS`. English is the source text and is used as the fallback when a translation is not available. App labels and input placeholders use the shared localized controls; when adding UI text that is assembled dynamically, add its complete English phrase to each catalog.
+
 # Getting Started
 
 > **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
