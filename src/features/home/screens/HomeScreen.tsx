@@ -1,6 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
 import LocalizedText from '../../../shared/i18n/LocalizedText';
-import { View, StyleSheet, ScrollView, Image, Dimensions, StatusBar, Animated, Modal, TouchableWithoutFeedback } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  Image,
+  Dimensions,
+  StatusBar,
+  Animated,
+  Modal,
+  TouchableWithoutFeedback,
+  FlatList,
+  NativeSyntheticEvent,
+  NativeScrollEvent,
+} from 'react-native';
 import TouchableOpacity from '../../../shared/components/AnimatedTouchableOpacity';
 import Icon from '@react-native-vector-icons/feather';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -8,6 +21,28 @@ import { SharedProductCard } from '../../../shared/components/sharedTransition';
 import { HomeSkeleton, useHomeEntranceAnimation, AnimatedSectionWrapper } from '../components/animations';
 
 const { width } = Dimensions.get('window');
+const BANNER_WIDTH = width - 32;
+
+const OFFERS = [
+  {
+    id: '1',
+    title: 'Super Saver Weekdays',
+    subtitle: 'Get up to 50% OFF on Fresh Fruits & Vegetables',
+    image: 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=800&q=80',
+  },
+  {
+    id: '2',
+    title: 'Dairy & Breakfast Bash',
+    subtitle: 'Flat ₹50 OFF on orders above ₹299',
+    image: 'https://images.unsplash.com/photo-1628088062854-d1870b4553da?auto=format&fit=crop&w=800&q=80',
+  },
+  {
+    id: '3',
+    title: 'Instant Munchies & Snacks',
+    subtitle: 'Buy 1 Get 1 Free on Selected Brands',
+    image: 'https://images.unsplash.com/photo-1621939514649-280e2ee25f60?auto=format&fit=crop&w=800&q=80',
+  },
+];
 
 const CATEGORIES = [
   { id: '1', name: 'Vegetables\n& Fruits', image: 'https://cdn-icons-png.flaticon.com/512/3194/3194591.png' },
@@ -34,39 +69,17 @@ const BEST_DEALS = [
   { id: '3', name: 'Fresh Apples (Fuji)', size: '1 kg', price: '₹4', originalPrice: '₹6', image: 'https://cdn-icons-png.flaticon.com/512/3194/3194591.png' },
   { id: '4', name: 'Aashirvaad Shudh Chakki Atta', size: '5 kg', price: '₹18', originalPrice: '₹23', image: 'https://cdn-icons-png.flaticon.com/512/3014/3014436.png' },
   { id: '5', name: 'Amul Taaza Toned Milk', size: '1 L', price: '₹1.8', originalPrice: '₹2.2', image: 'https://cdn-icons-png.flaticon.com/512/869/869687.png' },
-  { id: '6', name: 'Tropicana Orange Juice', size: '1 L', price: '₹4.5', originalPrice: '₹6', image: 'https://cdn-icons-png.flaticon.com/512/2405/2405597.png' },
-  { id: '7', name: 'Tata Tea Premium', size: '500 g', price: '₹7', originalPrice: '₹9', image: 'https://cdn-icons-png.flaticon.com/512/924/924514.png' },
-  { id: '8', name: 'Maggi 2-Minute Noodles', size: '12 pack', price: '₹5', originalPrice: '₹6.5', image: 'https://cdn-icons-png.flaticon.com/512/3014/3014493.png' },
-  { id: '9', name: 'Fortune Sunlite Refined Oil', size: '5 L', price: '₹22', originalPrice: '₹27', image: 'https://cdn-icons-png.flaticon.com/512/2553/2553609.png' },
-  { id: '10', name: 'Fresh Farm Chicken Breast', size: '500 g', price: '₹5.5', originalPrice: '₹7', image: 'https://cdn-icons-png.flaticon.com/512/3143/3143645.png' },
-  { id: '11', name: 'Britannia Good Day Cookies', size: '600 g', price: '₹4', originalPrice: '₹5.5', image: 'https://cdn-icons-png.flaticon.com/512/3082/3082060.png' },
-  { id: '12', name: 'Lay\'s Classic Salted Chips', size: '150 g', price: '₹2.5', originalPrice: '₹3.2', image: 'https://cdn-icons-png.flaticon.com/512/2553/2553691.png' },
 ];
 
 const NEARBY = [
   { id: '1', name: 'Aashirvaad Shudh Chakki Atta', size: '5 kg', price: '₹18', originalPrice: '₹25', image: 'https://cdn-icons-png.flaticon.com/512/3014/3014436.png' },
   { id: '2', name: 'Fresh Dairy Milk 1L', size: '1 L', price: '₹2', originalPrice: '₹3', image: 'https://cdn-icons-png.flaticon.com/512/869/869687.png' },
   { id: '3', name: 'Orange Juice Premium', size: '1 L', price: '₹5', originalPrice: '₹7', image: 'https://cdn-icons-png.flaticon.com/512/2405/2405597.png' },
-  { id: '4', name: 'Organic Bananas', size: '1 dozen', price: '₹3', originalPrice: '₹4', image: 'https://cdn-icons-png.flaticon.com/512/3194/3194591.png' },
-  { id: '5', name: 'Mother Dairy Curd', size: '400 g', price: '₹1.5', originalPrice: '₹2', image: 'https://cdn-icons-png.flaticon.com/512/869/869687.png' },
-  { id: '6', name: 'Real Fruit Juice Mixed', size: '1 L', price: '₹3.5', originalPrice: '₹4.5', image: 'https://cdn-icons-png.flaticon.com/512/2405/2405597.png' },
-  { id: '7', name: 'India Gate Basmati Rice', size: '5 kg', price: '₹28', originalPrice: '₹34', image: 'https://cdn-icons-png.flaticon.com/512/3014/3014436.png' },
-  { id: '8', name: 'Fresh Tomatoes', size: '1 kg', price: '₹1.8', originalPrice: '₹2.5', image: 'https://cdn-icons-png.flaticon.com/512/3194/3194591.png' },
-  { id: '9', name: 'Amul Butter', size: '500 g', price: '₹6', originalPrice: '₹7.5', image: 'https://cdn-icons-png.flaticon.com/512/869/869687.png' },
-  { id: '10', name: 'Fresh Coriander Leaves', size: '100 g', price: '₹0.8', originalPrice: '₹1.2', image: 'https://cdn-icons-png.flaticon.com/512/3194/3194591.png' },
 ];
 
 const ORDER_AGAIN = [
   { id: '1', name: 'Lipton Green Tea Bags', size: '100 pcs', price: '₹8', originalPrice: '₹10', image: 'https://cdn-icons-png.flaticon.com/512/924/924514.png' },
   { id: '2', name: 'Frozen Green Peas', size: '1 kg', price: '₹3', originalPrice: '₹4', image: 'https://cdn-icons-png.flaticon.com/512/3014/3014493.png' },
-  { id: '3', name: 'Fresh Chicken Breast', size: '500 g', price: '₹6', originalPrice: '₹8', image: 'https://cdn-icons-png.flaticon.com/512/3143/3143645.png' },
-  { id: '4', name: 'Nescafe Classic Coffee', size: '200 g', price: '₹9', originalPrice: '₹11', image: 'https://cdn-icons-png.flaticon.com/512/924/924514.png' },
-  { id: '5', name: 'McCain French Fries', size: '1.5 kg', price: '₹7', originalPrice: '₹9', image: 'https://cdn-icons-png.flaticon.com/512/3014/3014493.png' },
-  { id: '6', name: 'Fresh Rohu Fish', size: '1 kg', price: '₹8', originalPrice: '₹10', image: 'https://cdn-icons-png.flaticon.com/512/3143/3143645.png' },
-  { id: '7', name: 'Tata Salt', size: '1 kg', price: '₹1.2', originalPrice: '₹1.5', image: 'https://cdn-icons-png.flaticon.com/512/2553/2553609.png' },
-  { id: '8', name: 'Britannia Bread', size: '400 g', price: '₹1.5', originalPrice: '₹2', image: 'https://cdn-icons-png.flaticon.com/512/3082/3082060.png' },
-  { id: '9', name: 'Eggs (Farm Fresh)', size: '12 pcs', price: '₹3', originalPrice: '₹3.8', image: 'https://cdn-icons-png.flaticon.com/512/869/869687.png' },
-  { id: '10', name: 'Frozen Mixed Vegetables', size: '1 kg', price: '₹4', originalPrice: '₹5.5', image: 'https://cdn-icons-png.flaticon.com/512/3014/3014493.png' },
 ];
 
 const SAVED_ADDRESSES = [
@@ -90,10 +103,51 @@ const SAVED_ADDRESSES = [
   },
 ];
 
+const PaginationDot = ({ active }: { active: boolean }) => {
+  const widthAnim = useRef(new Animated.Value(active ? 18 : 6)).current;
+  const colorAnim = useRef(new Animated.Value(active ? 1 : 0)).current;
+
+  useEffect(() => {
+    Animated.parallel([
+      Animated.timing(widthAnim, {
+        toValue: active ? 18 : 6,
+        duration: 250,
+        useNativeDriver: false,
+      }),
+      Animated.timing(colorAnim, {
+        toValue: active ? 1 : 0,
+        duration: 250,
+        useNativeDriver: false,
+      }),
+    ]).start();
+  }, [active]);
+
+  const backgroundColor = colorAnim.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['#d8d8d8', '#55cc70'],
+  });
+
+  return (
+    <Animated.View
+      style={[
+        styles.paginationDot,
+        {
+          width: widthAnim,
+          backgroundColor,
+        },
+      ]}
+    />
+  );
+};
+
 const HomeScreen = ({ navigation }: any) => {
   const [isLoading, setIsLoading] = useState(true);
   const [showAddressDropdown, setShowAddressDropdown] = useState(false);
   const [selectedAddress, setSelectedAddress] = useState(SAVED_ADDRESSES[0]);
+
+  const [activeBannerIndex, setActiveBannerIndex] = useState(0);
+  const bannerListRef = useRef<FlatList>(null);
+  const scrollX = useRef(new Animated.Value(0)).current;
 
   const dropdownAnim = useRef(new Animated.Value(0)).current;
   const dropdownScale = useRef(new Animated.Value(0.95)).current;
@@ -104,6 +158,24 @@ const HomeScreen = ({ navigation }: any) => {
     }, 1200);
     return () => clearTimeout(timer);
   }, []);
+
+  // Auto-scroll Banners repeatedly
+  useEffect(() => {
+    if (isLoading) return;
+
+    const interval = setInterval(() => {
+      setActiveBannerIndex((prevIndex) => {
+        const nextIndex = (prevIndex + 1) % OFFERS.length;
+        bannerListRef.current?.scrollToIndex({
+          index: nextIndex,
+          animated: true,
+        });
+        return nextIndex;
+      });
+    }, 3500); // Scrolls every 3.5 seconds
+
+    return () => clearInterval(interval);
+  }, [isLoading]);
 
   useEffect(() => {
     if (showAddressDropdown) {
@@ -150,6 +222,15 @@ const HomeScreen = ({ navigation }: any) => {
     setShowAddressDropdown(false);
   };
 
+  const onBannerScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const slideWidth = event.nativeEvent.layoutMeasurement.width;
+    const offset = event.nativeEvent.contentOffset.x;
+    const index = Math.round(offset / slideWidth);
+    if (index >= 0 && index < OFFERS.length) {
+      setActiveBannerIndex(index);
+    }
+  };
+
   if (isLoading) {
     return <HomeSkeleton />;
   }
@@ -162,7 +243,7 @@ const HomeScreen = ({ navigation }: any) => {
         {/* Curved Green Header */}
         <Animated.View style={[styles.curvedHeader, { paddingTop: insets.top + 8 }, headerStyle]}>
           <View style={styles.headerTop}>
-            {/* Location - opens dropdown */}
+            {/* Location */}
             <TouchableOpacity
               style={styles.locationContainer}
               activeOpacity={0.85}
@@ -221,7 +302,71 @@ const HomeScreen = ({ navigation }: any) => {
           </View>
         </Animated.View>
 
-        {/* Shop By Category - only first 8 */}
+        <View style={styles.bannerContainer}>
+          <Animated.FlatList
+            ref={bannerListRef}
+            data={OFFERS}
+            horizontal
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            onScroll={Animated.event(
+              [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+              { useNativeDriver: false, listener: onBannerScroll }
+            )}
+            scrollEventThrottle={16}
+            getItemLayout={(_, index) => ({
+              length: width,
+              offset: width * index,
+              index,
+            })}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item, index }) => {
+              // Scale Animation per item based on scroll position
+              const inputRange = [
+                (index - 1) * width,
+                index * width,
+                (index + 1) * width,
+              ];
+              const scale = scrollX.interpolate({
+                inputRange,
+                outputRange: [0.93, 1, 0.93],
+                extrapolate: 'clamp',
+              });
+
+              return (
+                <View style={{ width: width, alignItems: 'center' }}>
+                  <Animated.View style={[styles.bannerCard, { transform: [{ scale }] }]}>
+                    <TouchableOpacity
+                      activeOpacity={0.9}
+                      style={{ flex: 1 }}
+                      onPress={() => {
+                        navigation.navigate('ProductListScreen', { title: item.title });
+                      }}
+                    >
+                      <Image source={{ uri: item.image }} style={styles.bannerImage} resizeMode="cover" />
+                      <View style={styles.bannerOverlay}>
+                        <View style={styles.bannerTag}>
+                          <LocalizedText style={styles.bannerTagText}>LIMITED OFFER</LocalizedText>
+                        </View>
+                        <LocalizedText style={styles.bannerTitle}>{item.title}</LocalizedText>
+                        <LocalizedText style={styles.bannerSubtitle}>{item.subtitle}</LocalizedText>
+                      </View>
+                    </TouchableOpacity>
+                  </Animated.View>
+                </View>
+              );
+            }}
+          />
+
+          {/* Animated Pagination Dots */}
+          <View style={styles.paginationContainer}>
+            {OFFERS.map((_, index) => (
+              <PaginationDot key={index} active={activeBannerIndex === index} />
+            ))}
+          </View>
+        </View>
+
+        {/* Shop By Category */}
         <View style={styles.sectionHeader}>
           <LocalizedText style={styles.sectionTitle}>Shop By Category</LocalizedText>
           <TouchableOpacity
@@ -276,7 +421,7 @@ const HomeScreen = ({ navigation }: any) => {
             </TouchableOpacity>
           </View>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.horizontalList}>
-            {BEST_DEALS.slice(0, 5).map((item) => (
+            {BEST_DEALS.map((item) => (
               <SharedProductCard key={item.id} item={item} />
             ))}
           </ScrollView>
@@ -298,7 +443,7 @@ const HomeScreen = ({ navigation }: any) => {
             </TouchableOpacity>
           </View>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.horizontalList}>
-            {NEARBY.slice(0, 5).map((item) => (
+            {NEARBY.map((item) => (
               <SharedProductCard key={item.id} item={item} />
             ))}
           </ScrollView>
@@ -320,7 +465,7 @@ const HomeScreen = ({ navigation }: any) => {
             </TouchableOpacity>
           </View>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.horizontalList}>
-            {ORDER_AGAIN.slice(0, 5).map((item) => (
+            {ORDER_AGAIN.map((item) => (
               <SharedProductCard key={item.id} item={item} />
             ))}
           </ScrollView>
@@ -358,9 +503,7 @@ const HomeScreen = ({ navigation }: any) => {
                   },
                 ]}
               >
-                {/* Arrow */}
                 <View style={styles.dropdownArrow} />
-
                 <LocalizedText style={styles.dropdownTitle}>Select Delivery Address</LocalizedText>
 
                 {SAVED_ADDRESSES.map((addr) => {
@@ -368,20 +511,12 @@ const HomeScreen = ({ navigation }: any) => {
                   return (
                     <TouchableOpacity
                       key={addr.id}
-                      style={[
-                        styles.dropdownItem,
-                        isSelected && styles.dropdownItemSelected,
-                      ]}
+                      style={[styles.dropdownItem, isSelected && styles.dropdownItemSelected]}
                       activeOpacity={0.8}
                       onPress={() => handleSelectAddress(addr)}
                     >
                       <View style={styles.dropdownItemLeft}>
-                        <View
-                          style={[
-                            styles.dropdownRadio,
-                            isSelected && styles.dropdownRadioSelected,
-                          ]}
-                        >
+                        <View style={[styles.dropdownRadio, isSelected && styles.dropdownRadioSelected]}>
                           {isSelected && <View style={styles.dropdownRadioInner} />}
                         </View>
                         <View style={{ flex: 1 }}>
@@ -402,7 +537,6 @@ const HomeScreen = ({ navigation }: any) => {
                   );
                 })}
 
-                {/* Manage / Add more */}
                 <TouchableOpacity
                   style={styles.manageAddressesBtn}
                   activeOpacity={0.8}
@@ -438,7 +572,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 36,
     paddingHorizontal: 20,
     paddingBottom: 22,
-    marginBottom: 20,
+    marginBottom: 15,
     shadowColor: '#55cc70',
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.25,
@@ -564,12 +698,78 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 3,
   },
+
+  // ===== Banner Styles =====
+  bannerContainer: {
+    marginBottom: 16,
+  },
+  bannerCard: {
+    width: BANNER_WIDTH,
+    height: 150,
+    borderRadius: 20,
+    overflow: 'hidden',
+    backgroundColor: '#f0f0f0',
+    position: 'relative',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.12,
+    shadowRadius: 6,
+    elevation: 4,
+  },
+  bannerImage: {
+    width: '100%',
+    height: '100%',
+    position: 'absolute',
+  },
+  bannerOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.38)',
+    padding: 18,
+    justifyContent: 'flex-end',
+  },
+  bannerTag: {
+    backgroundColor: '#55cc70',
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 6,
+    alignSelf: 'flex-start',
+    marginBottom: 6,
+  },
+  bannerTagText: {
+    fontSize: 9,
+    fontFamily: 'Poppins-Bold',
+    color: '#ffffff',
+  },
+  bannerTitle: {
+    fontSize: 18,
+    fontFamily: 'Poppins-Bold',
+    color: '#ffffff',
+    marginBottom: 2,
+  },
+  bannerSubtitle: {
+    fontSize: 12,
+    fontFamily: 'Poppins-Regular',
+    color: 'rgba(255,255,255,0.88)',
+  },
+  paginationContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 10,
+  },
+  paginationDot: {
+    height: 6,
+    borderRadius: 3,
+    marginHorizontal: 3,
+  },
+
+  // ===== Sections =====
   sectionHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 20,
-    marginBottom: 15,
+    marginBottom: 12,
     marginTop: 10,
   },
   sectionTitle: {
