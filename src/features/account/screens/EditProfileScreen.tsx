@@ -1,24 +1,52 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import LocalizedText from '../../../shared/i18n/LocalizedText';
 import LocalizedTextInput from '../../../shared/i18n/LocalizedTextInput';
-import { View, StyleSheet, ScrollView, StatusBar, Animated, Platform, KeyboardAvoidingView, Image } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  StatusBar,
+  Animated,
+  Platform,
+  KeyboardAvoidingView,
+  Image,
+  Alert,
+  Linking,
+} from 'react-native';
 import TouchableOpacity from '../../../shared/components/AnimatedTouchableOpacity';
 import Icon from '@react-native-vector-icons/feather';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
+import type { Asset, ImagePickerResponse } from 'react-native-image-picker';
+import PhotoPickerSheet from './components/PhotoPickerSheet';
+
+const MAX_PHOTO_MB = 5;
+const PICKER_BASE = {
+  mediaType: 'photo',
+  quality: 0.8,
+  maxWidth: 800,
+  maxHeight: 800,
+} as const;
 
 const EditProfileScreen = ({ navigation }: any) => {
   const insets = useSafeAreaInsets();
 
+  // TODO: load these from your user store / API
   const [name, setName] = useState('John Doe');
   const [phone, setPhone] = useState('+1 202 555 0147');
   const [email, setEmail] = useState('john.doe@email.com');
   const [gender, setGender] = useState('Male');
+
+  const [photo, setPhoto] = useState<Asset | null>(null);
+  const [sheetOpen, setSheetOpen] = useState(false);
+  const [saving, setSaving] = useState(false);
 
   // Animations
   const headerAnim = useRef(new Animated.Value(0)).current;
   const avatarAnim = useRef(new Animated.Value(0)).current;
   const formAnim = useRef(new Animated.Value(0)).current;
   const buttonAnim = useRef(new Animated.Value(0)).current;
+  const popAnim = useRef(new Animated.Value(1)).current; // avatar "pop" on change
 
   useEffect(() => {
     Animated.stagger(80, [
@@ -47,9 +75,120 @@ const EditProfileScreen = ({ navigation }: any) => {
     ]).start();
   }, []);
 
-  const handleSave = () => {
-    // Save logic here
-    navigation.goBack();
+  // ---------------------------------------------------------- photo
+
+  const popAvatar = () => {
+    Animated.sequence([
+      Animated.timing(popAnim, {
+        toValue: 0.9,
+        duration: 90,
+        useNativeDriver: true,
+      }),
+      Animated.spring(popAnim, {
+        toValue: 1,
+        friction: 4,
+        useNativeDriver: true,
+      }),
+    ]).start();
+  };
+
+  const closeSheet = useCallback(() => setSheetOpen(false), []);
+
+  const handlePickerResult = (res: ImagePickerResponse) => {
+    if (res.didCancel) return;
+
+    if (res.errorCode) {
+      if (res.errorCode === 'permission') {
+        Alert.alert(
+          'Permission needed',
+          'Please allow camera and photo access in Settings to change your photo.',
+          [
+            { text: 'Cancel', style: 'cancel' },
+            { text: 'Open Settings', onPress: () => Linking.openSettings() },
+          ],
+        );
+      } else if (res.errorCode === 'camera_unavailable') {
+        Alert.alert('Camera unavailable', 'No camera is available on this device.');
+      } else {
+        Alert.alert('Something went wrong', res.errorMessage ?? 'Please try again.');
+      }
+      return;
+    }
+
+    const asset = res.assets?.[0];
+    if (!asset?.uri) return;
+
+    if (asset.fileSize && asset.fileSize > MAX_PHOTO_MB * 1024 * 1024) {
+      Alert.alert('Photo too large', `Please choose a photo under ${MAX_PHOTO_MB} MB.`);
+      return;
+    }
+
+    setPhoto(asset);
+    popAvatar();
+  };
+
+  const openCamera = () => {
+    setSheetOpen(false);
+    launchCamera(
+      { ...PICKER_BASE, cameraType: 'front', saveToPhotos: false },
+      handlePickerResult,
+    );
+  };
+
+  const openGallery = () => {
+    setSheetOpen(false);
+    launchImageLibrary({ ...PICKER_BASE, selectionLimit: 1 }, handlePickerResult);
+  };
+
+  const removePhoto = () => {
+    setSheetOpen(false);
+    setPhoto(null);
+    popAvatar();
+  };
+
+  // ----------------------------------------------------------- save
+
+  const handleSave = async () => {
+    if (saving) return;
+
+    const trimmedName = name.trim();
+    const trimmedEmail = email.trim();
+
+    if (!trimmedName) {
+      Alert.alert('Name required', 'Please enter your full name.');
+      return;
+    }
+    if (trimmedEmail && !/^\S+@\S+\.\S+$/.test(trimmedEmail)) {
+      Alert.alert('Invalid email', 'Please enter a valid email address.');
+      return;
+    }
+
+    try {
+      setSaving(true);
+
+      const form = new FormData();
+      form.append('name', trimmedName);
+      form.append('phone', phone.trim());
+      form.append('email', trimmedEmail);
+      form.append('gender', gender);
+      if (photo?.uri) {
+        form.append('avatar', {
+          uri: photo.uri,
+          name: photo.fileName ?? 'avatar.jpg',
+          type: photo.type ?? 'image/jpeg',
+        } as any);
+      }
+
+      // TODO: send it, for example:
+      // await api.put('/profile', form, {
+      //   headers: { 'Content-Type': 'multipart/form-data' },
+      // });
+
+      navigation.goBack();
+    } catch (e) {
+      setSaving(false);
+      Alert.alert('Could not save', 'Please check your connection and try again.');
+    }
   };
 
   return (
@@ -90,10 +229,7 @@ const EditProfileScreen = ({ navigation }: any) => {
       >
         <ScrollView
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={[
-            styles.scrollContent,
-            { paddingBottom: insets.bottom + 120 },
-          ]}
+          contentContainerStyle={styles.scrollContent}
           keyboardShouldPersistTaps="handled"
         >
           {/* Avatar Section */}
@@ -113,15 +249,37 @@ const EditProfileScreen = ({ navigation }: any) => {
               },
             ]}
           >
-            <View style={styles.avatarWrapper}>
-              <View style={styles.avatar}>
-                <Icon name="user" size={42} color="#55cc70" />
-              </View>
-              <TouchableOpacity style={styles.cameraBtn} activeOpacity={0.85}>
-                <Icon name="camera" size={16} color="#ffffff" />
-              </TouchableOpacity>
-            </View>
-            <LocalizedText style={styles.changePhotoText}>Change Profile Photo</LocalizedText>
+            <TouchableOpacity
+              activeOpacity={0.85}
+              onPress={() => setSheetOpen(true)}
+              accessibilityRole="button"
+              accessibilityLabel="Change profile photo"
+            >
+              <Animated.View
+                style={[styles.avatarWrapper, { transform: [{ scale: popAnim }] }]}
+              >
+                <View style={styles.avatar}>
+                  {photo?.uri ? (
+                    <Image source={{ uri: photo.uri }} style={styles.avatarImage} />
+                  ) : (
+                    <Icon name="user" size={42} color="#55cc70" />
+                  )}
+                </View>
+                <View style={styles.cameraBtn}>
+                  <Icon name="camera" size={16} color="#ffffff" />
+                </View>
+              </Animated.View>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              activeOpacity={0.7}
+              onPress={() => setSheetOpen(true)}
+              hitSlop={{ top: 8, bottom: 8, left: 12, right: 12 }}
+            >
+              <LocalizedText style={styles.changePhotoText}>
+                {photo ? 'Change Profile Photo' : 'Add Profile Photo'}
+              </LocalizedText>
+            </TouchableOpacity>
           </Animated.View>
 
           {/* Form */}
@@ -204,12 +362,12 @@ const EditProfileScreen = ({ navigation }: any) => {
           </Animated.View>
         </ScrollView>
 
-        {/* Save Button */}
+        {/* Save Button: a normal child now, so it lifts with the keyboard */}
         <Animated.View
           style={[
             styles.bottomBar,
             {
-              paddingBottom: Platform.OS === 'ios' ? insets.bottom || 20 : 16,
+              paddingBottom: Math.max(insets.bottom, 16),
               opacity: buttonAnim,
               transform: [
                 {
@@ -222,11 +380,28 @@ const EditProfileScreen = ({ navigation }: any) => {
             },
           ]}
         >
-          <TouchableOpacity style={styles.saveBtn} activeOpacity={0.85} onPress={handleSave}>
-            <LocalizedText style={styles.saveBtnText}>Save Changes</LocalizedText>
+          <TouchableOpacity
+            style={[styles.saveBtn, saving && styles.saveBtnDisabled]}
+            activeOpacity={0.85}
+            onPress={handleSave}
+            disabled={saving}
+          >
+            <LocalizedText style={styles.saveBtnText}>
+              {saving ? 'Saving...' : 'Save Changes'}
+            </LocalizedText>
           </TouchableOpacity>
         </Animated.View>
       </KeyboardAvoidingView>
+
+      {/* Photo options sheet (last child, so it sits on top of everything) */}
+      <PhotoPickerSheet
+        visible={sheetOpen}
+        hasPhoto={!!photo}
+        onClose={closeSheet}
+        onCamera={openCamera}
+        onGallery={openGallery}
+        onRemove={removePhoto}
+      />
     </View>
   );
 };
@@ -259,6 +434,7 @@ const styles = StyleSheet.create({
   scrollContent: {
     paddingHorizontal: 20,
     paddingTop: 28,
+    paddingBottom: 24,
   },
 
   // Avatar
@@ -277,6 +453,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(85, 204, 112, 0.12)',
     justifyContent: 'center',
     alignItems: 'center',
+    overflow: 'hidden',
+  },
+  avatarImage: {
+    width: 110,
+    height: 110,
   },
   cameraBtn: {
     position: 'absolute',
@@ -352,10 +533,6 @@ const styles = StyleSheet.create({
 
   // Bottom
   bottomBar: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
     backgroundColor: '#ffffff',
     paddingHorizontal: 20,
     paddingTop: 14,
@@ -373,6 +550,9 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.3,
     shadowRadius: 8,
     elevation: 5,
+  },
+  saveBtnDisabled: {
+    opacity: 0.7,
   },
   saveBtnText: {
     fontSize: 16,
