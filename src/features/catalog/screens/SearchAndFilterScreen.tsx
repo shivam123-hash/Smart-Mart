@@ -14,25 +14,25 @@ const CARD_WIDTH = (width - HORIZONTAL_PADDING * 2 - CARD_GAP) / 2;
 
 // Sample data
 const ALL_PRODUCTS = [
-  { id: '1', name: 'Surf Excel Easy Wash Detergent Powder', size: '1 kg', price: '$12', originalPrice: '$15', image: 'https://cdn-icons-png.flaticon.com/512/2553/2553691.png', category: 'Household' },
-  { id: '2', name: 'Fortune Arhar Dal (Toor Dal)', size: '1 kg', price: '$10', originalPrice: '$13', image: 'https://cdn-icons-png.flaticon.com/512/2553/2553609.png', category: 'Staples' },
-  { id: '3', name: 'Fresh Apples (Fuji)', size: '1 kg', price: '$4', originalPrice: '$6', image: 'https://cdn-icons-png.flaticon.com/512/3194/3194591.png', category: 'Fruits' },
-  { id: '4', name: 'Aashirvaad Shudh Chakki Atta', size: '5 kg', price: '$18', originalPrice: '$23', image: 'https://cdn-icons-png.flaticon.com/512/3014/3014436.png', category: 'Staples' },
-  { id: '5', name: 'Amul Taaza Toned Milk', size: '1 L', price: '$1.8', originalPrice: '$2.2', image: 'https://cdn-icons-png.flaticon.com/512/869/869687.png', category: 'Dairy' },
-  { id: '6', name: 'Tropicana Orange Juice', size: '1 L', price: '$4.5', originalPrice: '$6', image: 'https://cdn-icons-png.flaticon.com/512/2405/2405597.png', category: 'Beverages' },
-  { id: '7', name: 'Tata Tea Premium', size: '500 g', price: '$7', originalPrice: '$9', image: 'https://cdn-icons-png.flaticon.com/512/924/924514.png', category: 'Beverages' },
-  { id: '8', name: 'Maggi 2-Minute Noodles', size: '12 pack', price: '$5', originalPrice: '$6.5', image: 'https://cdn-icons-png.flaticon.com/512/3014/3014493.png', category: 'Instant' },
-  { id: '9', name: 'Fortune Sunlite Refined Oil', size: '5 L', price: '$22', originalPrice: '$27', image: 'https://cdn-icons-png.flaticon.com/512/2553/2553609.png', category: 'Staples' },
-  { id: '10', name: 'Fresh Farm Chicken Breast', size: '500 g', price: '$5.5', originalPrice: '$7', image: 'https://cdn-icons-png.flaticon.com/512/3143/3143645.png', category: 'Meat' },
-  { id: '11', name: 'Britannia Good Day Cookies', size: '600 g', price: '$4', originalPrice: '$5.5', image: 'https://cdn-icons-png.flaticon.com/512/3082/3082060.png', category: 'Snacks' },
-  { id: '12', name: 'Lay\'s Classic Salted Chips', size: '150 g', price: '$2.5', originalPrice: '$3.2', image: 'https://cdn-icons-png.flaticon.com/512/2553/2553691.png', category: 'Snacks' },
+  { id: '1', name: 'Surf Excel Easy Wash Detergent Powder', size: '1 kg', price: '₹12', originalPrice: '₹15', image: 'https://cdn-icons-png.flaticon.com/512/2553/2553691.png', category: 'Household' },
+  { id: '2', name: 'Fortune Arhar Dal (Toor Dal)', size: '1 kg', price: '₹10', originalPrice: '₹13', image: 'https://cdn-icons-png.flaticon.com/512/2553/2553609.png', category: 'Staples' },
+  { id: '3', name: 'Fresh Apples (Fuji)', size: '1 kg', price: '₹4', originalPrice: '₹6', image: 'https://cdn-icons-png.flaticon.com/512/3194/3194591.png', category: 'Fruits' },
+  { id: '4', name: 'Aashirvaad Shudh Chakki Atta', size: '5 kg', price: '₹18', originalPrice: '₹23', image: 'https://cdn-icons-png.flaticon.com/512/3014/3014436.png', category: 'Staples' },
+  { id: '5', name: 'Amul Taaza Toned Milk', size: '1 L', price: '₹1.8', originalPrice: '₹2.2', image: 'https://cdn-icons-png.flaticon.com/512/869/869687.png', category: 'Dairy' },
+  { id: '6', name: 'Tropicana Orange Juice', size: '1 L', price: '₹4.5', originalPrice: '₹6', image: 'https://cdn-icons-png.flaticon.com/512/2405/2405597.png', category: 'Beverages' },
+  { id: '7', name: 'Tata Tea Premium', size: '500 g', price: '₹7', originalPrice: '₹9', image: 'https://cdn-icons-png.flaticon.com/512/924/924514.png', category: 'Beverages' },
+  { id: '8', name: 'Maggi 2-Minute Noodles', size: '12 pack', price: '₹5', originalPrice: '₹6.5', image: 'https://cdn-icons-png.flaticon.com/512/3014/3014493.png', category: 'Instant' },
+  { id: '9', name: 'Fortune Sunlite Refined Oil', size: '5 L', price: '₹22', originalPrice: '₹27', image: 'https://cdn-icons-png.flaticon.com/512/2553/2553609.png', category: 'Staples' },
+  { id: '10', name: 'Fresh Farm Chicken Breast', size: '500 g', price: '₹5.5', originalPrice: '₹7', image: 'https://cdn-icons-png.flaticon.com/512/3143/3143645.png', category: 'Meat' },
+  { id: '11', name: 'Britannia Good Day Cookies', size: '600 g', price: '₹4', originalPrice: '₹5.5', image: 'https://cdn-icons-png.flaticon.com/512/3082/3082060.png', category: 'Snacks' },
+  { id: '12', name: 'Lay\'s Classic Salted Chips', size: '150 g', price: '₹2.5', originalPrice: '₹3.2', image: 'https://cdn-icons-png.flaticon.com/512/2553/2553691.png', category: 'Snacks' },
 ];
 
 const RECENT_SEARCHES = ['Milk', 'Apples', 'Atta', 'Detergent', 'Chicken'];
 const POPULAR_SEARCHES = ['Fresh Fruits', 'Dairy', 'Rice & Dal', 'Snacks', 'Oil', 'Tea'];
 
 const FILTER_CATEGORIES = ['All', 'Fruits', 'Dairy', 'Staples', 'Beverages', 'Snacks', 'Meat', 'Household', 'Instant'];
-const PRICE_RANGES = ['All', 'Under $5', '$5 - $10', '$10 - $20', 'Above $20'];
+const PRICE_RANGES = ['All', 'Under ₹5', '₹5 - ₹10', '₹10 - ₹20', 'Above ₹20'];
 
 const SearchAndFilterScreen = ({ navigation }: any) => {
   const insets = useSafeAreaInsets();
@@ -90,11 +90,11 @@ const SearchAndFilterScreen = ({ navigation }: any) => {
 
     if (selectedPrice !== 'All') {
       filtered = filtered.filter((p) => {
-        const price = parseFloat(p.price.replace('$', ''));
-        if (selectedPrice === 'Under $5') return price < 5;
-        if (selectedPrice === '$5 - $10') return price >= 5 && price <= 10;
-        if (selectedPrice === '$10 - $20') return price > 10 && price <= 20;
-        if (selectedPrice === 'Above $20') return price > 20;
+        const price = parseFloat(p.price.replace(/[^0-9.]/g, ''));
+        if (selectedPrice === 'Under ₹5') return price < 5;
+        if (selectedPrice === '₹5 - ₹10') return price >= 5 && price <= 10;
+        if (selectedPrice === '₹10 - ₹20') return price > 10 && price <= 20;
+        if (selectedPrice === 'Above ₹20') return price > 20;
         return true;
       });
     }

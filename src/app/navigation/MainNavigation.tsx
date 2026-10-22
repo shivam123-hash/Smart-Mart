@@ -1,5 +1,4 @@
 import React from 'react';
-import LocalizedText from '../../shared/i18n/LocalizedText';
 import { View, StyleSheet, Platform } from 'react-native';
 import TouchableOpacity from '../../shared/components/AnimatedTouchableOpacity';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -17,41 +16,35 @@ const SAMPLE_FAVOURITES = [
     id: '1',
     name: 'Surf Excel Easy Wash Detergent Powder',
     size: '1 kg',
-    price: '$12',
-    originalPrice: '$15',
+    price: '₹12',
+    originalPrice: '₹15',
     image: 'https://cdn-icons-png.flaticon.com/512/2553/2553691.png',
   },
   {
     id: '3',
     name: 'Fresh Apples (Fuji)',
     size: '1 kg',
-    price: '$4',
-    originalPrice: '$6',
+    price: '₹4',
+    originalPrice: '₹6',
     image: 'https://cdn-icons-png.flaticon.com/512/3194/3194591.png',
   },
   {
     id: '5',
     name: 'Amul Taaza Toned Milk',
     size: '1 L',
-    price: '$1.8',
-    originalPrice: '$2.2',
+    price: '₹1.8',
+    originalPrice: '₹2.2',
     image: 'https://cdn-icons-png.flaticon.com/512/869/869687.png',
   },
   {
     id: '7',
     name: 'Tata Tea Premium',
     size: '500 g',
-    price: '$7',
-    originalPrice: '$9',
+    price: '₹7',
+    originalPrice: '₹9',
     image: 'https://cdn-icons-png.flaticon.com/512/924/924514.png',
   },
 ];
-
-const DummyScreen = ({ name }: { name: string }) => (
-  <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-    <LocalizedText>{name} Screen</LocalizedText>
-  </View>
-);
 
 const CustomTabBarButton = ({ children, onPress, accessibilityState }: any) => {
   const isSelected = accessibilityState?.selected;

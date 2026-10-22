@@ -6,6 +6,7 @@ import TouchableOpacity from '../../../shared/components/AnimatedTouchableOpacit
 import Icon from '@react-native-vector-icons/feather';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ProductDetailPressable } from '../../../shared/components/sharedTransition';
+import { useCart } from '../../cart/context/CartContext';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -18,7 +19,7 @@ const ORDERS = [
     status: 'Delivered',
     statusColor: '#55cc70',
     items: 4,
-    total: '$48.50',
+    total: '₹48.50',
     image: 'https://cdn-icons-png.flaticon.com/512/2553/2553691.png',
     products: 'Surf Excel, Fortune Dal, Apples...',
   },
@@ -28,7 +29,7 @@ const ORDERS = [
     status: 'On the way',
     statusColor: '#4A90E2',
     items: 2,
-    total: '$22.00',
+    total: '₹22.00',
     image: 'https://cdn-icons-png.flaticon.com/512/869/869687.png',
     products: 'Amul Milk, Tropicana Juice',
   },
@@ -38,7 +39,7 @@ const ORDERS = [
     status: 'Processing',
     statusColor: '#F39C12',
     items: 6,
-    total: '$67.80',
+    total: '₹67.80',
     image: 'https://cdn-icons-png.flaticon.com/512/3014/3014436.png',
     products: 'Aashirvaad Atta, Rice, Oil...',
   },
@@ -48,7 +49,7 @@ const ORDERS = [
     status: 'Cancelled',
     statusColor: '#ff4d4f',
     items: 3,
-    total: '$19.50',
+    total: '₹19.50',
     image: 'https://cdn-icons-png.flaticon.com/512/3143/3143645.png',
     products: 'Chicken Breast, Eggs',
   },
@@ -58,19 +59,20 @@ const ORDERS = [
     status: 'Delivered',
     statusColor: '#55cc70',
     items: 5,
-    total: '$35.20',
+    total: '₹35.20',
     image: 'https://cdn-icons-png.flaticon.com/512/924/924514.png',
     products: 'Tata Tea, Maggi, Chips...',
   },
 ];
 
 const DEFAULT_REORDER_ITEMS = [
-  { id: '1', name: 'Surf Excel Easy Wash', size: '1 kg', qty: 1, price: '$12', image: 'https://cdn-icons-png.flaticon.com/512/2553/2553691.png' },
-  { id: '2', name: 'Fortune Arhar Dal', size: '1 kg', qty: 2, price: '$10', image: 'https://cdn-icons-png.flaticon.com/512/2553/2553609.png' },
-  { id: '3', name: 'Fresh Apples (Fuji)', size: '1 kg', qty: 1, price: '$4', image: 'https://cdn-icons-png.flaticon.com/512/3194/3194591.png' },
+  { id: '1', name: 'Surf Excel Easy Wash Detergent Powder', size: '1 kg', qty: 1, price: '₹12', image: 'https://cdn-icons-png.flaticon.com/512/2553/2553691.png' },
+  { id: '2', name: 'Fortune Arhar Dal (Toor Dal)', size: '1 kg', qty: 2, price: '₹10', image: 'https://cdn-icons-png.flaticon.com/512/2553/2553609.png' },
+  { id: '3', name: 'Fresh Apples (Fuji)', size: '1 kg', qty: 1, price: '₹4', image: 'https://cdn-icons-png.flaticon.com/512/3194/3194591.png' },
 ];
 
 const MyOrdersScreen = ({ navigation }: any) => {
+  const { addProducts } = useCart();
   const insets = useSafeAreaInsets();
   const [activeTab, setActiveTab] = useState('All');
   const [showRateSheet, setShowRateSheet] = useState(false);
@@ -108,7 +110,7 @@ const MyOrdersScreen = ({ navigation }: any) => {
       })
     );
     Animated.stagger(40, anims).start();
-  }, []);
+  }, [headerAnim, itemAnims, listAnim, tabsAnim]);
 
   // Rate sheet animation
   useEffect(() => {
@@ -125,7 +127,7 @@ const MyOrdersScreen = ({ navigation }: any) => {
         Animated.timing(rateBackdrop, { toValue: 0, duration: 250, useNativeDriver: true }),
       ]).start();
     }
-  }, [showRateSheet]);
+  }, [rateBackdrop, rateSlide, showRateSheet]);
 
   // Reorder sheet animation
   useEffect(() => {
@@ -141,7 +143,7 @@ const MyOrdersScreen = ({ navigation }: any) => {
         Animated.timing(reorderBackdrop, { toValue: 0, duration: 250, useNativeDriver: true }),
       ]).start();
     }
-  }, [showReorderSheet]);
+  }, [reorderBackdrop, reorderSlide, showReorderSheet]);
 
   const filteredOrders =
     activeTab === 'All'
@@ -187,12 +189,20 @@ const MyOrdersScreen = ({ navigation }: any) => {
 
   const totalItems = reorderItems.reduce((sum, i) => sum + i.qty, 0);
   const totalPrice = reorderItems
-    .reduce((sum, i) => sum + parseFloat(i.price.replace('$', '')) * i.qty, 0)
+    .reduce((sum, i) => sum + parseFloat(i.price.replace(/[^0-9.]/g, '')) * i.qty, 0)
     .toFixed(2);
 
   const confirmReorder = () => {
     const itemsToAdd = reorderItems.filter((i) => i.qty > 0);
-    console.log('Add to cart:', itemsToAdd);
+    addProducts(itemsToAdd.flatMap((item) =>
+      Array.from({ length: item.qty }, () => ({
+        id: item.id,
+        name: item.name,
+        size: item.size,
+        price: item.price,
+        image: item.image,
+      })),
+    ));
     setShowReorderSheet(false);
     navigation.navigate('MainNavigation', { screen: 'Cart' });
   };
@@ -416,7 +426,7 @@ const MyOrdersScreen = ({ navigation }: any) => {
             <View style={styles.reorderFooter}>
               <View style={styles.totalRow}>
                 <LocalizedText style={styles.totalLabel}>{totalItems} {totalItems === 1 ? 'item' : 'items'}</LocalizedText>
-                <LocalizedText style={styles.totalValue}>${totalPrice}</LocalizedText>
+                <LocalizedText style={styles.totalValue}>₹{totalPrice}</LocalizedText>
               </View>
               <TouchableOpacity
                 style={[styles.confirmBtn, totalItems === 0 && styles.confirmBtnDisabled]}

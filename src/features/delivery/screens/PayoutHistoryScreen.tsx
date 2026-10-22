@@ -9,21 +9,21 @@ const PAYOUTS = [
   {
     id: 'PO-1084',
     date: 'Friday, Oct 18',
-    amount: '$126.00',
+    amount: '₹126.00',
     status: 'Processing',
     method: 'Bank account •••• 4821',
   },
   {
     id: 'PO-1076',
     date: 'Friday, Oct 11',
-    amount: '$184.25',
+    amount: '₹184.25',
     status: 'Paid',
     method: 'Bank account •••• 4821',
   },
   {
     id: 'PO-1068',
     date: 'Friday, Oct 4',
-    amount: '$152.75',
+    amount: '₹152.75',
     status: 'Paid',
     method: 'Bank account •••• 4821',
   },
@@ -137,7 +137,7 @@ const PayoutHistoryScreen = ({ navigation }: { navigation: any }) => {
             <Icon name="credit-card" size={19} color="#258e43" />
           </View>
           <LocalizedText style={styles.overviewLabel}>NEXT PAYOUT</LocalizedText>
-          <LocalizedText style={styles.overviewAmount}>$126.00</LocalizedText>
+          <LocalizedText style={styles.overviewAmount}>₹126.00</LocalizedText>
           <View style={styles.processingBadge}>
             <Animated.View
               style={[

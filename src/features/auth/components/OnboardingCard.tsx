@@ -196,7 +196,7 @@ const styles = StyleSheet.create({
     },
     image: {
         width: width * 0.9,
-        height: '80%',
+        height: '75%',
     },
     bottomCard: {
         backgroundColor: 'white',

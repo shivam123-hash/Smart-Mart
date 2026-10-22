@@ -6,12 +6,13 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from '@react-native-vector-icons/feather';
 import { getProductReviews } from '../data/productReviews';
 import { useSharedTransition } from '../../../shared/components/sharedTransition';
+import { useCart } from '../../cart/context/CartContext';
 
 const { width } = Dimensions.get('window');
 
 const SIMILAR_PRODUCTS = [
-  { id: '1', name: 'Fortune Soyabean Refined Oil', size: '5 L', price: '$10', originalPrice: '$12', image: 'https://cdn-icons-png.flaticon.com/512/2553/2553609.png' },
-  { id: '2', name: 'Fortune Rice Bran Refined Oil', size: '5 L', price: '$15', originalPrice: '$18', image: 'https://cdn-icons-png.flaticon.com/512/2553/2553609.png' },
+  { id: '1', name: 'Fortune Soyabean Refined Oil', size: '5 L', price: '₹10', originalPrice: '₹12', image: 'https://cdn-icons-png.flaticon.com/512/2553/2553609.png' },
+  { id: '2', name: 'Fortune Rice Bran Refined Oil', size: '5 L', price: '₹15', originalPrice: '₹18', image: 'https://cdn-icons-png.flaticon.com/512/2553/2553609.png' },
 ];
 
 const ProductDetailsScreen = ({ route, navigation }: any) => {
@@ -28,6 +29,7 @@ const ProductDetailsScreen = ({ route, navigation }: any) => {
     Record<string, React.ElementRef<typeof View> | null>
   >({});
   const { openProduct } = useSharedTransition();
+  const { addProduct } = useCart();
   const detailsLayoutY = useRef(0);
   const reviewsLayoutY = useRef(0);
   const scrollX = useRef(new Animated.Value(0)).current;
@@ -172,11 +174,12 @@ const ProductDetailsScreen = ({ route, navigation }: any) => {
   };
 
   const handleAddToCart = () => {
+    addProduct(item);
     navigation.navigate('CartScreen');
   };
 
   const handleBuyNow = () => {
-    navigation.navigate('CartScreen');
+    handleAddToCart();
   };
 
   const scrollToReviews = () => {

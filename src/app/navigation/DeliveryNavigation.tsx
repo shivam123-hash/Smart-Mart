@@ -13,11 +13,11 @@ const Tab = createBottomTabNavigator();
 const ACTIVE_DELIVERY = {
   orderId: 'SM-2048',
   customer: 'Emma Wilson',
-  pickup: 'Smart Mart Market',
-  dropoff: '18 Oak Avenue, Brookside',
+  pickup: 'Whole Foods Market, 1440 P St NW, Washington, DC 20005',
+  dropoff: 'The White House, 1600 Pennsylvania Avenue NW, Washington, DC 20500',
   distance: '2.4 km',
   eta: '12 min',
-  earning: '$8.50',
+  earning: '₹8.50',
 };
 
 type DeliveryStatus = 'Active' | 'Completed';
@@ -37,7 +37,7 @@ const DELIVERY_ORDERS: DeliveryOrder[] = [
     dropoff: '72 Pine Street, Brookside',
     distance: '3.1 km',
     eta: 'Delivered',
-    earning: '$12.00',
+    earning: '₹12.00',
     status: 'Completed',
     time: '10:24 AM',
   },
@@ -48,7 +48,7 @@ const DELIVERY_ORDERS: DeliveryOrder[] = [
     dropoff: '5 Lakeview Road, Brookside',
     distance: '4.6 km',
     eta: 'Delivered',
-    earning: '$22.00',
+    earning: '₹22.00',
     status: 'Completed',
     time: '9:15 AM',
   },
@@ -359,7 +359,7 @@ const DeliveryDashboard = ({ navigation }: { navigation: any }) => {
               <View style={[styles.statIcon, styles.earningsStatIcon]}>
                 <Icon name="dollar-sign" size={19} color="#dc9b23" />
               </View>
-              <LocalizedText style={styles.statValue}>$42.50</LocalizedText>
+              <LocalizedText style={styles.statValue}>₹42.50</LocalizedText>
               <LocalizedText style={styles.statLabel}>Earnings</LocalizedText>
               <LocalizedText style={styles.statFootnote}>earned today</LocalizedText>
             </View>
@@ -624,7 +624,7 @@ const DeliveriesScreen = ({ navigation }: { navigation: any }) => {
             <LocalizedText style={styles.summaryTitle}>3 deliveries today</LocalizedText>
             <LocalizedText style={styles.summaryCaption}>2 completed · 1 in progress</LocalizedText>
           </View>
-          <LocalizedText style={styles.summaryEarnings}>$42.50</LocalizedText>
+          <LocalizedText style={styles.summaryEarnings}>₹42.50</LocalizedText>
         </View>
 
         <View style={styles.filterRow}>

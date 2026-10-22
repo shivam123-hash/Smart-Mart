@@ -13,7 +13,6 @@ const MENU_ROUTES: Record<string, string> = {
     orders: 'MyOrdersScreen',
     addresses: 'AddressScreen',
     favourites: 'Favorites',
-    payments: 'PaymentMethodsScreen',
     notifications: 'NotificationsScreen',
     help: 'HelpScreen',
     settings: 'SettingsScreen',
@@ -40,13 +39,6 @@ const MENU_ITEMS = [
         subtitle: 'Your liked products',
         icon: 'heart',
         color: '#FF6B6B',
-    },
-    {
-        id: 'payments',
-        title: 'Payment Methods',
-        subtitle: 'Cards, UPI & wallets',
-        icon: 'credit-card',
-        color: '#9B59B6',
     },
     {
         id: 'notifications',

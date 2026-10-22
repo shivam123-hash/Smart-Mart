@@ -10,6 +10,8 @@ import Icon from '@react-native-vector-icons/feather';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import FloatingItems from './FloatingItems';
 import RoleSelector, { UserRole } from '../components/RoleSelector';
+import { DEMO_OTP, isValidDemoOtp, isValidPhoneNumber } from '../utils/authValidation';
+import { useFeedback } from '../../../shared/components/feedback/FeedbackProvider';
 
 const { width, height } = Dimensions.get('window');
 
@@ -24,6 +26,7 @@ const COUNTRIES = [
 
 const LoginScreen = () => {
     const navigation = useNavigation<any>();
+    const { showDialog } = useFeedback();
     const insets = useSafeAreaInsets();
     const [phoneNumber, setPhoneNumber] = useState('');
     const [selectedRole, setSelectedRole] = useState<UserRole>('customer');
@@ -105,6 +108,11 @@ const LoginScreen = () => {
     };
 
     const handleLogin = () => {
+        if (!isValidPhoneNumber(phoneNumber)) {
+            showDialog('Check phone number', 'Enter 7 to 10 digits for the selected country.');
+            return;
+        }
+        setOtp(['', '', '', '']);
         setIsLoading(true);
         setTimeout(() => {
             setIsLoading(false);
@@ -113,8 +121,11 @@ const LoginScreen = () => {
     };
 
     const handleVerifyOTP = () => {
+        if (!isValidDemoOtp(otp.join(''))) {
+            showDialog('Invalid demo code', `Enter ${DEMO_OTP} to continue. No SMS is sent in demo mode.`);
+            return;
+        }
         setIsVerifying(true);
-        // Simulate OTP verification and show animation
         setTimeout(() => {
             setIsVerifying(false);
             setIsOtpModalVisible(false);
@@ -175,7 +186,7 @@ const LoginScreen = () => {
                         <CustomInput
                             label="Phone Number"
                             value={phoneNumber}
-                            onChangeText={setPhoneNumber}
+                            onChangeText={(value) => setPhoneNumber(value.replace(/\D/g, '').slice(0, 10))}
                             keyboardType="phone-pad"
                             leftComponent={countryPrefix}
                             labelLeftOffset={115}
@@ -253,8 +264,9 @@ const LoginScreen = () => {
                     <View style={styles.otpModalContent}>
                         <LocalizedText style={styles.otpTitle}>Enter OTP</LocalizedText>
                         <LocalizedText style={styles.otpSubtitle}>
-                            A verification codes has been sent to {countryCode} {phoneNumber || '(205) 555-0100'}
+                            {`Demo only: no SMS is sent. Use ${DEMO_OTP} to continue; this does not verify identity or create an account.`}
                         </LocalizedText>
+                        <LocalizedText style={styles.otpSubtitle}>{countryCode} {phoneNumber}</LocalizedText>
 
                         <View style={styles.otpInputContainer}>
                             {[0, 1, 2, 3].map((index) => (
@@ -272,10 +284,10 @@ const LoginScreen = () => {
                                     value={otp[index]}
                                     onChangeText={(text) => {
                                         const newOtp = [...otp];
-                                        newOtp[index] = text;
+                                        newOtp[index] = text.replace(/\D/g, '').slice(0, 1);
                                         setOtp(newOtp);
 
-                                        if (text && index < 3) {
+                                        if (newOtp[index] && index < 3) {
                                             otpInputs.current[index + 1].focus();
                                         }
                                     }}
@@ -307,9 +319,6 @@ const LoginScreen = () => {
                             )}
                         </TouchableOpacity>
 
-                        <LocalizedText style={styles.resendText}>
-                            Didn't receive the code? <LocalizedText style={styles.resendLink}>Resend (30s)</LocalizedText>
-                        </LocalizedText>
                     </View>
                 </KeyboardAvoidingView>
             </Modal>

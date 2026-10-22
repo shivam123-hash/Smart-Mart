@@ -4,6 +4,7 @@ import { View, StyleSheet, Image, Dimensions, ViewStyle } from 'react-native';
 import TouchableOpacity from '../AnimatedTouchableOpacity';
 import Icon from '@react-native-vector-icons/feather';
 import { useSharedTransition } from './SharedTransitionContext';
+import { useCart } from '../../../features/cart/context/CartContext';
 import { getProductReviews } from '../../../features/catalog/data/productReviews';
 
 const { width } = Dimensions.get('window');
@@ -36,6 +37,7 @@ export const SharedProductCard: React.FC<SharedProductCardProps> = ({
 }) => {
   const cardRef = useRef<any>(null);
   const { openProduct } = useSharedTransition();
+  const { addProduct } = useCart();
 
   const handleCardPress = () => {
     if (onPress) {
@@ -91,7 +93,7 @@ export const SharedProductCard: React.FC<SharedProductCardProps> = ({
           </View>
           <TouchableOpacity
             style={styles.addButton}
-            onPress={() => onAdd && onAdd(item)}
+            onPress={() => (onAdd ? onAdd(item) : addProduct(item))}
             activeOpacity={0.8}
           >
             <LocalizedText style={styles.addButtonText}>Add</LocalizedText>

@@ -28,18 +28,18 @@ interface Props {
 const DEFAULT_ITEMS: OrderItem[] = [
   {
     id: '1',
-    name: 'Surf Excel Easy Wash',
+    name: 'Surf Excel Easy Wash Detergent Powder',
     size: '1 kg',
     qty: 1,
-    price: '$12',
+    price: '₹12',
     image: 'https://cdn-icons-png.flaticon.com/512/2553/2553691.png',
   },
   {
     id: '2',
-    name: 'Fortune Arhar Dal',
+    name: 'Fortune Arhar Dal (Toor Dal)',
     size: '1 kg',
     qty: 2,
-    price: '$10',
+    price: '₹10',
     image: 'https://cdn-icons-png.flaticon.com/512/2553/2553609.png',
   },
   {
@@ -47,7 +47,7 @@ const DEFAULT_ITEMS: OrderItem[] = [
     name: 'Fresh Apples (Fuji)',
     size: '1 kg',
     qty: 1,
-    price: '$4',
+    price: '₹4',
     image: 'https://cdn-icons-png.flaticon.com/512/3194/3194591.png',
   },
 ];
@@ -95,7 +95,7 @@ const ReorderSheet = ({
         }),
       ]).start();
     }
-  }, [visible]);
+  }, [backdropAnim, items, slideAnim, visible]);
 
   const updateQty = (id: string, delta: number) => {
     setCartItems((prev) =>
@@ -109,16 +109,12 @@ const ReorderSheet = ({
     );
   };
 
-  const removeItem = (id: string) => {
-    setCartItems((prev) => prev.filter((item) => item.id !== id));
-  };
-
   const totalItems = cartItems.reduce((sum, item) => sum + item.qty, 0);
 
   const calculateTotal = () => {
     return cartItems
       .reduce((sum, item) => {
-        const price = parseFloat(item.price.replace('$', '')) || 0;
+        const price = parseFloat(item.price.replace(/[^0-9.]/g, '')) || 0;
         return sum + price * item.qty;
       }, 0)
       .toFixed(2);
@@ -238,7 +234,7 @@ const ReorderSheet = ({
               <LocalizedText style={styles.totalLabel}>
                 {totalItems} {totalItems === 1 ? 'item' : 'items'}
               </LocalizedText>
-              <LocalizedText style={styles.totalValue}>${calculateTotal()}</LocalizedText>
+              <LocalizedText style={styles.totalValue}>₹{calculateTotal()}</LocalizedText>
             </View>
 
             <TouchableOpacity

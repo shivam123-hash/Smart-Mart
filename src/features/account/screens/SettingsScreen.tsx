@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import LocalizedText from '../../../shared/i18n/LocalizedText';
-import { View, StyleSheet, ScrollView, StatusBar, Animated, Easing, Modal, TouchableWithoutFeedback, Dimensions, Linking, Alert, Text as NativeText } from 'react-native';
+import { View, StyleSheet, ScrollView, StatusBar, Animated, Easing, Modal, TouchableWithoutFeedback, Dimensions, Linking, Text as NativeText } from 'react-native';
 import TouchableOpacity from '../../../shared/components/AnimatedTouchableOpacity';
 import Icon from '@react-native-vector-icons/feather';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
@@ -9,6 +9,8 @@ import {
   SUPPORTED_LANGUAGES,
 } from '../../../shared/i18n/languages';
 import { useLocalization } from '../../../shared/i18n/LocalizationProvider';
+import { useFeedback } from '../../../shared/components/feedback/FeedbackProvider';
+import { useBiometricLock } from '../../auth/biometrics/BiometricLockProvider';
 
 const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
@@ -143,13 +145,13 @@ const BottomSheet = ({
 const SettingsScreen = ({ navigation }: any) => {
   const insets = useSafeAreaInsets();
   const { language, setLanguage, t } = useLocalization();
+  const { showDialog } = useFeedback();
+  const { enabled: biometric, setEnabled: setBiometric } = useBiometricLock();
 
   // Settings state
   const [pushEnabled, setPushEnabled] = useState(true);
   const [orderUpdates, setOrderUpdates] = useState(true);
   const [offersEnabled, setOffersEnabled] = useState(false);
-  const [biometric, setBiometric] = useState(false);
-
   // Sheets
   const [showLanguage, setShowLanguage] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
@@ -349,7 +351,7 @@ const SettingsScreen = ({ navigation }: any) => {
               'unlock',
               '#9B59B6',
               'Biometric Lock',
-              'Use fingerprint or face to open',
+              'Require biometrics or device passcode to open',
               biometric,
               setBiometric
             )}
@@ -402,7 +404,7 @@ const SettingsScreen = ({ navigation }: any) => {
                   .then(() => setShowLanguage(false))
                   .catch((error: unknown) => {
                     console.error('Unable to update the app language.', error);
-                    Alert.alert(
+                    showDialog(
                       t('Unable to change language'),
                       t('Please try again.'),
                     );

@@ -41,6 +41,48 @@ src/
     i18n/             # Language preference, translation catalogs and localized controls
 ```
 
+## Razorpay test checkout
+
+The customer cart uses the Razorpay React Native SDK with a test-only payment
+server. The server calculates prices in paise, creates Razorpay orders, verifies
+the returned signature, and confirms/captures the payment. The Razorpay Key
+Secret must only be configured on the server; never add it to the mobile app.
+The server refuses live keys (`rzp_live_`) to prevent accidental live charges.
+
+1. Copy `server/.env.example` to `server/.env` and fill in **test-mode**
+   credentials from the Razorpay Dashboard. Keep `server/.env` private.
+2. Install and start the server:
+
+   ```sh
+   npm install --prefix server
+   npm --prefix server start
+   ```
+
+3. For Android (emulator or USB/Wi-Fi-connected device), forward the API port:
+
+   ```sh
+   adb reverse tcp:4001 tcp:4001
+   ```
+
+   The iOS simulator can reach the server at `http://localhost:4001`. For a
+   physical iPhone or deployed server, set `PAYMENT_API_BASE_URL` in
+   `src/features/cart/services/paymentApi.ts` to the server's reachable HTTPS
+   URL. The app times out unreachable API requests after 15 seconds and shows
+   a connection error instead of leaving the checkout spinner running forever.
+4. After installing the native Razorpay SDK, rebuild the app. On iOS, run
+   `bundle exec pod install` before rebuilding.
+
+Sample catalog, order, and cart prices are treated as INR for this demo; the
+server is the authority for the amount and product IDs. Update the server-side
+catalog in `server/src/paymentDomain.js` whenever the cart catalog changes.
+The cart includes two sample offers: `SAVE10` (₹10 off a ₹30 minimum) and
+`FRESH15` (15% off, capped at ₹15, on a ₹40 minimum). Offer rules are enforced
+again on the server when creating the Razorpay order, so the client cannot
+change the discount or payment amount.
+This prototype verifies a test payment but does not save an order or delivery.
+Add customer authentication and persistent order storage before exposing the
+payment API publicly.
+
 Keep feature-specific screens, components, and data inside their feature. Put code in `shared/` only when it is reused across features. React Native entry points and native projects remain at the repository root.
 
 ## Adding a language

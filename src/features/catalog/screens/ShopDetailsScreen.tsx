@@ -12,16 +12,16 @@ const SHOP_PRODUCTS = [
     id: '1',
     name: 'Fortune Soyabean Refined Oil',
     size: '5 L',
-    price: '$10',
-    originalPrice: '$12',
+    price: '₹10',
+    originalPrice: '₹12',
     image: 'https://cdn-icons-png.flaticon.com/512/2553/2553609.png',
   },
   {
     id: '2',
     name: 'Fortune Rice Bran Refined Oil',
     size: '5 L',
-    price: '$15',
-    originalPrice: '$18',
+    price: '₹15',
+    originalPrice: '₹18',
     image: 'https://cdn-icons-png.flaticon.com/512/2553/2553609.png',
   },
 ];
@@ -252,7 +252,6 @@ const ShopDetailsScreen = ({ navigation, route }: any) => {
               <SharedProductCard
                 item={product}
                 style={styles.productCard}
-                onAdd={() => navigation.navigate('CartScreen')}
               />
             </Animated.View>
           ))}

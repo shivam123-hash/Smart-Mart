@@ -5,12 +5,13 @@ import TouchableOpacity from '../AnimatedTouchableOpacity';
 import Icon from '@react-native-vector-icons/feather';
 import { useSharedTransition } from './SharedTransitionContext';
 import { getProductReviews } from '../../../features/catalog/data/productReviews';
+import { useCart } from '../../../features/cart/context/CartContext';
 
 const { width: SCREEN_WIDTH, height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 const SIMILAR_PRODUCTS = [
-  { id: '1', name: 'Fortune Soyabean Refined Oil', size: '5 L', price: '$10', originalPrice: '$12', image: 'https://cdn-icons-png.flaticon.com/512/2553/2553609.png' },
-  { id: '2', name: 'Fortune Rice Bran Refined Oil', size: '5 L', price: '$15', originalPrice: '$18', image: 'https://cdn-icons-png.flaticon.com/512/2553/2553609.png' },
+  { id: '1', name: 'Fortune Soyabean Refined Oil', size: '5 L', price: '₹10', originalPrice: '₹12', image: 'https://cdn-icons-png.flaticon.com/512/2553/2553609.png' },
+  { id: '2', name: 'Fortune Rice Bran Refined Oil', size: '5 L', price: '₹15', originalPrice: '₹18', image: 'https://cdn-icons-png.flaticon.com/512/2553/2553609.png' },
 ];
 const PRODUCT_DESCRIPTION =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Orci, sem feugiat ut nullam nisl orci, volutpat, felis. Nunc elit, et mattis commodo condimentum tellus et. Carefully selected for freshness and quality, this product is a reliable choice for your everyday needs.';
@@ -122,6 +123,7 @@ export const SharedTransitionOverlay = ({
   const [isFavorite, setIsFavorite] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
+  const { addProduct, itemCount } = useCart();
 
   const animProgress = useRef(new Animated.Value(0)).current;
   const contentProgress = useRef(new Animated.Value(0)).current;
@@ -369,6 +371,12 @@ export const SharedTransitionOverlay = ({
   };
 
   const handleAddToCart = () => {
+    if (activeItem) {
+      addProduct(activeItem);
+    }
+    onNavigateToCart();
+  };
+  const handleOpenCart = () => {
     onNavigateToCart();
   };
 
@@ -506,14 +514,14 @@ export const SharedTransitionOverlay = ({
             <TouchableOpacity
               style={styles.cartIconWrapper}
               activeOpacity={0.85}
-              onPress={handleAddToCart}
+              onPress={handleOpenCart}
               accessibilityRole="button"
               accessibilityLabel="Open cart"
             >
               <View style={styles.cartButton}>
                 <Icon name="shopping-bag" size={20} color="#1a1a1a" />
                 <View style={styles.cartBadge}>
-                  <LocalizedText style={styles.cartBadgeText}>2</LocalizedText>
+                  <LocalizedText style={styles.cartBadgeText}>{itemCount}</LocalizedText>
                 </View>
               </View>
             </TouchableOpacity>
@@ -823,7 +831,7 @@ export const SharedTransitionOverlay = ({
                     </View>
                     <TouchableOpacity
                       style={styles.similarAddBtn}
-                      onPress={handleAddToCart}
+                      onPress={() => addProduct(prod)}
                       accessibilityRole="button"
                     >
                       <LocalizedText style={styles.similarAddBtnText}>Add</LocalizedText>

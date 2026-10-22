@@ -7,13 +7,14 @@ import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ProductDetailPressable } from '../../../shared/components/sharedTransition';
 import RateOrderSheet from '../components/RateOrderSheet';
 import ReorderSheet from '../components/ReorderSheet';
+import { useCart } from '../../cart/context/CartContext';
 
 interface OrderItem {
     id: string;
     name: string;
     size: string;
     qty: number;
-    price: string; // unit price, e.g. '$12'
+    price: string; // unit price, e.g. '₹12'
     image: string;
 }
 
@@ -29,18 +30,18 @@ const STATUS_COLORS: Record<string, string> = {
 const DEFAULT_ITEMS: OrderItem[] = [
     {
         id: '1',
-        name: 'Surf Excel Easy Wash',
+        name: 'Surf Excel Easy Wash Detergent Powder',
         size: '1 kg',
         qty: 1,
-        price: '$12',
+        price: '₹12',
         image: 'https://cdn-icons-png.flaticon.com/512/2553/2553691.png',
     },
     {
         id: '2',
-        name: 'Fortune Arhar Dal',
+        name: 'Fortune Arhar Dal (Toor Dal)',
         size: '1 kg',
         qty: 2,
-        price: '$10',
+        price: '₹10',
         image: 'https://cdn-icons-png.flaticon.com/512/2553/2553609.png',
     },
     {
@@ -48,7 +49,7 @@ const DEFAULT_ITEMS: OrderItem[] = [
         name: 'Fresh Apples (Fuji)',
         size: '1 kg',
         qty: 1,
-        price: '$4',
+        price: '₹4',
         image: 'https://cdn-icons-png.flaticon.com/512/3194/3194591.png',
     },
 ];
@@ -64,10 +65,11 @@ const DEFAULT_ORDER = {
 };
 
 const toNumber = (price: string) => parseFloat(String(price).replace(/[^0-9.]/g, '')) || 0;
-const money = (n: number) => `$${n.toFixed(2)}`;
+const money = (n: number) => `₹${n.toFixed(2)}`;
 
 const OrderDetailsScreen = ({ route, navigation }: any) => {
     const insets = useSafeAreaInsets();
+    const { addProducts } = useCart();
     const order = { ...DEFAULT_ORDER, ...(route?.params?.order || {}) };
     const items: OrderItem[] = order.items?.length ? order.items : DEFAULT_ITEMS;
     const statusColor: string = order.statusColor ?? STATUS_COLORS[order.status] ?? '#55cc70';
@@ -108,7 +110,7 @@ const OrderDetailsScreen = ({ route, navigation }: any) => {
                 })
             )
         ).start();
-    }, []);
+    }, [headerAnim, sectionAnims]);
 
     const sectionStyle = (index: number) => ({
         opacity: sectionAnims[index],
@@ -122,7 +124,7 @@ const OrderDetailsScreen = ({ route, navigation }: any) => {
         ],
     });
 
-    const handleSubmitRating = (stars: number, review: string) => {
+    const handleSubmitRating = (stars: number, _review: string) => {
         // TODO: send to your API
         // await api.rateOrder(order.id, stars, review);
         setRated(stars);
@@ -130,8 +132,15 @@ const OrderDetailsScreen = ({ route, navigation }: any) => {
     };
 
     const handleReorderConfirm = (selected: OrderItem[]) => {
-        // TODO: add `selected` to your cart store (Redux / Zustand / context)
-        // selected.forEach((item) => addToCart(item));
+        addProducts(selected.flatMap((item) =>
+            Array.from({ length: item.qty }, () => ({
+                id: item.id,
+                name: item.name,
+                size: item.size,
+                price: item.price,
+                image: item.image,
+            })),
+        ));
         navigation.navigate('MainNavigation', { screen: 'Cart' });
     };
 

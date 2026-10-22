@@ -1,10 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import LocalizedText from '../../../shared/i18n/LocalizedText';
-import { Alert, Animated, Easing, Linking, ScrollView, StatusBar, StyleSheet, View } from 'react-native';
+import { Animated, Easing, Linking, ScrollView, StatusBar, StyleSheet, View } from 'react-native';
 import TouchableOpacity from '../../../shared/components/AnimatedTouchableOpacity';
 import Icon from '@react-native-vector-icons/feather';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useLocalization } from '../../../shared/i18n/LocalizationProvider';
+import { useFeedback } from '../../../shared/components/feedback/FeedbackProvider';
 
 interface DeliveryOrder {
   orderId: string;
@@ -57,6 +58,7 @@ const DeliveryOrderDetailsScreen = ({
 }) => {
   const insets = useSafeAreaInsets();
   const { t } = useLocalization();
+  const { showDialog } = useFeedback();
   const order = route.params?.order;
   const [currentStage, setCurrentStage] = useState(
     order?.status === 'Completed' ? ORDER_STAGES.length - 1 : 0,
@@ -175,17 +177,9 @@ const DeliveryOrderDetailsScreen = ({
 
   const openContactApp = async (url: string, appName: string) => {
     try {
-      const canOpen = await Linking.canOpenURL(url);
-      if (!canOpen) {
-        Alert.alert(
-          `${appName} ${t('unavailable')}`,
-          `${t('This device can’t open')} ${appName.toLowerCase()}.`,
-        );
-        return;
-      }
       await Linking.openURL(url);
     } catch {
-      Alert.alert(
+      showDialog(
         `${appName} ${t('unavailable')}`,
         `${t('Couldn’t open')} ${appName.toLowerCase()} ${t('on this device')}.`,
       );
@@ -400,9 +394,20 @@ const DeliveryOrderDetailsScreen = ({
               <LocalizedText style={styles.sectionTitle}>Route & customer</LocalizedText>
               <LocalizedText style={styles.sectionSubtitle}>Pickup and drop-off information</LocalizedText>
             </View>
-            <View style={styles.routeIcon}>
+            <TouchableOpacity
+              accessibilityRole="button"
+              accessibilityLabel="Open route in Google Maps"
+              style={styles.routeIcon}
+              activeOpacity={0.8}
+              onPress={() =>
+                openContactApp(
+                  `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(order.pickup)}&destination=${encodeURIComponent(order.dropoff)}&travelmode=driving`,
+                  'Google Maps',
+                )
+              }
+            >
               <Icon name="map" size={17} color="#258e43" />
-            </View>
+            </TouchableOpacity>
           </View>
           <View style={styles.addressRow}>
             <View style={styles.addressMarkerColumn}>

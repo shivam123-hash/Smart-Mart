@@ -49,7 +49,7 @@ const INITIAL_NOTIFICATIONS: NotificationItem[] = [
     id: '2',
     type: 'offer',
     title: 'Flat 20% off on fresh fruits',
-    message: 'Use code FRESH20 on orders above $15. Valid till tonight.',
+    message: 'Use code FRESH20 on orders above ₹15. Valid till tonight.',
     time: '1 hr ago',
     group: 'Today',
     read: false,

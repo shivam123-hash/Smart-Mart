@@ -5,13 +5,9 @@
  * @format
  */
 
-import { NewAppScreen } from '@react-native/new-app-screen';
 import { useRef } from 'react';
-import { Platform, StatusBar, StyleSheet, View } from 'react-native';
-import {
-  SafeAreaProvider,
-  useSafeAreaInsets,
-} from 'react-native-safe-area-context';
+import { Platform, StatusBar } from 'react-native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import {
   createNavigationContainerRef,
   NavigationContainer,
@@ -20,6 +16,11 @@ import {
 } from '@react-navigation/native';
 import RootNavigation from './src/app/navigation/RootNavigation';
 import { LocalizationProvider } from './src/shared/i18n/LocalizationProvider';
+import { CartProvider } from './src/features/cart/context/CartContext';
+import { BiometricLockProvider } from './src/features/auth/biometrics/BiometricLockProvider';
+import { FeedbackProvider } from './src/shared/components/feedback/FeedbackProvider';
+import { isAuthenticatedNavigation } from './src/features/auth/biometrics/authenticatedNavigation';
+import { useBiometricLock } from './src/features/auth/biometrics/BiometricLockProvider';
 import {
   SharedTransitionProvider,
   SharedTransitionOverlay,
@@ -33,9 +34,15 @@ function App() {
     <SafeAreaProvider>
       <StatusBar barStyle="dark-content" />
       <LocalizationProvider>
-        <SharedTransitionProvider>
-          <AppNavigation />
-        </SharedTransitionProvider>
+        <FeedbackProvider>
+          <BiometricLockProvider>
+            <CartProvider>
+              <SharedTransitionProvider>
+                <AppNavigation />
+              </SharedTransitionProvider>
+            </CartProvider>
+          </BiometricLockProvider>
+        </FeedbackProvider>
       </LocalizationProvider>
     </SafeAreaProvider>
   );
@@ -43,10 +50,19 @@ function App() {
 
 function AppNavigation() {
   const { activeItem, hideProduct, showProduct } = useSharedTransition();
+  const { setAuthenticated } = useBiometricLock();
   const overlayReturnRouteKey = useRef<string | null>(null);
   const overlayReturnTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  const syncAuthenticationState = () => {
+    const rootState = navigationRef.getRootState();
+    setAuthenticated(
+      isAuthenticatedNavigation(rootState?.routes.map((route) => route.name) ?? []),
+    );
+  };
+
   const handleNavigationStateChange = () => {
+    syncAuthenticationState();
     const currentRouteKey = navigationRef.getCurrentRoute()?.key;
     if (overlayReturnRouteKey.current === currentRouteKey && !overlayReturnTimer.current) {
       const returnRouteKey = currentRouteKey;
@@ -88,6 +104,7 @@ function AppNavigation() {
     <>
       <NavigationContainer
         ref={navigationRef}
+        onReady={syncAuthenticationState}
         onStateChange={handleNavigationStateChange}
       >
         <RootNavigation />
@@ -102,24 +119,5 @@ function AppNavigation() {
     </>
   );
 }
-
-function AppContent() {
-  const safeAreaInsets = useSafeAreaInsets();
-
-  return (
-    <View style={styles.container}>
-      <NewAppScreen
-        templateFileName="App.tsx"
-        safeAreaInsets={safeAreaInsets}
-      />
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
 
 export default App;

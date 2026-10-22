@@ -6,13 +6,13 @@ import Icon from '@react-native-vector-icons/feather';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const WEEKLY_EARNINGS = [
-  { day: 'M', amount: 12, label: '$12' },
-  { day: 'T', amount: 22, label: '$22' },
-  { day: 'W', amount: 18, label: '$18' },
-  { day: 'T', amount: 24, label: '$24' },
-  { day: 'F', amount: 20, label: '$20' },
-  { day: 'S', amount: 42.5, label: '$42.50' },
-  { day: 'S', amount: 30, label: '$30' },
+  { day: 'M', amount: 12, label: '₹12' },
+  { day: 'T', amount: 22, label: '₹22' },
+  { day: 'W', amount: 18, label: '₹18' },
+  { day: 'T', amount: 24, label: '₹24' },
+  { day: 'F', amount: 20, label: '₹20' },
+  { day: 'S', amount: 42.5, label: '₹42.50' },
+  { day: 'S', amount: 30, label: '₹30' },
 ];
 
 type EarningBreakdownItem = {
@@ -24,9 +24,9 @@ type EarningBreakdownItem = {
 };
 
 const EARNING_BREAKDOWN: EarningBreakdownItem[] = [
-  { title: 'Delivery earnings', subtitle: '3 completed deliveries', amount: '$34.50', icon: 'package', color: '#2fa64c' },
-  { title: 'Customer tips', subtitle: 'Tips from customers', amount: '$6.00', icon: 'heart', color: '#e97878' },
-  { title: 'Peak hour bonus', subtitle: 'Busy hour incentive', amount: '$2.00', icon: 'zap', color: '#d49a2a' },
+  { title: 'Delivery earnings', subtitle: '3 completed deliveries', amount: '₹34.50', icon: 'package', color: '#2fa64c' },
+  { title: 'Customer tips', subtitle: 'Tips from customers', amount: '₹6.00', icon: 'heart', color: '#e97878' },
+  { title: 'Peak hour bonus', subtitle: 'Busy hour incentive', amount: '₹2.00', icon: 'zap', color: '#d49a2a' },
 ];
 
 const EarningsScreen = ({ navigation }: { navigation: any }) => {
@@ -141,7 +141,7 @@ const EarningsScreen = ({ navigation }: { navigation: any }) => {
           <View style={styles.balanceTop}>
             <View>
               <LocalizedText style={styles.balanceCaption}>TOTAL EARNED THIS WEEK</LocalizedText>
-              <LocalizedText style={styles.balanceAmount}>$168.50</LocalizedText>
+              <LocalizedText style={styles.balanceAmount}>₹168.50</LocalizedText>
             </View>
             <View style={styles.balanceIcon}>
               <Icon name="trending-up" size={21} color="#ffffff" />
@@ -230,7 +230,7 @@ const EarningsScreen = ({ navigation }: { navigation: any }) => {
             <LocalizedText style={styles.payoutTitle}>Next payout</LocalizedText>
             <LocalizedText style={styles.payoutSubtitle}>Friday · Bank account •••• 4821</LocalizedText>
           </View>
-          <LocalizedText style={styles.payoutAmount}>$126.00</LocalizedText>
+          <LocalizedText style={styles.payoutAmount}>₹126.00</LocalizedText>
         </View>
 
         <View style={styles.breakdownHeader}>
@@ -238,7 +238,7 @@ const EarningsScreen = ({ navigation }: { navigation: any }) => {
             <LocalizedText style={styles.sectionTitle}>Earnings breakdown</LocalizedText>
             <LocalizedText style={styles.sectionSubtitle}>Where your money comes from</LocalizedText>
           </View>
-          <LocalizedText style={styles.breakdownTotal}>$42.50 today</LocalizedText>
+          <LocalizedText style={styles.breakdownTotal}>₹42.50 today</LocalizedText>
         </View>
 
         {EARNING_BREAKDOWN.map((item, index) => {
