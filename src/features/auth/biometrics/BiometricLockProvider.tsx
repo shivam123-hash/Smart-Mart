@@ -234,7 +234,7 @@ export const BiometricLockProvider = ({ children }: React.PropsWithChildren) => 
       >
         <View style={[styles.lockScreen, { paddingTop: insets.top + 32, paddingBottom: insets.bottom + 24 }]}>
           <View style={styles.brandMark}>
-            <Icon name="shopping-bag" size={34} color="#258e43" />
+            <Icon name="shopping-bag" size={34} color="#258B3E" />
           </View>
           <LocalizedText style={styles.title}>
             {isReady ? 'Smart Mart is locked' : 'Checking app lock'}
@@ -310,7 +310,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#e4f4e8',
   },
   title: {
-    color: '#18261c',
+    color: '#1A632C',
     fontFamily: 'Poppins-Bold',
     fontSize: 22,
     textAlign: 'center',
@@ -340,7 +340,7 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     marginTop: 30,
     borderRadius: 17,
-    backgroundColor: '#258e43',
+    backgroundColor: '#258B3E',
   },
   unlockButtonDisabled: {
     opacity: 0.65,

@@ -123,7 +123,7 @@ const AddEditAddressScreen = ({ route, navigation }: any) => {
                   <Icon
                     name={t === 'Home' ? 'home' : t === 'Work' ? 'briefcase' : 'map-pin'}
                     size={16}
-                    color={type === t ? '#ffffff' : '#55cc70'}
+                    color={type === t ? '#ffffff' : '#258B3E'}
                     style={{ marginRight: 6 }}
                   />
                   <LocalizedText style={[styles.typeChipText, type === t && styles.typeChipTextActive]}>
@@ -278,18 +278,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 10,
     borderRadius: 12,
-    backgroundColor: '#f0faf3',
+    backgroundColor: '#EAF5ED',
     borderWidth: 1,
-    borderColor: '#d4f0dc',
+    borderColor: '#EAF5ED',
   },
   typeChipActive: {
-    backgroundColor: '#55cc70',
-    borderColor: '#55cc70',
+    backgroundColor: '#258B3E',
+    borderColor: '#258B3E',
   },
   typeChipText: {
     fontSize: 13,
     fontFamily: 'Poppins-Medium',
-    color: '#55cc70',
+    color: '#258B3E',
   },
   typeChipTextActive: {
     color: '#ffffff',
@@ -335,8 +335,8 @@ const styles = StyleSheet.create({
     marginRight: 12,
   },
   checkboxActive: {
-    backgroundColor: '#55cc70',
-    borderColor: '#55cc70',
+    backgroundColor: '#258B3E',
+    borderColor: '#258B3E',
   },
   defaultText: {
     fontSize: 14,
@@ -355,12 +355,12 @@ const styles = StyleSheet.create({
     borderTopColor: '#f0f0f0',
   },
   saveBtn: {
-    backgroundColor: '#55cc70',
+    backgroundColor: '#258B3E',
     height: 52,
     borderRadius: 16,
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: '#55cc70',
+    shadowColor: '#258B3E',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 8,

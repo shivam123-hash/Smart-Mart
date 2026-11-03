@@ -106,7 +106,7 @@ const DeliveryVehicleDocumentsScreen = ({ navigation }: { navigation: any }) => 
             onPress={() => navigation.goBack()}
             style={styles.backButton}
           >
-            <Icon name="arrow-left" size={19} color="#253329" />
+            <Icon name="arrow-left" size={19} color="#1A632C" />
           </TouchableOpacity>
           <View style={styles.headerCopy}>
             <LocalizedText style={styles.eyebrow}>DELIVERY PARTNER</LocalizedText>
@@ -170,7 +170,7 @@ const DeliveryVehicleDocumentsScreen = ({ navigation }: { navigation: any }) => 
             </LocalizedText>
           </View>
           <View style={styles.verifiedCount}>
-            <Icon name="check" size={11} color="#258e43" />
+            <Icon name="check" size={11} color="#258B3E" />
             <LocalizedText style={styles.verifiedCountText}>3 / 3</LocalizedText>
           </View>
         </View>
@@ -205,7 +205,7 @@ const DeliveryVehicleDocumentsScreen = ({ navigation }: { navigation: any }) => 
                   <LocalizedText style={styles.documentDetail}>{document.detail}</LocalizedText>
                 </View>
                 <View style={styles.verifiedBadge}>
-                  <Icon name="check-circle" size={15} color="#258e43" />
+                  <Icon name="check-circle" size={15} color="#258B3E" />
                 </View>
                 <Icon name="chevron-right" size={16} color="#a0aaa2" />
               </TouchableOpacity>
@@ -241,7 +241,7 @@ const DeliveryVehicleDocumentsScreen = ({ navigation }: { navigation: any }) => 
               onPress={() => setSelectedDocument(null)}
               style={styles.previewCloseButton}
             >
-              <Icon name="x" size={20} color="#253329" />
+              <Icon name="x" size={20} color="#1A632C" />
             </TouchableOpacity>
             <LocalizedText style={styles.previewHeaderTitle}>Document preview</LocalizedText>
             <View style={styles.previewHeaderSpacer} />
@@ -252,7 +252,7 @@ const DeliveryVehicleDocumentsScreen = ({ navigation }: { navigation: any }) => 
               showsVerticalScrollIndicator={false}
             >
               <View style={styles.previewLabel}>
-                <Icon name="eye" size={13} color="#258e43" />
+                <Icon name="eye" size={13} color="#258B3E" />
                 <LocalizedText style={styles.previewLabelText}>DOCUMENT PREVIEW</LocalizedText>
               </View>
               <View style={styles.documentPreview}>
@@ -261,7 +261,7 @@ const DeliveryVehicleDocumentsScreen = ({ navigation }: { navigation: any }) => 
                     <Icon
                       name={selectedDocument.icon}
                       size={20}
-                      color="#258e43"
+                      color="#258B3E"
                     />
                   </View>
                   <View style={styles.previewIssuerCopy}>
@@ -269,7 +269,7 @@ const DeliveryVehicleDocumentsScreen = ({ navigation }: { navigation: any }) => 
                     <LocalizedText style={styles.previewDocumentType}>{selectedDocument.title}</LocalizedText>
                   </View>
                   <View style={styles.previewVerified}>
-                    <Icon name="check-circle" size={17} color="#258e43" />
+                    <Icon name="check-circle" size={17} color="#258B3E" />
                   </View>
                 </View>
 
@@ -287,7 +287,7 @@ const DeliveryVehicleDocumentsScreen = ({ navigation }: { navigation: any }) => 
                   </View>
                 </View>
                 <View style={styles.previewStamp}>
-                  <Icon name="check" size={13} color="#258e43" />
+                  <Icon name="check" size={13} color="#258B3E" />
                   <LocalizedText style={styles.previewStampText}>VERIFIED</LocalizedText>
                 </View>
                 <LocalizedText style={styles.previewDisclaimer}>
@@ -321,14 +321,14 @@ const styles = StyleSheet.create({
   },
   headerCopy: { flex: 1, marginLeft: 12 },
   eyebrow: {
-    color: '#2fa64c',
+    color: '#258B3E',
     fontFamily: 'Poppins-SemiBold',
     fontSize: 9,
     letterSpacing: 1,
   },
   title: { color: '#202820', fontFamily: 'Poppins-Bold', fontSize: 17 },
   vehicleCard: {
-    backgroundColor: '#258e43',
+    backgroundColor: '#258B3E',
     borderRadius: 22,
     marginBottom: 25,
     overflow: 'hidden',
@@ -437,14 +437,14 @@ const styles = StyleSheet.create({
   },
   verifiedCount: {
     alignItems: 'center',
-    backgroundColor: '#eaf8ed',
+    backgroundColor: '#EAF5ED',
     borderRadius: 9,
     flexDirection: 'row',
     paddingHorizontal: 8,
     paddingVertical: 6,
   },
   verifiedCountText: {
-    color: '#258e43',
+    color: '#258B3E',
     fontFamily: 'Poppins-SemiBold',
     fontSize: 9,
     marginLeft: 4,
@@ -478,7 +478,7 @@ const styles = StyleSheet.create({
   },
   verifiedBadge: {
     alignItems: 'center',
-    backgroundColor: '#eaf8ed',
+    backgroundColor: '#EAF5ED',
     borderRadius: 10,
     height: 30,
     justifyContent: 'center',
@@ -543,7 +543,7 @@ const styles = StyleSheet.create({
   },
   previewLabel: {
     alignItems: 'center',
-    backgroundColor: '#eaf8ed',
+    backgroundColor: '#EAF5ED',
     borderRadius: 10,
     flexDirection: 'row',
     marginBottom: 16,
@@ -551,7 +551,7 @@ const styles = StyleSheet.create({
     paddingVertical: 7,
   },
   previewLabelText: {
-    color: '#258e43',
+    color: '#258B3E',
     fontFamily: 'Poppins-SemiBold',
     fontSize: 9,
     letterSpacing: 0.6,
@@ -570,7 +570,7 @@ const styles = StyleSheet.create({
   previewDocumentTop: { alignItems: 'center', flexDirection: 'row' },
   previewIssuerMark: {
     alignItems: 'center',
-    backgroundColor: '#eaf8ed',
+    backgroundColor: '#EAF5ED',
     borderRadius: 13,
     height: 44,
     justifyContent: 'center',
@@ -579,14 +579,14 @@ const styles = StyleSheet.create({
   previewIssuerCopy: { flex: 1, marginHorizontal: 11 },
   previewIssuer: { color: '#6d7a70', fontFamily: 'Poppins-Medium', fontSize: 8 },
   previewDocumentType: {
-    color: '#253329',
+    color: '#1A632C',
     fontFamily: 'Poppins-SemiBold',
     fontSize: 11,
     marginTop: 2,
   },
   previewVerified: {
     alignItems: 'center',
-    backgroundColor: '#eaf8ed',
+    backgroundColor: '#EAF5ED',
     borderRadius: 11,
     height: 32,
     justifyContent: 'center',
@@ -604,7 +604,7 @@ const styles = StyleSheet.create({
     letterSpacing: 0.7,
   },
   previewHolder: {
-    color: '#253329',
+    color: '#1A632C',
     fontFamily: 'Poppins-Bold',
     fontSize: 17,
     marginTop: 5,
@@ -635,7 +635,7 @@ const styles = StyleSheet.create({
   previewStamp: {
     alignItems: 'center',
     alignSelf: 'flex-start',
-    backgroundColor: '#eaf8ed',
+    backgroundColor: '#EAF5ED',
     borderRadius: 9,
     flexDirection: 'row',
     marginTop: 17,
@@ -643,7 +643,7 @@ const styles = StyleSheet.create({
     paddingVertical: 7,
   },
   previewStampText: {
-    color: '#258e43',
+    color: '#258B3E',
     fontFamily: 'Poppins-Bold',
     fontSize: 8,
     letterSpacing: 0.6,

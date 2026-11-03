@@ -320,7 +320,7 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: 18,
     marginBottom: 24,
-    shadowColor: '#152b1d',
+    shadowColor: '#1A632C',
     shadowOffset: { width: 0, height: 5 },
     shadowOpacity: 0.06,
     shadowRadius: 12,
@@ -385,7 +385,7 @@ const styles = StyleSheet.create({
   ratingFill: {
     height: '100%',
     borderRadius: 4,
-    backgroundColor: '#55cc70',
+    backgroundColor: '#258B3E',
   },
   listTitle: {
     fontSize: 18,
@@ -398,7 +398,7 @@ const styles = StyleSheet.create({
     borderRadius: 18,
     padding: 16,
     marginBottom: 12,
-    shadowColor: '#152b1d',
+    shadowColor: '#1A632C',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.04,
     shadowRadius: 8,
@@ -425,7 +425,7 @@ const styles = StyleSheet.create({
   avatarText: {
     fontSize: 17,
     fontFamily: 'Poppins-Bold',
-    color: '#30984d',
+    color: '#258B3E',
   },
   reviewerName: {
     fontSize: 13,

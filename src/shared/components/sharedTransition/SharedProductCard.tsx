@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
     textDecorationLine: 'line-through',
   },
   addButton: {
-    backgroundColor: '#55cc70',
+    backgroundColor: '#258B3E',
     paddingHorizontal: 15,
     paddingVertical: 6,
     borderRadius: 8,

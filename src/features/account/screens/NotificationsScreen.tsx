@@ -65,7 +65,7 @@ const INITIAL_NOTIFICATIONS: NotificationItem[] = [
     group: 'Today',
     read: true,
     icon: 'check-circle',
-    color: '#55cc70',
+    color: '#258B3E',
     orderId: 'ORD-78395',
   },
   {
@@ -77,7 +77,7 @@ const INITIAL_NOTIFICATIONS: NotificationItem[] = [
     group: 'Earlier',
     read: true,
     icon: 'package',
-    color: '#55cc70',
+    color: '#258B3E',
     orderId: 'ORD-78421',
   },
   {
@@ -285,7 +285,7 @@ const NotificationsScreen = ({ navigation }: any) => {
           <Icon
             name="check-circle"
             size={22}
-            color={unreadCount === 0 ? '#c0c0c0' : '#55cc70'}
+            color={unreadCount === 0 ? '#c0c0c0' : '#258B3E'}
           />
         </TouchableOpacity>
       </Animated.View>
@@ -391,7 +391,7 @@ const NotificationsScreen = ({ navigation }: any) => {
             <Animated.View
               style={[styles.emptyIconWrapper, { transform: [{ scale: bellPulse }] }]}
             >
-              <Icon name="bell-off" size={34} color="#55cc70" />
+              <Icon name="bell-off" size={34} color="#258B3E" />
             </Animated.View>
             <LocalizedText style={styles.emptyTitle}>No notifications</LocalizedText>
             <LocalizedText style={styles.emptySubtitle}>
@@ -581,18 +581,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 9,
     borderRadius: 14,
-    backgroundColor: '#f0faf3',
+    backgroundColor: '#EAF5ED',
     borderWidth: 1.5,
-    borderColor: '#d4f0dc',
+    borderColor: '#EAF5ED',
   },
   filterChipActive: {
-    backgroundColor: '#55cc70',
-    borderColor: '#55cc70',
+    backgroundColor: '#258B3E',
+    borderColor: '#258B3E',
   },
   filterText: {
     fontSize: 13,
     fontFamily: 'Poppins-Medium',
-    color: '#55cc70',
+    color: '#258B3E',
   },
   filterTextActive: {
     color: '#ffffff',
@@ -659,7 +659,7 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: '#55cc70',
+    backgroundColor: '#258B3E',
     marginLeft: 8,
   },
   itemMessage: {

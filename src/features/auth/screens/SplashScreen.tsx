@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
     logoText: {
         fontSize: 35,
         fontFamily: 'Poppins-Bold',
-        color: '#08540eff',
+        color: '#1A632Cff',
     },
     bottomRightImage: {
         position: 'absolute',

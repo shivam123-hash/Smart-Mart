@@ -171,13 +171,13 @@ const styles = StyleSheet.create({
         marginRight: 20,
     },
     skipText: {
-        color: '#55cc70',
+        color: '#258B3E',
         fontFamily: 'Poppins-Medium',
         fontSize: 16,
         marginRight: 5,
     },
     skipIconCircle: {
-        backgroundColor: '#55cc70',
+        backgroundColor: '#258B3E',
         width: 20,
         height: 20,
         borderRadius: 10,
@@ -223,7 +223,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 4,
     },
     activeDot: {
-        backgroundColor: '#55cc70',
+        backgroundColor: '#258B3E',
     },
     inactiveDot: {
         backgroundColor: '#d3d3d3',
@@ -244,13 +244,13 @@ const styles = StyleSheet.create({
         marginBottom: 30,
     },
     nextButton: {
-        backgroundColor: '#55cc70',
+        backgroundColor: '#258B3E',
         width: 100,
         height: 60,
         borderRadius: 30,
         justifyContent: 'center',
         alignItems: 'center',
-        shadowColor: "#55cc70",
+        shadowColor: "#258B3E",
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.3,
         shadowRadius: 5,

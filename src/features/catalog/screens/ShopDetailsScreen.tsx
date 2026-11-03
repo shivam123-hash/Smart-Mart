@@ -132,12 +132,12 @@ const ShopDetailsScreen = ({ navigation, route }: any) => {
       >
         <Animated.View style={[styles.shopHero, entranceStyle(entranceAnims[1])]}>
           <View style={styles.shopIcon}>
-            <Icon name="shopping-bag" size={34} color="#55cc70" />
+            <Icon name="shopping-bag" size={34} color="#258B3E" />
           </View>
           <LocalizedText style={styles.shopName}>{shopName}</LocalizedText>
           <LocalizedText style={styles.shopAddress}>{address}</LocalizedText>
           <View style={styles.ratingRow}>
-            <Icon name="star" size={17} color="#0d3b29" />
+            <Icon name="star" size={17} color="#1A632C" />
             <LocalizedText style={styles.ratingText}>{averageRating.toFixed(1)}</LocalizedText>
             <LocalizedText style={styles.ratingCaption}>· {SHOP_REVIEWS.length} reviews</LocalizedText>
           </View>
@@ -150,7 +150,7 @@ const ShopDetailsScreen = ({ navigation, route }: any) => {
         <Animated.View style={[styles.infoCard, entranceStyle(entranceAnims[2])]}>
           <View style={styles.infoRow}>
             <View style={styles.infoIcon}>
-              <Icon name="map-pin" size={18} color="#55cc70" />
+              <Icon name="map-pin" size={18} color="#258B3E" />
             </View>
             <View style={styles.infoCopy}>
               <LocalizedText style={styles.infoTitle}>Store location</LocalizedText>
@@ -160,7 +160,7 @@ const ShopDetailsScreen = ({ navigation, route }: any) => {
           <View style={styles.infoDivider} />
           <View style={styles.infoRow}>
             <View style={styles.infoIcon}>
-              <Icon name="truck" size={18} color="#55cc70" />
+              <Icon name="truck" size={18} color="#258B3E" />
             </View>
             <View style={styles.infoCopy}>
               <LocalizedText style={styles.infoTitle}>Delivery</LocalizedText>
@@ -204,7 +204,7 @@ const ShopDetailsScreen = ({ navigation, route }: any) => {
                     key={star}
                     name="star"
                     size={13}
-                    color={star <= review.rating ? '#55cc70' : '#dfe4e1'}
+                    color={star <= review.rating ? '#258B3E' : '#dfe4e1'}
                     style={styles.reviewStar}
                   />
                 ))}
@@ -232,7 +232,7 @@ const ShopDetailsScreen = ({ navigation, route }: any) => {
             <LocalizedText style={styles.allReviewsButtonText}>
               See all {SHOP_REVIEWS.length} reviews
             </LocalizedText>
-            <Icon name="arrow-right" size={16} color="#2fa64c" />
+            <Icon name="arrow-right" size={16} color="#258B3E" />
           </TouchableOpacity>
         </Animated.View>
 
@@ -354,7 +354,7 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     fontSize: 14,
     fontFamily: 'Poppins-Bold',
-    color: '#0d3b29',
+    color: '#1A632C',
   },
   ratingCaption: {
     marginLeft: 4,
@@ -376,7 +376,7 @@ const styles = StyleSheet.create({
     height: 7,
     marginRight: 7,
     borderRadius: 4,
-    backgroundColor: '#35a853',
+    backgroundColor: '#258B3E',
   },
   openText: {
     fontSize: 11,
@@ -435,7 +435,7 @@ const styles = StyleSheet.create({
   seeAllReviews: {
     fontSize: 13,
     fontFamily: 'Poppins-SemiBold',
-    color: '#2fa64c',
+    color: '#258B3E',
   },
   reviewCard: {
     padding: 14,
@@ -466,7 +466,7 @@ const styles = StyleSheet.create({
   reviewerInitial: {
     fontSize: 15,
     fontFamily: 'Poppins-Bold',
-    color: '#30984d',
+    color: '#258B3E',
   },
   reviewerName: {
     fontSize: 13,
@@ -524,7 +524,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     borderRadius: 14,
     borderWidth: 1,
-    borderColor: '#dcefe1',
+    borderColor: '#EAF5ED',
     backgroundColor: '#f4fbf6',
     flexDirection: 'row',
     alignItems: 'center',
@@ -534,7 +534,7 @@ const styles = StyleSheet.create({
   allReviewsButtonText: {
     fontSize: 13,
     fontFamily: 'Poppins-SemiBold',
-    color: '#2fa64c',
+    color: '#258B3E',
   },
   productsHeader: {
     flexDirection: 'row',

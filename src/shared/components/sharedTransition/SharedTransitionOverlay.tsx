@@ -686,7 +686,7 @@ export const SharedTransitionOverlay = ({
                 accessibilityRole="button"
                 accessibilityLabel="View product reviews"
               >
-                <Icon name="star" size={16} color="#0d3b29" style={styles.ratingStarIcon} />
+                <Icon name="star" size={16} color="#1A632C" style={styles.ratingStarIcon} />
                 <LocalizedText style={styles.ratingBadgeText}>{averageReviewRating.toFixed(1)} Rating</LocalizedText>
               </TouchableOpacity>
             </View>
@@ -715,7 +715,7 @@ export const SharedTransitionOverlay = ({
             >
               <View style={styles.shopLeft}>
                 <View style={styles.shopIconContainer}>
-                  <Icon name="shopping-bag" size={20} color="#55cc70" />
+                  <Icon name="shopping-bag" size={20} color="#258B3E" />
                 </View>
                 <View style={styles.shopInfo}>
                   <LocalizedText style={styles.shopName}>Green Valley Organic Mart</LocalizedText>
@@ -723,7 +723,7 @@ export const SharedTransitionOverlay = ({
                 </View>
               </View>
               <View style={styles.ratingBadge}>
-                <Icon name="star" size={15} color="#0d3b29" style={styles.ratingStarIcon} />
+                <Icon name="star" size={15} color="#1A632C" style={styles.ratingStarIcon} />
                 <LocalizedText style={styles.ratingBadgeText}>4.8 Rating</LocalizedText>
               </View>
             </TouchableOpacity>
@@ -764,7 +764,7 @@ export const SharedTransitionOverlay = ({
                           key={star}
                           name="star"
                           size={14}
-                          color={star <= review.rating ? '#55cc70' : '#dfe4e1'}
+                          color={star <= review.rating ? '#258B3E' : '#dfe4e1'}
                           style={styles.star}
                         />
                       ))}
@@ -793,7 +793,7 @@ export const SharedTransitionOverlay = ({
                 <LocalizedText style={styles.seeAllButtonText}>
                   See all {productReviews.length} reviews
                 </LocalizedText>
-                <Icon name="arrow-right" size={16} color="#2fa64c" />
+                <Icon name="arrow-right" size={16} color="#258B3E" />
               </TouchableOpacity>
             </View>
 
@@ -867,7 +867,7 @@ export const SharedTransitionOverlay = ({
             activeOpacity={0.85}
             onPress={handleAddToCart}
           >
-            <Icon name="shopping-bag" size={18} color="#55cc70" style={{ marginRight: 8 }} />
+            <Icon name="shopping-bag" size={18} color="#258B3E" style={{ marginRight: 8 }} />
             <LocalizedText style={styles.addToCartBtnText}>Add to Cart</LocalizedText>
           </TouchableOpacity>
           <TouchableOpacity
@@ -1090,7 +1090,7 @@ const styles = StyleSheet.create({
     borderRadius: 6,
   },
   discountText: {
-    color: '#55cc70',
+    color: '#258B3E',
     fontSize: 11,
     fontFamily: 'Poppins-Bold',
   },
@@ -1108,7 +1108,7 @@ const styles = StyleSheet.create({
   ratingBadgeText: {
     fontSize: 14,
     fontFamily: 'Poppins-SemiBold',
-    color: '#0d3b29',
+    color: '#1A632C',
   },
   starsContainer: {
     flexDirection: 'row',
@@ -1143,7 +1143,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     backgroundColor: '#ffffff',
     borderWidth: 1.5,
-    borderColor: '#55cc70',
+    borderColor: '#258B3E',
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
@@ -1152,16 +1152,16 @@ const styles = StyleSheet.create({
   addToCartBtnText: {
     fontSize: 15,
     fontFamily: 'Poppins-Bold',
-    color: '#55cc70',
+    color: '#258B3E',
   },
   buyNowBtn: {
     flex: 1,
     height: 50,
     borderRadius: 16,
-    backgroundColor: '#55cc70',
+    backgroundColor: '#258B3E',
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: '#55cc70',
+    shadowColor: '#258B3E',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.35,
     shadowRadius: 8,
@@ -1180,7 +1180,7 @@ const styles = StyleSheet.create({
     marginBottom: 4,
   },
   readMoreText: {
-    color: '#55cc70',
+    color: '#258B3E',
     fontFamily: 'Poppins-Medium',
   },
   readMoreButton: {
@@ -1201,7 +1201,7 @@ const styles = StyleSheet.create({
   seeAllReviews: {
     fontSize: 13,
     fontFamily: 'Poppins-SemiBold',
-    color: '#2fa64c',
+    color: '#258B3E',
     marginBottom: 8,
   },
   seeAllButton: {
@@ -1211,7 +1211,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     borderRadius: 14,
     borderWidth: 1,
-    borderColor: '#dcefe1',
+    borderColor: '#EAF5ED',
     backgroundColor: '#f4fbf6',
     flexDirection: 'row',
     alignItems: 'center',
@@ -1221,7 +1221,7 @@ const styles = StyleSheet.create({
   seeAllButtonText: {
     fontSize: 13,
     fontFamily: 'Poppins-SemiBold',
-    color: '#2fa64c',
+    color: '#258B3E',
   },
   shopCard: {
     flexDirection: 'row',
@@ -1291,7 +1291,7 @@ const styles = StyleSheet.create({
   avatarInitial: {
     fontSize: 16,
     fontFamily: 'Poppins-Bold',
-    color: '#30984d',
+    color: '#258B3E',
   },
   reviewerName: {
     fontSize: 14,
@@ -1372,7 +1372,7 @@ const styles = StyleSheet.create({
     textDecorationLine: 'line-through',
   },
   similarAddBtn: {
-    backgroundColor: '#55cc70',
+    backgroundColor: '#258B3E',
     paddingHorizontal: 12,
     paddingVertical: 6,
     borderRadius: 8,

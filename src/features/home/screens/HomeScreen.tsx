@@ -39,8 +39,20 @@ const OFFERS = [
   {
     id: '3',
     title: 'Instant Munchies & Snacks',
-    subtitle: 'Buy 1 Get 1 Free on Selected Brands',
+    subtitle: 'Buy 1 Get 1 Free on Selected Chips & Biscuits',
     image: 'https://images.unsplash.com/photo-1621939514649-280e2ee25f60?auto=format&fit=crop&w=800&q=80',
+  },
+  {
+    id: '4',
+    title: 'Pantry & Essentials Fest',
+    subtitle: 'Up to 30% OFF on Rice, Atta & Cooking Oils',
+    image: 'https://images.unsplash.com/photo-1586201375761-83865001e31c?auto=format&fit=crop&w=800&q=80',
+  },
+  {
+    id: '5',
+    title: 'Cool Drinks & Beverages',
+    subtitle: 'Save Extra 20% on Fresh Juices & Sodas',
+    image: 'https://images.unsplash.com/photo-1622483767028-3f66f32aef97?auto=format&fit=crop&w=800&q=80',
   },
 ];
 
@@ -124,7 +136,7 @@ const PaginationDot = ({ active }: { active: boolean }) => {
 
   const backgroundColor = colorAnim.interpolate({
     inputRange: [0, 1],
-    outputRange: ['#d8d8d8', '#55cc70'],
+    outputRange: ['#d8d8d8', '#258B3E'],
   });
 
   return (
@@ -211,9 +223,10 @@ const HomeScreen = ({ navigation }: any) => {
 
   const insets = useSafeAreaInsets();
 
+  // Updated to pass 4 sections total so the banner wrapper can hook into the entrance stagger correctly
   const { headerStyle, getCategoryStyle, getSectionStyle, isHeaderLanded } = useHomeEntranceAnimation(
     isLoading,
-    8,
+    9,
     insets.top
   );
 
@@ -236,7 +249,7 @@ const HomeScreen = ({ navigation }: any) => {
   }
 
   return (
-    <View style={[styles.rootContainer, { backgroundColor: isHeaderLanded ? '#55cc70' : '#ffffff' }]}>
+    <View style={[styles.rootContainer, { backgroundColor: isHeaderLanded ? '#258B3E' : '#ffffff' }]}>
       <StatusBar barStyle={isHeaderLanded ? 'light-content' : 'dark-content'} />
       <ScrollView contentContainerStyle={styles.scrollContent} showsVerticalScrollIndicator={false}>
 
@@ -297,74 +310,76 @@ const HomeScreen = ({ navigation }: any) => {
               activeOpacity={0.85}
               onPress={() => navigation.navigate('SearchAndFilterScreen')}
             >
-              <Icon name="sliders" size={18} color="#55cc70" />
+              <Icon name="sliders" size={18} color="#258B3E" />
             </TouchableOpacity>
           </View>
         </Animated.View>
 
-        <View style={styles.bannerContainer}>
-          <Animated.FlatList
-            ref={bannerListRef}
-            data={OFFERS}
-            horizontal
-            pagingEnabled
-            showsHorizontalScrollIndicator={false}
-            onScroll={Animated.event(
-              [{ nativeEvent: { contentOffset: { x: scrollX } } }],
-              { useNativeDriver: false, listener: onBannerScroll }
-            )}
-            scrollEventThrottle={16}
-            getItemLayout={(_, index) => ({
-              length: width,
-              offset: width * index,
-              index,
-            })}
-            keyExtractor={(item) => item.id}
-            renderItem={({ item, index }) => {
-              // Scale Animation per item based on scroll position
-              const inputRange = [
-                (index - 1) * width,
-                index * width,
-                (index + 1) * width,
-              ];
-              const scale = scrollX.interpolate({
-                inputRange,
-                outputRange: [0.93, 1, 0.93],
-                extrapolate: 'clamp',
-              });
+        {/* ==================== ANIMATED OFFERS SECTION ON SCREEN OPEN ==================== */}
+        <AnimatedSectionWrapper animStyle={getSectionStyle(0)}>
+          <View style={styles.bannerContainer}>
+            <Animated.FlatList
+              ref={bannerListRef}
+              data={OFFERS}
+              horizontal
+              pagingEnabled
+              showsHorizontalScrollIndicator={false}
+              onScroll={Animated.event(
+                [{ nativeEvent: { contentOffset: { x: scrollX } } }],
+                { useNativeDriver: false, listener: onBannerScroll }
+              )}
+              scrollEventThrottle={16}
+              getItemLayout={(_, index) => ({
+                length: width,
+                offset: width * index,
+                index,
+              })}
+              keyExtractor={(item) => item.id}
+              renderItem={({ item, index }) => {
+                const inputRange = [
+                  (index - 1) * width,
+                  index * width,
+                  (index + 1) * width,
+                ];
+                const scale = scrollX.interpolate({
+                  inputRange,
+                  outputRange: [0.93, 1, 0.93],
+                  extrapolate: 'clamp',
+                });
 
-              return (
-                <View style={{ width: width, alignItems: 'center' }}>
-                  <Animated.View style={[styles.bannerCard, { transform: [{ scale }] }]}>
-                    <TouchableOpacity
-                      activeOpacity={0.9}
-                      style={{ flex: 1 }}
-                      onPress={() => {
-                        navigation.navigate('ProductListScreen', { title: item.title });
-                      }}
-                    >
-                      <Image source={{ uri: item.image }} style={styles.bannerImage} resizeMode="cover" />
-                      <View style={styles.bannerOverlay}>
-                        <View style={styles.bannerTag}>
-                          <LocalizedText style={styles.bannerTagText}>LIMITED OFFER</LocalizedText>
+                return (
+                  <View style={{ width: width, alignItems: 'center' }}>
+                    <Animated.View style={[styles.bannerCard, { transform: [{ scale }] }]}>
+                      <TouchableOpacity
+                        activeOpacity={0.9}
+                        style={{ flex: 1 }}
+                        onPress={() => {
+                          navigation.navigate('ProductListScreen', { title: item.title });
+                        }}
+                      >
+                        <Image source={{ uri: item.image }} style={styles.bannerImage} resizeMode="cover" />
+                        <View style={styles.bannerOverlay}>
+                          <View style={styles.bannerTag}>
+                            <LocalizedText style={styles.bannerTagText}>LIMITED OFFER</LocalizedText>
+                          </View>
+                          <LocalizedText style={styles.bannerTitle}>{item.title}</LocalizedText>
+                          <LocalizedText style={styles.bannerSubtitle}>{item.subtitle}</LocalizedText>
                         </View>
-                        <LocalizedText style={styles.bannerTitle}>{item.title}</LocalizedText>
-                        <LocalizedText style={styles.bannerSubtitle}>{item.subtitle}</LocalizedText>
-                      </View>
-                    </TouchableOpacity>
-                  </Animated.View>
-                </View>
-              );
-            }}
-          />
+                      </TouchableOpacity>
+                    </Animated.View>
+                  </View>
+                );
+              }}
+            />
 
-          {/* Animated Pagination Dots */}
-          <View style={styles.paginationContainer}>
-            {OFFERS.map((_, index) => (
-              <PaginationDot key={index} active={activeBannerIndex === index} />
-            ))}
+            {/* Animated Pagination Dots */}
+            <View style={styles.paginationContainer}>
+              {OFFERS.map((_, index) => (
+                <PaginationDot key={index} active={activeBannerIndex === index} />
+              ))}
+            </View>
           </View>
-        </View>
+        </AnimatedSectionWrapper>
 
         {/* Shop By Category */}
         <View style={styles.sectionHeader}>
@@ -406,7 +421,7 @@ const HomeScreen = ({ navigation }: any) => {
         </View>
 
         {/* Best Deal */}
-        <AnimatedSectionWrapper animStyle={getSectionStyle(0)}>
+        <AnimatedSectionWrapper animStyle={getSectionStyle(1)}>
           <View style={styles.sectionHeader}>
             <LocalizedText style={styles.sectionTitle}>Best Deal</LocalizedText>
             <TouchableOpacity
@@ -428,7 +443,7 @@ const HomeScreen = ({ navigation }: any) => {
         </AnimatedSectionWrapper>
 
         {/* Near by you */}
-        <AnimatedSectionWrapper animStyle={getSectionStyle(1)}>
+        <AnimatedSectionWrapper animStyle={getSectionStyle(2)}>
           <View style={styles.sectionHeader}>
             <LocalizedText style={styles.sectionTitle}>Near by you</LocalizedText>
             <TouchableOpacity
@@ -450,7 +465,7 @@ const HomeScreen = ({ navigation }: any) => {
         </AnimatedSectionWrapper>
 
         {/* Order Again */}
-        <AnimatedSectionWrapper animStyle={getSectionStyle(2)}>
+        <AnimatedSectionWrapper animStyle={getSectionStyle(3)}>
           <View style={styles.sectionHeader}>
             <LocalizedText style={styles.sectionTitle}>Order Again</LocalizedText>
             <TouchableOpacity
@@ -545,7 +560,7 @@ const HomeScreen = ({ navigation }: any) => {
                     navigation.navigate('AddressScreen');
                   }}
                 >
-                  <Icon name="plus" size={16} color="#55cc70" style={{ marginRight: 8 }} />
+                  <Icon name="plus" size={16} color="#258B3E" style={{ marginRight: 8 }} />
                   <LocalizedText style={styles.manageAddressesText}>Manage Addresses</LocalizedText>
                 </TouchableOpacity>
               </Animated.View>
@@ -567,13 +582,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
   },
   curvedHeader: {
-    backgroundColor: '#55cc70',
+    backgroundColor: '#258B3E',
     borderBottomLeftRadius: 36,
     borderBottomRightRadius: 36,
     paddingHorizontal: 20,
     paddingBottom: 22,
     marginBottom: 15,
-    shadowColor: '#55cc70',
+    shadowColor: '#258B3E',
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.25,
     shadowRadius: 10,
@@ -728,7 +743,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
   },
   bannerTag: {
-    backgroundColor: '#55cc70',
+    backgroundColor: '#258B3E',
     paddingHorizontal: 8,
     paddingVertical: 3,
     borderRadius: 6,
@@ -780,7 +795,7 @@ const styles = StyleSheet.create({
   seeAllText: {
     fontSize: 14,
     fontFamily: 'Poppins-Medium',
-    color: '#55cc70',
+    color: '#258B3E',
   },
   categoryGrid: {
     flexDirection: 'row',
@@ -864,7 +879,7 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
   },
   dropdownItemSelected: {
-    backgroundColor: '#f0faf3',
+    backgroundColor: '#EAF5ED',
   },
   dropdownItemLeft: {
     flexDirection: 'row',
@@ -883,13 +898,13 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   dropdownRadioSelected: {
-    borderColor: '#55cc70',
+    borderColor: '#258B3E',
   },
   dropdownRadioInner: {
     width: 10,
     height: 10,
     borderRadius: 5,
-    backgroundColor: '#55cc70',
+    backgroundColor: '#258B3E',
   },
   dropdownTypeRow: {
     flexDirection: 'row',
@@ -902,7 +917,7 @@ const styles = StyleSheet.create({
     color: '#1a1a1a',
   },
   dropdownDefaultBadge: {
-    backgroundColor: '#55cc70',
+    backgroundColor: '#258B3E',
     paddingHorizontal: 7,
     paddingVertical: 2,
     borderRadius: 6,
@@ -931,7 +946,7 @@ const styles = StyleSheet.create({
   manageAddressesText: {
     fontSize: 14,
     fontFamily: 'Poppins-SemiBold',
-    color: '#55cc70',
+    color: '#258B3E',
   },
 });
 

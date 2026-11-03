@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     textAlignVertical: 'top', fontSize: 14, fontFamily: 'Poppins-Regular', color: '#1a1a1a', marginBottom: 20,
   },
   submitBtn: {
-    backgroundColor: '#55cc70', height: 52, borderRadius: 16, justifyContent: 'center', alignItems: 'center',
+    backgroundColor: '#258B3E', height: 52, borderRadius: 16, justifyContent: 'center', alignItems: 'center',
   },
   submitBtnDisabled: { backgroundColor: '#c8e6d0' },
   submitBtnText: { fontSize: 16, fontFamily: 'Poppins-Bold', color: '#fff' },

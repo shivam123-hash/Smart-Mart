@@ -99,7 +99,7 @@ export const FeedbackProvider = ({ children }: React.PropsWithChildren) => {
   const toastColor = toast?.kind === 'error'
     ? '#d64545'
     : toast?.kind === 'success'
-      ? '#258e43'
+      ? '#258B3E'
       : '#2f6f49';
   const toastIcon = toast?.kind === 'error'
     ? 'alert-circle'
@@ -148,7 +148,7 @@ export const FeedbackProvider = ({ children }: React.PropsWithChildren) => {
               style={styles.dialog}
             >
               <View style={styles.dialogIcon}>
-                <Icon name="info" size={23} color="#258e43" />
+                <Icon name="info" size={23} color="#258B3E" />
               </View>
               <LocalizedText style={styles.dialogTitle}>{dialog.title}</LocalizedText>
               <LocalizedText style={styles.dialogMessage}>{dialog.message}</LocalizedText>
@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     borderLeftWidth: 4,
     backgroundColor: '#ffffff',
-    shadowColor: '#183323',
+    shadowColor: '#1A632C',
     shadowOffset: { width: 0, height: 5 },
     shadowOpacity: 0.16,
     shadowRadius: 14,
@@ -225,7 +225,7 @@ const styles = StyleSheet.create({
     paddingTop: 26,
     paddingBottom: 20,
     backgroundColor: '#ffffff',
-    shadowColor: '#102516',
+    shadowColor: '#1A632C',
     shadowOffset: { width: 0, height: 12 },
     shadowOpacity: 0.2,
     shadowRadius: 24,
@@ -241,7 +241,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#eaf7ed',
   },
   dialogTitle: {
-    color: '#18261c',
+    color: '#1A632C',
     fontSize: 18,
     lineHeight: 25,
     fontFamily: 'Poppins-Bold',
@@ -262,7 +262,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     borderRadius: 14,
     alignItems: 'center',
-    backgroundColor: '#258e43',
+    backgroundColor: '#258B3E',
   },
   dialogButtonText: {
     color: '#ffffff',

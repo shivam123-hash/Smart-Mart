@@ -347,7 +347,7 @@ const PaymentMethodsScreen = ({ navigation }: any) => {
             }}
           >
             <View style={styles.addIconWrapper}>
-              <Icon name="plus" size={20} color="#55cc70" />
+              <Icon name="plus" size={20} color="#258B3E" />
             </View>
             <LocalizedText style={styles.addMethodText}>Add Payment Method</LocalizedText>
           </TouchableOpacity>
@@ -355,7 +355,7 @@ const PaymentMethodsScreen = ({ navigation }: any) => {
 
         {/* Info note */}
         <View style={styles.infoNote}>
-          <Icon name="shield" size={16} color="#55cc70" style={{ marginRight: 10 }} />
+          <Icon name="shield" size={16} color="#258B3E" style={{ marginRight: 10 }} />
           <LocalizedText style={styles.infoNoteText}>
             Your payment information is encrypted and securely stored.
           </LocalizedText>
@@ -477,7 +477,7 @@ const styles = StyleSheet.create({
     borderColor: '#f0f2f5',
   },
   methodCardSelected: {
-    borderColor: '#55cc70',
+    borderColor: '#258B3E',
     backgroundColor: '#f9fdf9',
   },
   cardTop: {
@@ -501,13 +501,13 @@ const styles = StyleSheet.create({
     marginRight: 12,
   },
   radioOuterSelected: {
-    borderColor: '#55cc70',
+    borderColor: '#258B3E',
   },
   radioInner: {
     width: 10,
     height: 10,
     borderRadius: 5,
-    backgroundColor: '#55cc70',
+    backgroundColor: '#258B3E',
   },
   brandIcon: {
     width: 44,
@@ -531,7 +531,7 @@ const styles = StyleSheet.create({
     color: '#1a1a1a',
   },
   defaultBadge: {
-    backgroundColor: '#55cc70',
+    backgroundColor: '#258B3E',
     paddingHorizontal: 8,
     paddingVertical: 2,
     borderRadius: 6,
@@ -560,7 +560,7 @@ const styles = StyleSheet.create({
   setDefaultText: {
     fontSize: 12,
     fontFamily: 'Poppins-Medium',
-    color: '#55cc70',
+    color: '#258B3E',
   },
 
   // Add Method
@@ -569,7 +569,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1.5,
-    borderColor: '#55cc70',
+    borderColor: '#258B3E',
     borderStyle: 'dashed',
     borderRadius: 16,
     paddingVertical: 18,
@@ -588,7 +588,7 @@ const styles = StyleSheet.create({
   addMethodText: {
     fontSize: 15,
     fontFamily: 'Poppins-SemiBold',
-    color: '#55cc70',
+    color: '#258B3E',
   },
 
   // Info note

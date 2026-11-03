@@ -17,7 +17,7 @@ const ORDERS = [
     id: 'ORD-78421',
     date: '12 Oct 2026, 2:30 PM',
     status: 'Delivered',
-    statusColor: '#55cc70',
+    statusColor: '#258B3E',
     items: 4,
     total: '₹48.50',
     image: 'https://cdn-icons-png.flaticon.com/512/2553/2553691.png',
@@ -57,7 +57,7 @@ const ORDERS = [
     id: 'ORD-78188',
     date: '02 Oct 2026, 9:10 AM',
     status: 'Delivered',
-    statusColor: '#55cc70',
+    statusColor: '#258B3E',
     items: 5,
     total: '₹35.20',
     image: 'https://cdn-icons-png.flaticon.com/512/924/924514.png',
@@ -257,7 +257,7 @@ const MyOrdersScreen = ({ navigation }: any) => {
         {filteredOrders.length === 0 ? (
           <View style={styles.emptyContainer}>
             <View style={styles.emptyIconWrapper}>
-              <Icon name="package" size={42} color="#55cc70" />
+              <Icon name="package" size={42} color="#258B3E" />
             </View>
             <LocalizedText style={styles.emptyTitle}>No orders found</LocalizedText>
             <LocalizedText style={styles.emptySubtitle}>You don’t have any {activeTab.toLowerCase()} orders yet.</LocalizedText>
@@ -410,11 +410,11 @@ const MyOrdersScreen = ({ navigation }: any) => {
                     ) : (
                       <View style={styles.qtyRow}>
                         <TouchableOpacity style={styles.qtyBtn} onPress={() => updateQty(item.id, -1)} activeOpacity={0.7}>
-                          <Icon name="minus" size={16} color="#55cc70" />
+                          <Icon name="minus" size={16} color="#258B3E" />
                         </TouchableOpacity>
                         <LocalizedText style={styles.qtyText}>{item.qty}</LocalizedText>
                         <TouchableOpacity style={styles.qtyBtn} onPress={() => updateQty(item.id, 1)} activeOpacity={0.7}>
-                          <Icon name="plus" size={16} color="#55cc70" />
+                          <Icon name="plus" size={16} color="#258B3E" />
                         </TouchableOpacity>
                       </View>
                     )}
@@ -457,7 +457,7 @@ const styles = StyleSheet.create({
   tabsContainer: { backgroundColor: '#ffffff', paddingVertical: 12, borderBottomWidth: StyleSheet.hairlineWidth, borderBottomColor: '#f0f0f0' },
   tabsScroll: { paddingHorizontal: 16 },
   tab: { paddingHorizontal: 18, paddingVertical: 8, borderRadius: 20, backgroundColor: '#f5f6f8', marginRight: 10 },
-  tabActive: { backgroundColor: '#55cc70' },
+  tabActive: { backgroundColor: '#258B3E' },
   tabText: { fontSize: 13, fontFamily: 'Poppins-Medium', color: '#7a7a7a' },
   tabTextActive: { color: '#ffffff', fontFamily: 'Poppins-SemiBold' },
   listContent: { paddingHorizontal: 16, paddingTop: 16 },
@@ -478,15 +478,15 @@ const styles = StyleSheet.create({
   itemCount: { fontSize: 12, fontFamily: 'Poppins-Regular', color: '#9e9e9e' },
   orderTotal: { fontSize: 16, fontFamily: 'Poppins-Bold', color: '#1a1a1a' },
   orderActions: { flexDirection: 'row', gap: 10 },
-  actionBtn: { flex: 1, height: 40, borderRadius: 12, backgroundColor: '#55cc70', justifyContent: 'center', alignItems: 'center' },
-  actionBtnOutline: { backgroundColor: 'transparent', borderWidth: 1.5, borderColor: '#55cc70' },
+  actionBtn: { flex: 1, height: 40, borderRadius: 12, backgroundColor: '#258B3E', justifyContent: 'center', alignItems: 'center' },
+  actionBtnOutline: { backgroundColor: 'transparent', borderWidth: 1.5, borderColor: '#258B3E' },
   actionBtnText: { fontSize: 13, fontFamily: 'Poppins-SemiBold', color: '#ffffff' },
-  actionBtnTextOutline: { color: '#55cc70' },
+  actionBtnTextOutline: { color: '#258B3E' },
   emptyContainer: { flex: 1, justifyContent: 'center', alignItems: 'center', paddingHorizontal: 40 },
   emptyIconWrapper: { width: 90, height: 90, borderRadius: 45, backgroundColor: 'rgba(85, 204, 112, 0.12)', justifyContent: 'center', alignItems: 'center', marginBottom: 20 },
   emptyTitle: { fontSize: 18, fontFamily: 'Poppins-Bold', color: '#1a1a1a', marginBottom: 8 },
   emptySubtitle: { fontSize: 14, fontFamily: 'Poppins-Regular', color: '#9e9e9e', textAlign: 'center', lineHeight: 22, marginBottom: 28 },
-  shopNowBtn: { backgroundColor: '#55cc70', paddingHorizontal: 28, paddingVertical: 14, borderRadius: 14 },
+  shopNowBtn: { backgroundColor: '#258B3E', paddingHorizontal: 28, paddingVertical: 14, borderRadius: 14 },
   shopNowBtnText: { fontSize: 15, fontFamily: 'Poppins-Bold', color: '#ffffff' },
 
   // Sheets common
@@ -498,7 +498,7 @@ const styles = StyleSheet.create({
   sheetSubtitle: { fontSize: 14, fontFamily: 'Poppins-Regular', color: '#7a7a7a', textAlign: 'center', marginTop: 6, marginBottom: 24 },
   starsRow: { flexDirection: 'row', justifyContent: 'center', marginBottom: 24 },
   reviewInput: { backgroundColor: '#f5f6f8', borderRadius: 14, padding: 16, height: 100, textAlignVertical: 'top', fontSize: 14, fontFamily: 'Poppins-Regular', color: '#1a1a1a', marginBottom: 20 },
-  submitBtn: { backgroundColor: '#55cc70', height: 52, borderRadius: 16, justifyContent: 'center', alignItems: 'center' },
+  submitBtn: { backgroundColor: '#258B3E', height: 52, borderRadius: 16, justifyContent: 'center', alignItems: 'center' },
   submitBtnDisabled: { backgroundColor: '#c8e6d0' },
   submitBtnText: { fontSize: 16, fontFamily: 'Poppins-Bold', color: '#ffffff' },
 
@@ -515,16 +515,16 @@ const styles = StyleSheet.create({
   reorderItemSize: { fontSize: 12, fontFamily: 'Poppins-Regular', color: '#9e9e9e', marginTop: 2 },
   reorderItemPrice: { fontSize: 14, fontFamily: 'Poppins-Bold', color: '#1a1a1a', marginTop: 4 },
   qtyControl: { marginLeft: 10 },
-  addBtn: { backgroundColor: '#55cc70', paddingHorizontal: 16, paddingVertical: 8, borderRadius: 10 },
+  addBtn: { backgroundColor: '#258B3E', paddingHorizontal: 16, paddingVertical: 8, borderRadius: 10 },
   addBtnText: { fontSize: 13, fontFamily: 'Poppins-Bold', color: '#ffffff' },
-  qtyRow: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#f0faf3', borderRadius: 10, borderWidth: 1, borderColor: '#d4f0dc' },
+  qtyRow: { flexDirection: 'row', alignItems: 'center', backgroundColor: '#EAF5ED', borderRadius: 10, borderWidth: 1, borderColor: '#EAF5ED' },
   qtyBtn: { width: 34, height: 34, justifyContent: 'center', alignItems: 'center' },
   qtyText: { fontSize: 15, fontFamily: 'Poppins-Bold', color: '#1a1a1a', minWidth: 28, textAlign: 'center' },
   reorderFooter: { paddingHorizontal: 20, paddingTop: 16, borderTopWidth: 1, borderTopColor: '#f0f0f0' },
   totalRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 },
   totalLabel: { fontSize: 14, fontFamily: 'Poppins-Medium', color: '#7a7a7a' },
   totalValue: { fontSize: 20, fontFamily: 'Poppins-Bold', color: '#1a1a1a' },
-  confirmBtn: { backgroundColor: '#55cc70', height: 54, borderRadius: 16, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' },
+  confirmBtn: { backgroundColor: '#258B3E', height: 54, borderRadius: 16, flexDirection: 'row', justifyContent: 'center', alignItems: 'center' },
   confirmBtnDisabled: { backgroundColor: '#c8e6d0' },
   confirmBtnText: { fontSize: 16, fontFamily: 'Poppins-Bold', color: '#ffffff' },
 });

@@ -152,7 +152,7 @@ const TrackOrderScreen = ({ route, navigation }: any) => {
           ]}
         >
           <View style={styles.etaIconWrapper}>
-            <Icon name="truck" size={28} color="#55cc70" />
+            <Icon name="truck" size={28} color="#258B3E" />
           </View>
           <LocalizedText style={styles.orderId}>{order.id}</LocalizedText>
           <LocalizedText style={styles.etaText}>Arriving in 25-30 mins</LocalizedText>
@@ -288,7 +288,7 @@ const TrackOrderScreen = ({ route, navigation }: any) => {
           ]}
         >
           <View style={styles.deliveryIconWrapper}>
-            <Icon name="map-pin" size={18} color="#55cc70" />
+            <Icon name="map-pin" size={18} color="#258B3E" />
           </View>
           <View style={styles.deliveryInfo}>
             <LocalizedText style={styles.deliveryLabel}>Delivery Address</LocalizedText>
@@ -315,7 +315,7 @@ const TrackOrderScreen = ({ route, navigation }: any) => {
             },
           ]}
         >
-          <Icon name="headphones" size={20} color="#55cc70" style={{ marginRight: 12 }} />
+          <Icon name="headphones" size={20} color="#258B3E" style={{ marginRight: 12 }} />
           <View style={{ flex: 1 }}>
             <LocalizedText style={styles.helpTitle}>Need Help?</LocalizedText>
             <LocalizedText style={styles.helpSubtitle}>Contact support regarding this order</LocalizedText>
@@ -449,7 +449,7 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   dotDone: {
-    backgroundColor: '#55cc70',
+    backgroundColor: '#258B3E',
   },
   dotPending: {
     backgroundColor: '#f0f0f0',
@@ -480,7 +480,7 @@ const styles = StyleSheet.create({
     minHeight: 36,
   },
   lineDone: {
-    backgroundColor: '#55cc70',
+    backgroundColor: '#258B3E',
   },
   timelineContent: {
     flex: 1,

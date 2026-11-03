@@ -262,7 +262,7 @@ const EditProfileScreen = ({ navigation }: any) => {
                   {photo?.uri ? (
                     <Image source={{ uri: photo.uri }} style={styles.avatarImage} />
                   ) : (
-                    <Icon name="user" size={42} color="#55cc70" />
+                    <Icon name="user" size={42} color="#258B3E" />
                   )}
                 </View>
                 <View style={styles.cameraBtn}>
@@ -466,7 +466,7 @@ const styles = StyleSheet.create({
     width: 34,
     height: 34,
     borderRadius: 17,
-    backgroundColor: '#55cc70',
+    backgroundColor: '#258B3E',
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 3,
@@ -475,7 +475,7 @@ const styles = StyleSheet.create({
   changePhotoText: {
     fontSize: 14,
     fontFamily: 'Poppins-Medium',
-    color: '#55cc70',
+    color: '#258B3E',
   },
 
   // Form
@@ -519,7 +519,7 @@ const styles = StyleSheet.create({
   },
   genderChipActive: {
     backgroundColor: 'rgba(85, 204, 112, 0.12)',
-    borderColor: '#55cc70',
+    borderColor: '#258B3E',
   },
   genderChipText: {
     fontSize: 14,
@@ -527,7 +527,7 @@ const styles = StyleSheet.create({
     color: '#7a7a7a',
   },
   genderChipTextActive: {
-    color: '#55cc70',
+    color: '#258B3E',
     fontFamily: 'Poppins-SemiBold',
   },
 
@@ -540,12 +540,12 @@ const styles = StyleSheet.create({
     borderTopColor: '#f0f0f0',
   },
   saveBtn: {
-    backgroundColor: '#55cc70',
+    backgroundColor: '#258B3E',
     height: 54,
     borderRadius: 16,
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: '#55cc70',
+    shadowColor: '#258B3E',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 8,

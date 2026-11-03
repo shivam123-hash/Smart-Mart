@@ -24,7 +24,7 @@ type EarningBreakdownItem = {
 };
 
 const EARNING_BREAKDOWN: EarningBreakdownItem[] = [
-  { title: 'Delivery earnings', subtitle: '3 completed deliveries', amount: '₹34.50', icon: 'package', color: '#2fa64c' },
+  { title: 'Delivery earnings', subtitle: '3 completed deliveries', amount: '₹34.50', icon: 'package', color: '#258B3E' },
   { title: 'Customer tips', subtitle: 'Tips from customers', amount: '₹6.00', icon: 'heart', color: '#e97878' },
   { title: 'Peak hour bonus', subtitle: 'Busy hour incentive', amount: '₹2.00', icon: 'zap', color: '#d49a2a' },
 ];
@@ -114,7 +114,7 @@ const EarningsScreen = ({ navigation }: { navigation: any }) => {
             onPress={() => navigation.goBack()}
             style={styles.backButton}
           >
-            <Icon name="arrow-left" size={19} color="#253329" />
+            <Icon name="arrow-left" size={19} color="#1A632C" />
           </TouchableOpacity>
           <View style={styles.headerCopy}>
             <LocalizedText style={styles.eyebrow}>YOUR MONEY</LocalizedText>
@@ -276,9 +276,9 @@ const EarningsScreen = ({ navigation }: { navigation: any }) => {
           activeOpacity={0.8}
           onPress={() => navigation.navigate('PayoutHistoryScreen')}
         >
-          <Icon name="clock" size={16} color="#258e43" />
+          <Icon name="clock" size={16} color="#258B3E" />
           <LocalizedText style={styles.historyButtonText}>View payout history</LocalizedText>
-          <Icon name="arrow-right" size={15} color="#258e43" />
+          <Icon name="arrow-right" size={15} color="#258B3E" />
         </TouchableOpacity>
       </ScrollView>
     </SafeAreaView>
@@ -304,14 +304,14 @@ const styles = StyleSheet.create({
   },
   headerCopy: { flex: 1, marginLeft: 12 },
   eyebrow: {
-    color: '#2fa64c',
+    color: '#258B3E',
     fontFamily: 'Poppins-SemiBold',
     fontSize: 9,
     letterSpacing: 1,
   },
   title: { color: '#202820', fontFamily: 'Poppins-Bold', fontSize: 22 },
   balanceCard: {
-    backgroundColor: '#258e43',
+    backgroundColor: '#258B3E',
     borderRadius: 22,
     marginBottom: 17,
     overflow: 'hidden',
@@ -415,18 +415,18 @@ const styles = StyleSheet.create({
   barArea: { alignItems: 'center', flex: 1, justifyContent: 'flex-end', width: '100%' },
   barValue: { color: '#9aa39b', fontFamily: 'Poppins-Medium', fontSize: 8, marginBottom: 5 },
   chartBar: {
-    backgroundColor: '#a9dfb4',
+    backgroundColor: '#EAF5ED',
     borderTopLeftRadius: 6,
     borderTopRightRadius: 6,
     maxHeight: 105,
     minHeight: 20,
     width: 18,
   },
-  chartBarHighlight: { backgroundColor: '#2fa64c' },
+  chartBarHighlight: { backgroundColor: '#258B3E' },
   chartDay: { color: '#929b93', fontFamily: 'Poppins-Medium', fontSize: 9, marginTop: 7 },
-  chartDayHighlight: { color: '#258e43', fontFamily: 'Poppins-Bold' },
+  chartDayHighlight: { color: '#258B3E', fontFamily: 'Poppins-Bold' },
   chartLegend: { alignItems: 'center', flexDirection: 'row', marginTop: 12 },
-  legendDot: { backgroundColor: '#2fa64c', borderRadius: 4, height: 7, width: 7 },
+  legendDot: { backgroundColor: '#258B3E', borderRadius: 4, height: 7, width: 7 },
   legendText: { color: '#778078', fontFamily: 'Poppins-Regular', fontSize: 9, marginLeft: 6 },
   payoutCard: {
     alignItems: 'center',
@@ -457,7 +457,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: 10,
   },
-  breakdownTotal: { color: '#258e43', fontFamily: 'Poppins-SemiBold', fontSize: 9 },
+  breakdownTotal: { color: '#258B3E', fontFamily: 'Poppins-SemiBold', fontSize: 9 },
   breakdownRow: {
     alignItems: 'center',
     backgroundColor: '#ffffff',
@@ -482,7 +482,7 @@ const styles = StyleSheet.create({
   historyButton: {
     alignItems: 'center',
     backgroundColor: '#f1faf3',
-    borderColor: '#d9efde',
+    borderColor: '#EAF5ED',
     borderRadius: 13,
     borderWidth: 1,
     flexDirection: 'row',
@@ -491,7 +491,7 @@ const styles = StyleSheet.create({
     minHeight: 48,
   },
   historyButtonText: {
-    color: '#258e43',
+    color: '#258B3E',
     fontFamily: 'Poppins-SemiBold',
     fontSize: 11,
     marginHorizontal: 8,

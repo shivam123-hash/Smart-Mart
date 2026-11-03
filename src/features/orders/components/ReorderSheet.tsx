@@ -211,7 +211,7 @@ const ReorderSheet = ({
                         onPress={() => updateQty(item.id, -1)}
                         activeOpacity={0.7}
                       >
-                        <Icon name="minus" size={16} color="#55cc70" />
+                        <Icon name="minus" size={16} color="#258B3E" />
                       </TouchableOpacity>
                       <LocalizedText style={styles.qtyText}>{item.qty}</LocalizedText>
                       <TouchableOpacity
@@ -219,7 +219,7 @@ const ReorderSheet = ({
                         onPress={() => updateQty(item.id, 1)}
                         activeOpacity={0.7}
                       >
-                        <Icon name="plus" size={16} color="#55cc70" />
+                        <Icon name="plus" size={16} color="#258B3E" />
                       </TouchableOpacity>
                     </View>
                   )}
@@ -349,7 +349,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   addBtn: {
-    backgroundColor: '#55cc70',
+    backgroundColor: '#258B3E',
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 10,
@@ -362,10 +362,10 @@ const styles = StyleSheet.create({
   qtyRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#f0faf3',
+    backgroundColor: '#EAF5ED',
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: '#d4f0dc',
+    borderColor: '#EAF5ED',
   },
   qtyBtn: {
     width: 34,
@@ -403,13 +403,13 @@ const styles = StyleSheet.create({
     color: '#1a1a1a',
   },
   confirmBtn: {
-    backgroundColor: '#55cc70',
+    backgroundColor: '#258B3E',
     height: 54,
     borderRadius: 16,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: '#55cc70',
+    shadowColor: '#258B3E',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 8,

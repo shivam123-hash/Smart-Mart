@@ -179,7 +179,7 @@ const ProductListScreen = ({ route, navigation }: any) => {
             <Icon
               name={isFavourites ? 'heart' : 'package'}
               size={48}
-              color="#55cc70"
+              color="#258B3E"
             />
           </View>
           <LocalizedText style={styles.emptyTitle}>
@@ -343,7 +343,7 @@ const styles = StyleSheet.create({
     marginBottom: 32,
   },
   shopNowBtn: {
-    backgroundColor: '#55cc70',
+    backgroundColor: '#258B3E',
     paddingHorizontal: 32,
     paddingVertical: 14,
     borderRadius: 16,

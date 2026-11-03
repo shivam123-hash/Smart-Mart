@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
   },
   selectedOption: {
-    borderColor: '#55cc70',
+    borderColor: '#258B3E',
     backgroundColor: '#f4fbf6',
   },
   optionHeader: {
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     color: '#1a1a1a',
   },
   selectedText: {
-    color: '#2fa64c',
+    color: '#258B3E',
   },
   description: {
     fontSize: 10,
@@ -115,13 +115,13 @@ const styles = StyleSheet.create({
     marginLeft: 4,
   },
   selectedRadio: {
-    borderColor: '#55cc70',
+    borderColor: '#258B3E',
   },
   radioDot: {
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: '#55cc70',
+    backgroundColor: '#258B3E',
   },
 });
 

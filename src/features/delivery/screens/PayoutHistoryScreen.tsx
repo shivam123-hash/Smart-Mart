@@ -111,7 +111,7 @@ const PayoutHistoryScreen = ({ navigation }: { navigation: any }) => {
             onPress={() => navigation.goBack()}
             style={styles.backButton}
           >
-            <Icon name="arrow-left" size={19} color="#253329" />
+            <Icon name="arrow-left" size={19} color="#1A632C" />
           </TouchableOpacity>
           <View style={styles.headerCopy}>
             <LocalizedText style={styles.eyebrow}>YOUR MONEY</LocalizedText>
@@ -134,7 +134,7 @@ const PayoutHistoryScreen = ({ navigation }: { navigation: any }) => {
           ]}
         >
           <View style={styles.overviewIcon}>
-            <Icon name="credit-card" size={19} color="#258e43" />
+            <Icon name="credit-card" size={19} color="#258B3E" />
           </View>
           <LocalizedText style={styles.overviewLabel}>NEXT PAYOUT</LocalizedText>
           <LocalizedText style={styles.overviewAmount}>₹126.00</LocalizedText>
@@ -156,7 +156,7 @@ const PayoutHistoryScreen = ({ navigation }: { navigation: any }) => {
               <LocalizedText style={styles.bankName}>Primary bank account</LocalizedText>
               <LocalizedText style={styles.bankNumber}>Checking account •••• 4821</LocalizedText>
             </View>
-            <Icon name="check-circle" size={17} color="#2fa64c" />
+            <Icon name="check-circle" size={17} color="#258B3E" />
           </View>
         </Animated.View>
 
@@ -166,7 +166,7 @@ const PayoutHistoryScreen = ({ navigation }: { navigation: any }) => {
             <LocalizedText style={styles.sectionSubtitle}>Your weekly payment activity</LocalizedText>
           </View>
           <View style={styles.paidTotalBadge}>
-            <Icon name="check" size={11} color="#258e43" />
+            <Icon name="check" size={11} color="#258B3E" />
             <LocalizedText style={styles.paidTotalText}>3 PAYOUTS</LocalizedText>
           </View>
         </View>
@@ -192,7 +192,7 @@ const PayoutHistoryScreen = ({ navigation }: { navigation: any }) => {
                   <Icon
                     name={processing ? 'clock' : 'check'}
                     size={17}
-                    color={processing ? '#d49a2a' : '#258e43'}
+                    color={processing ? '#d49a2a' : '#258B3E'}
                   />
                 </View>
                 <View style={styles.payoutDetails}>
@@ -245,7 +245,7 @@ const styles = StyleSheet.create({
   },
   headerCopy: { flex: 1, marginLeft: 12 },
   eyebrow: {
-    color: '#2fa64c',
+    color: '#258B3E',
     fontFamily: 'Poppins-SemiBold',
     fontSize: 9,
     letterSpacing: 1,
@@ -327,14 +327,14 @@ const styles = StyleSheet.create({
   sectionSubtitle: { color: '#89918a', fontFamily: 'Poppins-Regular', fontSize: 9, marginTop: 2 },
   paidTotalBadge: {
     alignItems: 'center',
-    backgroundColor: '#eaf8ed',
+    backgroundColor: '#EAF5ED',
     borderRadius: 9,
     flexDirection: 'row',
     paddingHorizontal: 8,
     paddingVertical: 6,
   },
   paidTotalText: {
-    color: '#258e43',
+    color: '#258B3E',
     fontFamily: 'Poppins-SemiBold',
     fontSize: 8,
     letterSpacing: 0.4,
@@ -352,7 +352,7 @@ const styles = StyleSheet.create({
   },
   payoutIcon: {
     alignItems: 'center',
-    backgroundColor: '#eaf8ed',
+    backgroundColor: '#EAF5ED',
     borderRadius: 12,
     height: 40,
     justifyContent: 'center',
@@ -372,10 +372,10 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
   },
   processingStatus: { backgroundColor: '#fff4dc' },
-  paidStatus: { backgroundColor: '#eaf8ed' },
+  paidStatus: { backgroundColor: '#EAF5ED' },
   statusText: { fontFamily: 'Poppins-SemiBold', fontSize: 8 },
   processingStatusText: { color: '#9b762e' },
-  paidStatusText: { color: '#258e43' },
+  paidStatusText: { color: '#258B3E' },
   payoutAmount: { color: '#26372a', fontFamily: 'Poppins-Bold', fontSize: 13, marginLeft: 6 },
 });
 

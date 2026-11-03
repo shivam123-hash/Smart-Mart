@@ -23,15 +23,15 @@ interface Faq {
 }
 
 const CATEGORIES: { id: CategoryId; label: string; icon: string; color: string }[] = [
-  { id: 'all', label: 'All', icon: 'grid', color: '#55cc70' },
-  { id: 'orders', label: 'Orders', icon: 'package', color: '#55cc70' },
+  { id: 'all', label: 'All', icon: 'grid', color: '#258B3E' },
+  { id: 'orders', label: 'Orders', icon: 'package', color: '#258B3E' },
   { id: 'payments', label: 'Payments', icon: 'credit-card', color: '#9B59B6' },
   { id: 'delivery', label: 'Delivery', icon: 'truck', color: '#4A90E2' },
   { id: 'account', label: 'Account', icon: 'user', color: '#F39C12' },
 ];
 
 const CONTACT_OPTIONS = [
-  { id: 'chat', title: 'Live Chat', subtitle: 'Replies in 2 mins', icon: 'message-circle', color: '#55cc70' },
+  { id: 'chat', title: 'Live Chat', subtitle: 'Replies in 2 mins', icon: 'message-circle', color: '#258B3E' },
   { id: 'call', title: 'Call Us', subtitle: '9 AM - 9 PM', icon: 'phone', color: '#4A90E2' },
   { id: 'email', title: 'Email', subtitle: 'Within 24 hrs', icon: 'mail', color: '#F39C12' },
 ];
@@ -162,7 +162,7 @@ const FaqItem = ({
             ],
           }}
         >
-          <Icon name="chevron-down" size={20} color={isOpen ? '#55cc70' : '#c0c0c0'} />
+          <Icon name="chevron-down" size={20} color={isOpen ? '#258B3E' : '#c0c0c0'} />
         </Animated.View>
       </TouchableOpacity>
 
@@ -432,7 +432,7 @@ const HelpScreen = ({ navigation }: any) => {
                   <Icon
                     name={c.icon as any}
                     size={15}
-                    color={active ? '#ffffff' : '#55cc70'}
+                    color={active ? '#ffffff' : '#258B3E'}
                     style={{ marginRight: 8 }}
                   />
                   <LocalizedText
@@ -460,7 +460,7 @@ const HelpScreen = ({ navigation }: any) => {
           ) : (
             <View style={styles.emptyWrapper}>
               <View style={styles.emptyIconWrapper}>
-                <Icon name="search" size={28} color="#55cc70" />
+                <Icon name="search" size={28} color="#258B3E" />
               </View>
               <LocalizedText style={styles.emptyTitle}>No answers found</LocalizedText>
               <LocalizedText style={styles.emptySubtitle}>
@@ -490,7 +490,7 @@ const HelpScreen = ({ navigation }: any) => {
             onPress={() => navigation.navigate('MyOrdersScreen')}
           >
             <View style={styles.orderHelpIcon}>
-              <Icon name="package" size={20} color="#55cc70" />
+              <Icon name="package" size={20} color="#258B3E" />
             </View>
             <View style={{ flex: 1 }}>
               <LocalizedText style={styles.orderHelpTitle}>Issue with an order?</LocalizedText>
@@ -502,7 +502,7 @@ const HelpScreen = ({ navigation }: any) => {
           </TouchableOpacity>
 
           <View style={styles.infoNote}>
-            <Icon name="clock" size={16} color="#55cc70" style={{ marginRight: 10 }} />
+            <Icon name="clock" size={16} color="#258B3E" style={{ marginRight: 10 }} />
             <LocalizedText style={styles.infoNoteText}>
               Our support team is available every day from 9 AM to 9 PM.
             </LocalizedText>
@@ -628,18 +628,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 10,
     borderRadius: 14,
-    backgroundColor: '#f0faf3',
+    backgroundColor: '#EAF5ED',
     borderWidth: 1.5,
-    borderColor: '#d4f0dc',
+    borderColor: '#EAF5ED',
   },
   categoryChipActive: {
-    backgroundColor: '#55cc70',
-    borderColor: '#55cc70',
+    backgroundColor: '#258B3E',
+    borderColor: '#258B3E',
   },
   categoryText: {
     fontSize: 13,
     fontFamily: 'Poppins-Medium',
-    color: '#55cc70',
+    color: '#258B3E',
   },
   categoryTextActive: {
     color: '#ffffff',
@@ -676,7 +676,7 @@ const styles = StyleSheet.create({
     lineHeight: 21,
   },
   faqQuestionOpen: {
-    color: '#55cc70',
+    color: '#258B3E',
   },
   faqBody: {
     paddingHorizontal: 16,

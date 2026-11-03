@@ -187,7 +187,7 @@ const SearchAndFilterScreen = ({ navigation }: any) => {
           onPress={toggleFilters}
           activeOpacity={0.85}
         >
-          <Icon name="sliders" size={18} color={showFilters ? '#ffffff' : '#55cc70'} />
+          <Icon name="sliders" size={18} color={showFilters ? '#ffffff' : '#258B3E'} />
         </TouchableOpacity>
       </Animated.View>
 
@@ -301,7 +301,7 @@ const SearchAndFilterScreen = ({ navigation }: any) => {
                     onPress={() => handleRecentPress(item)}
                     activeOpacity={0.8}
                   >
-                    <Icon name="trending-up" size={14} color="#55cc70" style={{ marginRight: 6 }} />
+                    <Icon name="trending-up" size={14} color="#258B3E" style={{ marginRight: 6 }} />
                     <LocalizedText style={styles.tagText}>{item}</LocalizedText>
                   </TouchableOpacity>
                 ))}
@@ -320,7 +320,7 @@ const SearchAndFilterScreen = ({ navigation }: any) => {
             {results.length === 0 ? (
               <View style={styles.emptyContainer}>
                 <View style={styles.emptyIconWrapper}>
-                  <Icon name="search" size={42} color="#55cc70" />
+                  <Icon name="search" size={42} color="#258B3E" />
                 </View>
                 <LocalizedText style={styles.emptyTitle}>No products found</LocalizedText>
                 <LocalizedText style={styles.emptySubtitle}>
@@ -398,15 +398,15 @@ const styles = StyleSheet.create({
     width: 46,
     height: 46,
     borderRadius: 14,
-    backgroundColor: '#f0faf3',
+    backgroundColor: '#EAF5ED',
     justifyContent: 'center',
     alignItems: 'center',
     borderWidth: 1,
-    borderColor: '#d4f0dc',
+    borderColor: '#EAF5ED',
   },
   filterButtonActive: {
-    backgroundColor: '#55cc70',
-    borderColor: '#55cc70',
+    backgroundColor: '#258B3E',
+    borderColor: '#258B3E',
   },
   filtersPanel: {
     backgroundColor: '#fafafa',
@@ -435,8 +435,8 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   chipActive: {
-    backgroundColor: '#55cc70',
-    borderColor: '#55cc70',
+    backgroundColor: '#258B3E',
+    borderColor: '#258B3E',
   },
   chipText: {
     fontSize: 13,
@@ -467,7 +467,7 @@ const styles = StyleSheet.create({
   clearText: {
     fontSize: 13,
     fontFamily: 'Poppins-Medium',
-    color: '#55cc70',
+    color: '#258B3E',
   },
   tagsWrap: {
     flexDirection: 'row',

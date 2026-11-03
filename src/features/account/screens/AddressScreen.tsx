@@ -349,7 +349,7 @@ const AddressScreen = ({ navigation }: any) => {
           >
             <View style={styles.currentLocationLeft}>
               <View style={styles.currentLocationIcon}>
-                <Icon name="navigation" size={18} color="#55cc70" />
+                <Icon name="navigation" size={18} color="#258B3E" />
               </View>
               <View>
                 <LocalizedText style={styles.currentLocationTitle}>Use Current Location</LocalizedText>
@@ -426,7 +426,7 @@ const AddressScreen = ({ navigation }: any) => {
                       <Icon
                         name={getTypeIcon(item.type) as any}
                         size={13}
-                        color="#55cc70"
+                        color="#258B3E"
                         style={{ marginRight: 5 }}
                       />
                       <LocalizedText style={styles.typeText}>{item.type}</LocalizedText>
@@ -451,7 +451,7 @@ const AddressScreen = ({ navigation }: any) => {
                       hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
                       style={{ marginRight: 14 }}
                     >
-                      <Icon name="edit-2" size={15} color="#55cc70" />
+                      <Icon name="edit-2" size={15} color="#258B3E" />
                     </TouchableOpacity>
 
                     {!item.isDefault && (
@@ -506,7 +506,7 @@ const AddressScreen = ({ navigation }: any) => {
             }
           >
             <View style={styles.addIconWrapper}>
-              <Icon name="plus" size={20} color="#55cc70" />
+              <Icon name="plus" size={20} color="#258B3E" />
             </View>
             <LocalizedText style={styles.addAddressText}>Add New Address</LocalizedText>
           </TouchableOpacity>
@@ -574,7 +574,7 @@ const AddressScreen = ({ navigation }: any) => {
             <View style={styles.sheetHandle} />
 
             <View style={styles.sheetIconWrapper}>
-              <Icon name="navigation" size={28} color="#55cc70" />
+              <Icon name="navigation" size={28} color="#258B3E" />
             </View>
 
             <LocalizedText style={styles.sheetTitle}>Use Current Location?</LocalizedText>
@@ -583,7 +583,7 @@ const AddressScreen = ({ navigation }: any) => {
             </LocalizedText>
 
             <View style={styles.locationPreview}>
-              <Icon name="map-pin" size={18} color="#55cc70" style={{ marginRight: 10 }} />
+              <Icon name="map-pin" size={18} color="#258B3E" style={{ marginRight: 10 }} />
               <LocalizedText style={styles.locationPreviewText} numberOfLines={2}>
                 Detecting precise location...
               </LocalizedText>
@@ -707,11 +707,11 @@ const styles = StyleSheet.create({
     paddingTop: 20,
   },
   currentLocationCard: {
-    backgroundColor: '#f0faf3',
+    backgroundColor: '#EAF5ED',
     borderRadius: 16,
     marginBottom: 28,
     borderWidth: 1,
-    borderColor: '#d4f0dc',
+    borderColor: '#EAF5ED',
     overflow: 'hidden',
   },
   currentLocationTouchable: {
@@ -760,7 +760,7 @@ const styles = StyleSheet.create({
     borderColor: '#f0f2f5',
   },
   addressCardSelected: {
-    borderColor: '#55cc70',
+    borderColor: '#258B3E',
     backgroundColor: '#f9fdf9',
   },
   cardTop: {
@@ -784,13 +784,13 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   radioOuterSelected: {
-    borderColor: '#55cc70',
+    borderColor: '#258B3E',
   },
   radioInner: {
     width: 10,
     height: 10,
     borderRadius: 5,
-    backgroundColor: '#55cc70',
+    backgroundColor: '#258B3E',
   },
   typeBadge: {
     flexDirection: 'row',
@@ -803,10 +803,10 @@ const styles = StyleSheet.create({
   typeText: {
     fontSize: 12,
     fontFamily: 'Poppins-SemiBold',
-    color: '#55cc70',
+    color: '#258B3E',
   },
   defaultBadge: {
-    backgroundColor: '#55cc70',
+    backgroundColor: '#258B3E',
     paddingHorizontal: 8,
     paddingVertical: 3,
     borderRadius: 6,
@@ -824,7 +824,7 @@ const styles = StyleSheet.create({
   setDefaultText: {
     fontSize: 12,
     fontFamily: 'Poppins-Medium',
-    color: '#55cc70',
+    color: '#258B3E',
   },
   addressDetails: {
     paddingLeft: 30,
@@ -852,7 +852,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1.5,
-    borderColor: '#55cc70',
+    borderColor: '#258B3E',
     borderStyle: 'dashed',
     borderRadius: 16,
     paddingVertical: 18,
@@ -870,7 +870,7 @@ const styles = StyleSheet.create({
   addAddressText: {
     fontSize: 15,
     fontFamily: 'Poppins-SemiBold',
-    color: '#55cc70',
+    color: '#258B3E',
   },
   bottomBar: {
     position: 'absolute',
@@ -889,12 +889,12 @@ const styles = StyleSheet.create({
     elevation: 12,
   },
   confirmBtn: {
-    backgroundColor: '#55cc70',
+    backgroundColor: '#258B3E',
     height: 52,
     borderRadius: 16,
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: '#55cc70',
+    shadowColor: '#258B3E',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 8,
@@ -961,12 +961,12 @@ const styles = StyleSheet.create({
   locationPreview: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#f0faf3',
+    backgroundColor: '#EAF5ED',
     borderRadius: 14,
     padding: 16,
     marginBottom: 24,
     borderWidth: 1,
-    borderColor: '#d4f0dc',
+    borderColor: '#EAF5ED',
   },
   locationPreviewText: {
     flex: 1,
@@ -975,7 +975,7 @@ const styles = StyleSheet.create({
     color: '#1a1a1a',
   },
   sheetConfirmBtn: {
-    backgroundColor: '#55cc70',
+    backgroundColor: '#258B3E',
     height: 52,
     borderRadius: 16,
     justifyContent: 'center',

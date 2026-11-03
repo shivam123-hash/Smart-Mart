@@ -62,7 +62,7 @@ const CustomInput = ({
             inputRange: [0, 1],
             outputRange: [16, 12],
         }),
-        color: isFocused ? '#55cc70' : '#7a7a7a',
+        color: isFocused ? '#258B3E' : '#7a7a7a',
         backgroundColor: backgroundColor,
         paddingHorizontal: 5,
         zIndex: 1,
@@ -70,7 +70,7 @@ const CustomInput = ({
 
     return (
         <View style={[styles.container, containerStyle]}>
-            <View style={[styles.inputContainer, { borderColor: isFocused ? '#55cc70' : '#d3d3d3' }]}>
+            <View style={[styles.inputContainer, { borderColor: isFocused ? '#258B3E' : '#d3d3d3' }]}>
                 {/* Floating Label */}
                 <Animated.Text style={labelStyle as any}>
                     {t(label)}
@@ -88,7 +88,7 @@ const CustomInput = ({
                     onChangeText={onChangeText}
                     onFocus={handleFocus}
                     onBlur={handleBlur}
-                    selectionColor="#55cc70"
+                    selectionColor="#258B3E"
                     {...props}
                     placeholder={props.placeholder ? t(props.placeholder) : props.placeholder}
                 />

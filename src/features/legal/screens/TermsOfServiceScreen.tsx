@@ -26,7 +26,7 @@ const SECTIONS: TermsSection[] = [
     short: 'Acceptance',
     title: 'Accepting These Terms',
     icon: 'check-circle',
-    color: '#55cc70',
+    color: '#258B3E',
     paragraphs: [
       `By creating an account or using ${APP_NAME}, you agree to these Terms of Service. If you do not agree, please do not use the app.`,
       'You must be at least 18 years old, or have permission from a parent or guardian, to place orders.',
@@ -311,14 +311,14 @@ const TermsOfServiceScreen = ({ navigation }: any) => {
           ]}
         >
           <View style={styles.introIcon}>
-            <Icon name="file-text" size={28} color="#55cc70" />
+            <Icon name="file-text" size={28} color="#258B3E" />
           </View>
           <LocalizedText style={styles.introTitle}>Terms of Service</LocalizedText>
           <LocalizedText style={styles.introSubtitle}>
             Please read these terms carefully. They explain the rules for using {APP_NAME}.
           </LocalizedText>
           <View style={styles.updatedBadge}>
-            <Icon name="clock" size={12} color="#55cc70" style={{ marginRight: 6 }} />
+            <Icon name="clock" size={12} color="#258B3E" style={{ marginRight: 6 }} />
             <LocalizedText style={styles.updatedText}>Last updated {LAST_UPDATED}</LocalizedText>
           </View>
         </Animated.View>
@@ -388,7 +388,7 @@ const TermsOfServiceScreen = ({ navigation }: any) => {
             onPress={() => navigation.navigate('PrivacyPolicyScreen')}
           >
             <View style={styles.linkIcon}>
-              <Icon name="shield" size={20} color="#55cc70" />
+              <Icon name="shield" size={20} color="#258B3E" />
             </View>
             <View style={{ flex: 1 }}>
               <LocalizedText style={styles.linkTitle}>Privacy Policy</LocalizedText>
@@ -407,7 +407,7 @@ const TermsOfServiceScreen = ({ navigation }: any) => {
             }
           >
             <View style={styles.linkIcon}>
-              <Icon name="mail" size={20} color="#55cc70" />
+              <Icon name="mail" size={20} color="#258B3E" />
             </View>
             <View style={{ flex: 1 }}>
               <LocalizedText style={styles.linkTitle}>Questions about these terms?</LocalizedText>
@@ -417,7 +417,7 @@ const TermsOfServiceScreen = ({ navigation }: any) => {
           </TouchableOpacity>
 
           <View style={styles.infoNote}>
-            <Icon name="info" size={16} color="#55cc70" style={{ marginRight: 10 }} />
+            <Icon name="info" size={16} color="#258B3E" style={{ marginRight: 10 }} />
             <LocalizedText style={styles.infoNoteText}>
               By using {APP_NAME}, you agree to these Terms of Service.
             </LocalizedText>
@@ -541,7 +541,7 @@ const styles = StyleSheet.create({
   updatedText: {
     fontSize: 12,
     fontFamily: 'Poppins-SemiBold',
-    color: '#55cc70',
+    color: '#258B3E',
   },
 
   // Chips
@@ -554,18 +554,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 10,
     borderRadius: 14,
-    backgroundColor: '#f0faf3',
+    backgroundColor: '#EAF5ED',
     borderWidth: 1.5,
-    borderColor: '#d4f0dc',
+    borderColor: '#EAF5ED',
   },
   chipActive: {
-    backgroundColor: '#55cc70',
-    borderColor: '#55cc70',
+    backgroundColor: '#258B3E',
+    borderColor: '#258B3E',
   },
   chipText: {
     fontSize: 13,
     fontFamily: 'Poppins-Medium',
-    color: '#55cc70',
+    color: '#258B3E',
   },
   chipTextActive: {
     color: '#ffffff',
@@ -687,10 +687,10 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 24,
-    backgroundColor: '#55cc70',
+    backgroundColor: '#258B3E',
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: '#55cc70',
+    shadowColor: '#258B3E',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 8,

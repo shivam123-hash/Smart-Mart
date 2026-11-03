@@ -325,7 +325,7 @@ const SettingsScreen = ({ navigation }: any) => {
             )}
             {renderToggleRow(
               'package',
-              '#55cc70',
+              '#258B3E',
               'Order Updates',
               'Status, delivery and refunds',
               orderUpdates,
@@ -418,7 +418,7 @@ const SettingsScreen = ({ navigation }: any) => {
                 <LocalizedText style={styles.langNative}>{lang.nativeName}</LocalizedText>
                 <NativeText style={styles.langLabel}>{lang.label}</NativeText>
               </View>
-              {selected && <Icon name="check" size={18} color="#55cc70" />}
+              {selected && <Icon name="check" size={18} color="#258B3E" />}
             </TouchableOpacity>
           );
         })}
@@ -556,7 +556,7 @@ const styles = StyleSheet.create({
   toggleTrackOn: {
     ...StyleSheet.absoluteFill,
     borderRadius: 14,
-    backgroundColor: '#55cc70',
+    backgroundColor: '#258B3E',
   },
   toggleThumb: {
     width: 22,
@@ -643,7 +643,7 @@ const styles = StyleSheet.create({
     marginBottom: 12,
   },
   langRowSelected: {
-    borderColor: '#55cc70',
+    borderColor: '#258B3E',
     backgroundColor: '#f9fdf9',
   },
   radioOuter: {
@@ -657,13 +657,13 @@ const styles = StyleSheet.create({
     marginRight: 14,
   },
   radioOuterSelected: {
-    borderColor: '#55cc70',
+    borderColor: '#258B3E',
   },
   radioInner: {
     width: 10,
     height: 10,
     borderRadius: 5,
-    backgroundColor: '#55cc70',
+    backgroundColor: '#258B3E',
   },
   langNative: {
     fontSize: 15,

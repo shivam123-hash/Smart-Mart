@@ -90,7 +90,7 @@ const MessageBubble = ({ message }: { message: Message }) => {
     >
       {!isUser && (
         <View style={styles.msgAvatar}>
-          <Icon name="headphones" size={14} color="#55cc70" />
+          <Icon name="headphones" size={14} color="#258B3E" />
         </View>
       )}
       <View style={styles.bubbleWrapper}>
@@ -147,7 +147,7 @@ const TypingIndicator = () => {
       style={[styles.messageRow, styles.messageRowAgent, { opacity: enter }]}
     >
       <View style={styles.msgAvatar}>
-        <Icon name="headphones" size={14} color="#55cc70" />
+        <Icon name="headphones" size={14} color="#258B3E" />
       </View>
       <View style={[styles.bubble, styles.bubbleAgent, styles.typingBubble]}>
         {dots.map((dot, i) => (
@@ -341,7 +341,7 @@ const LiveChatScreen = ({ navigation }: any) => {
 
         <View style={styles.headerCenter}>
           <View style={styles.headerAvatar}>
-            <Icon name="headphones" size={20} color="#55cc70" />
+            <Icon name="headphones" size={20} color="#258B3E" />
           </View>
           <View>
             <LocalizedText style={styles.headerTitle}>{AGENT_NAME}</LocalizedText>
@@ -524,12 +524,12 @@ const styles = StyleSheet.create({
     width: 7,
     height: 7,
     borderRadius: 3.5,
-    backgroundColor: '#55cc70',
+    backgroundColor: '#258B3E',
   },
   statusText: {
     fontSize: 12,
     fontFamily: 'Poppins-Medium',
-    color: '#55cc70',
+    color: '#258B3E',
   },
 
   // Messages
@@ -587,7 +587,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 6,
   },
   bubbleUser: {
-    backgroundColor: '#55cc70',
+    backgroundColor: '#258B3E',
     borderTopLeftRadius: 18,
     borderTopRightRadius: 18,
     borderBottomLeftRadius: 18,
@@ -625,7 +625,7 @@ const styles = StyleSheet.create({
     width: 7,
     height: 7,
     borderRadius: 3.5,
-    backgroundColor: '#55cc70',
+    backgroundColor: '#258B3E',
     marginHorizontal: 3,
   },
 
@@ -641,14 +641,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 10,
     borderRadius: 14,
-    backgroundColor: '#f0faf3',
+    backgroundColor: '#EAF5ED',
     borderWidth: 1.5,
-    borderColor: '#d4f0dc',
+    borderColor: '#EAF5ED',
   },
   quickText: {
     fontSize: 13,
     fontFamily: 'Poppins-Medium',
-    color: '#55cc70',
+    color: '#258B3E',
   },
 
   // Input bar
@@ -682,10 +682,10 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 16,
-    backgroundColor: '#55cc70',
+    backgroundColor: '#258B3E',
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: '#55cc70',
+    shadowColor: '#258B3E',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 8,

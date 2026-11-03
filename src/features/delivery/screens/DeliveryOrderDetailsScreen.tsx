@@ -406,7 +406,7 @@ const DeliveryOrderDetailsScreen = ({
                 )
               }
             >
-              <Icon name="map" size={17} color="#258e43" />
+              <Icon name="map" size={17} color="#258B3E" />
             </TouchableOpacity>
           </View>
           <View style={styles.addressRow}>
@@ -431,10 +431,10 @@ const DeliveryOrderDetailsScreen = ({
             </View>
           </View>
           <View style={styles.distanceBanner}>
-            <Icon name="navigation" size={15} color="#258e43" />
+            <Icon name="navigation" size={15} color="#258B3E" />
             <LocalizedText style={styles.distanceText}>{order.distance} total route</LocalizedText>
             <View style={styles.distanceBannerSpacer} />
-            <Icon name="clock" size={14} color="#258e43" />
+            <Icon name="clock" size={14} color="#258B3E" />
             <LocalizedText style={styles.distanceText}>{order.eta}</LocalizedText>
           </View>
         </Animated.View>
@@ -459,7 +459,7 @@ const DeliveryOrderDetailsScreen = ({
               <LocalizedText style={styles.sectionSubtitle}>Delivery contact</LocalizedText>
             </View>
             <View style={styles.customerAvatar}>
-              <Icon name="user" size={18} color="#258e43" />
+              <Icon name="user" size={18} color="#258B3E" />
             </View>
           </View>
           <View style={styles.customerInfo}>
@@ -475,7 +475,7 @@ const DeliveryOrderDetailsScreen = ({
                 activeOpacity={0.8}
                 onPress={() => openContactApp(`tel:${CUSTOMER_PHONE}`, 'Phone app')}
               >
-                <Icon name="phone" size={15} color="#258e43" />
+                <Icon name="phone" size={15} color="#258B3E" />
               </TouchableOpacity>
               <TouchableOpacity
                 accessibilityRole="button"
@@ -484,7 +484,7 @@ const DeliveryOrderDetailsScreen = ({
                 activeOpacity={0.8}
                 onPress={() => openContactApp(`sms:${CUSTOMER_PHONE}`, 'Messaging app')}
               >
-                <Icon name="message-circle" size={15} color="#258e43" />
+                <Icon name="message-circle" size={15} color="#258B3E" />
               </TouchableOpacity>
             </View>
           </View>
@@ -520,7 +520,7 @@ const DeliveryOrderDetailsScreen = ({
           {ORDER_ITEMS.map((item, index) => (
             <View key={item.name} style={[styles.itemRow, index > 0 && styles.itemRowBorder]}>
               <View style={styles.itemIcon}>
-                <Icon name={index === 0 ? 'shopping-bag' : 'clipboard'} size={15} color="#258e43" />
+                <Icon name={index === 0 ? 'shopping-bag' : 'clipboard'} size={15} color="#258B3E" />
               </View>
               <View style={styles.itemCopy}>
                 <LocalizedText style={styles.itemTitle}>{item.name}</LocalizedText>
@@ -594,7 +594,7 @@ const styles = StyleSheet.create({
   safeArea: { flex: 1, backgroundColor: '#ffffff' },
   content: { paddingBottom: 26 },
   hero: {
-    backgroundColor: '#258e43',
+    backgroundColor: '#258B3E',
     borderBottomLeftRadius: 28,
     borderBottomRightRadius: 28,
     overflow: 'hidden',
@@ -671,7 +671,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     marginTop: 15,
     padding: 15,
-    shadowColor: '#14381e',
+    shadowColor: '#1A632C',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.05,
     shadowRadius: 8,
@@ -680,9 +680,9 @@ const styles = StyleSheet.create({
   sectionHeading: { alignItems: 'center', flexDirection: 'row', justifyContent: 'space-between' },
   sectionTitle: { color: '#202820', fontFamily: 'Poppins-SemiBold', fontSize: 13 },
   sectionSubtitle: { color: '#89918a', fontFamily: 'Poppins-Regular', fontSize: 9, marginTop: 2 },
-  stageCount: { color: '#258e43', fontFamily: 'Poppins-Bold', fontSize: 12 },
+  stageCount: { color: '#258B3E', fontFamily: 'Poppins-Bold', fontSize: 12 },
   progressTrack: { backgroundColor: '#eaf1eb', borderRadius: 3, height: 5, marginTop: 15, overflow: 'hidden' },
-  progressFill: { backgroundColor: '#2fa64c', borderRadius: 3, height: 5 },
+  progressFill: { backgroundColor: '#258B3E', borderRadius: 3, height: 5 },
   timeline: { marginTop: 17 },
   timelineRow: { alignItems: 'flex-start', flexDirection: 'row', minHeight: 57 },
   timelineMarkerColumn: { alignItems: 'center', marginRight: 11, width: 25 },
@@ -696,15 +696,15 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: 26,
   },
-  timelineMarkerReached: { backgroundColor: '#2fa64c', borderColor: '#2fa64c' },
+  timelineMarkerReached: { backgroundColor: '#258B3E', borderColor: '#258B3E' },
   timelineLine: { backgroundColor: '#e2e9e3', flex: 1, marginVertical: 3, width: 2 },
   timelineLineReached: { backgroundColor: '#85d194' },
   timelineCopy: { flex: 1, paddingTop: 2 },
   timelineTitle: { color: '#89918a', fontFamily: 'Poppins-Medium', fontSize: 10 },
   timelineTitleReached: { color: '#28372b', fontFamily: 'Poppins-SemiBold' },
   timelineDetail: { color: '#9ba39c', fontFamily: 'Poppins-Regular', fontSize: 8, marginTop: 2 },
-  currentStepBadge: { backgroundColor: '#eaf8ed', borderRadius: 7, marginTop: 3, paddingHorizontal: 7, paddingVertical: 4 },
-  currentStepText: { color: '#258e43', fontFamily: 'Poppins-SemiBold', fontSize: 7, letterSpacing: 0.4 },
+  currentStepBadge: { backgroundColor: '#EAF5ED', borderRadius: 7, marginTop: 3, paddingHorizontal: 7, paddingVertical: 4 },
+  currentStepText: { color: '#258B3E', fontFamily: 'Poppins-SemiBold', fontSize: 7, letterSpacing: 0.4 },
   routeCard: {
     backgroundColor: '#ffffff',
     borderColor: '#edf0ed',
@@ -713,17 +713,17 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     marginTop: 13,
     padding: 15,
-    shadowColor: '#14381e',
+    shadowColor: '#1A632C',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.04,
     shadowRadius: 8,
     elevation: 2,
   },
-  routeIcon: { alignItems: 'center', backgroundColor: '#eaf8ed', borderRadius: 11, height: 35, justifyContent: 'center', width: 35 },
+  routeIcon: { alignItems: 'center', backgroundColor: '#EAF5ED', borderRadius: 11, height: 35, justifyContent: 'center', width: 35 },
   addressRow: { flexDirection: 'row', marginTop: 17, minHeight: 94 },
   addressMarkerColumn: { alignItems: 'center', marginLeft: 3, marginRight: 12, paddingTop: 3, width: 17 },
-  pickupMarker: { backgroundColor: '#2fa64c', borderColor: '#dff3e4', borderRadius: 7, borderWidth: 3, height: 14, width: 14 },
-  addressLine: { borderColor: '#b8dfc1', borderStyle: 'dashed', borderLeftWidth: 1, flex: 1, marginVertical: 3 },
+  pickupMarker: { backgroundColor: '#258B3E', borderColor: '#dff3e4', borderRadius: 7, borderWidth: 3, height: 14, width: 14 },
+  addressLine: { borderColor: '#EAF5ED', borderStyle: 'dashed', borderLeftWidth: 1, flex: 1, marginVertical: 3 },
   dropoffMarker: { alignItems: 'center', backgroundColor: '#e5a72f', borderRadius: 9, height: 18, justifyContent: 'center', width: 18 },
   addressCopy: { flex: 1, justifyContent: 'space-between' },
   addressBlock: { minHeight: 43 },
@@ -741,19 +741,19 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     marginTop: 13,
     padding: 15,
-    shadowColor: '#14381e',
+    shadowColor: '#1A632C',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.04,
     shadowRadius: 8,
     elevation: 2,
   },
-  customerAvatar: { alignItems: 'center', backgroundColor: '#eaf8ed', borderRadius: 11, height: 35, justifyContent: 'center', width: 35 },
+  customerAvatar: { alignItems: 'center', backgroundColor: '#EAF5ED', borderRadius: 11, height: 35, justifyContent: 'center', width: 35 },
   customerInfo: { alignItems: 'center', flexDirection: 'row', marginTop: 14 },
   customerIdentity: { flex: 1 },
   customerName: { color: '#303a32', fontFamily: 'Poppins-SemiBold', fontSize: 12 },
   customerPhone: { color: '#818b83', fontFamily: 'Poppins-Regular', fontSize: 9, marginTop: 2 },
   contactButtons: { flexDirection: 'row', gap: 8 },
-  contactButton: { alignItems: 'center', backgroundColor: '#eaf8ed', borderRadius: 11, height: 36, justifyContent: 'center', width: 36 },
+  contactButton: { alignItems: 'center', backgroundColor: '#EAF5ED', borderRadius: 11, height: 36, justifyContent: 'center', width: 36 },
   instructionsBox: { alignItems: 'center', backgroundColor: '#fff8e9', borderRadius: 10, flexDirection: 'row', marginTop: 13, padding: 10 },
   instructionsText: { color: '#8e713a', flex: 1, fontFamily: 'Poppins-Medium', fontSize: 9, marginLeft: 7 },
   itemsCard: {
@@ -765,7 +765,7 @@ const styles = StyleSheet.create({
     marginTop: 13,
     paddingHorizontal: 15,
     paddingTop: 15,
-    shadowColor: '#14381e',
+    shadowColor: '#1A632C',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.04,
     shadowRadius: 8,
@@ -775,23 +775,23 @@ const styles = StyleSheet.create({
   itemsBadgeText: { color: '#747e76', fontFamily: 'Poppins-SemiBold', fontSize: 8, letterSpacing: 0.4 },
   itemRow: { alignItems: 'center', flexDirection: 'row', paddingVertical: 12 },
   itemRowBorder: { borderTopColor: '#edf0ed', borderTopWidth: StyleSheet.hairlineWidth },
-  itemIcon: { alignItems: 'center', backgroundColor: '#eaf8ed', borderRadius: 10, height: 34, justifyContent: 'center', marginRight: 9, width: 34 },
+  itemIcon: { alignItems: 'center', backgroundColor: '#EAF5ED', borderRadius: 10, height: 34, justifyContent: 'center', marginRight: 9, width: 34 },
   itemCopy: { flex: 1 },
   itemTitle: { color: '#303a32', fontFamily: 'Poppins-Medium', fontSize: 10 },
   itemDescription: { color: '#929a93', fontFamily: 'Poppins-Regular', fontSize: 8, marginTop: 2 },
   earningRow: { alignItems: 'center', borderTopColor: '#edf0ed', borderTopWidth: StyleSheet.hairlineWidth, flexDirection: 'row', justifyContent: 'space-between', paddingVertical: 13 },
   earningRowLabel: { color: '#667168', fontFamily: 'Poppins-Medium', fontSize: 10 },
-  earningRowAmount: { color: '#258e43', fontFamily: 'Poppins-Bold', fontSize: 14 },
+  earningRowAmount: { color: '#258B3E', fontFamily: 'Poppins-Bold', fontSize: 14 },
   actionContainer: { marginHorizontal: 16, marginTop: 14 },
   statusNote: { alignItems: 'center', flexDirection: 'row', justifyContent: 'center', marginBottom: 10 },
   statusNoteText: { color: '#8794a4', fontFamily: 'Poppins-Regular', fontSize: 8, marginLeft: 5 },
-  primaryAction: { alignItems: 'center', backgroundColor: '#2fa64c', borderRadius: 15, flexDirection: 'row', justifyContent: 'space-between', minHeight: 52, paddingHorizontal: 17, shadowColor: '#2fa64c', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.22, shadowRadius: 8, elevation: 4 },
+  primaryAction: { alignItems: 'center', backgroundColor: '#258B3E', borderRadius: 15, flexDirection: 'row', justifyContent: 'space-between', minHeight: 52, paddingHorizontal: 17, shadowColor: '#258B3E', shadowOffset: { width: 0, height: 4 }, shadowOpacity: 0.22, shadowRadius: 8, elevation: 4 },
   primaryActionComplete: { backgroundColor: '#849188', shadowOpacity: 0, elevation: 0 },
   primaryActionText: { color: '#ffffff', flex: 1, fontFamily: 'Poppins-SemiBold', fontSize: 12, marginLeft: 9 },
   missingOrder: { alignItems: 'center', flex: 1, justifyContent: 'center', padding: 28 },
-  missingTitle: { color: '#263329', fontFamily: 'Poppins-SemiBold', fontSize: 17, marginTop: 15 },
+  missingTitle: { color: '#1A632C', fontFamily: 'Poppins-SemiBold', fontSize: 17, marginTop: 15 },
   missingCopy: { color: '#778078', fontFamily: 'Poppins-Regular', fontSize: 12, lineHeight: 19, marginTop: 7, textAlign: 'center' },
-  missingButton: { backgroundColor: '#2fa64c', borderRadius: 12, marginTop: 20, paddingHorizontal: 18, paddingVertical: 12 },
+  missingButton: { backgroundColor: '#258B3E', borderRadius: 12, marginTop: 20, paddingHorizontal: 18, paddingVertical: 12 },
   missingButtonText: { color: '#ffffff', fontFamily: 'Poppins-SemiBold', fontSize: 11 },
 });
 

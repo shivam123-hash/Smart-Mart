@@ -293,7 +293,7 @@ const SignupScreen = () => {
                             title="Send Otp"
                             onPress={handleSignup}
                             isLoading={isLoading}
-                            gradientColors={['#55cc70', '#2fa64c']}
+                            gradientColors={['#258B3E', '#258B3E']}
                             style={styles.signupButton}
                         />
 
@@ -472,12 +472,12 @@ const styles = StyleSheet.create({
     iconWrapper: {
         width: 85,
         height: 85,
-        backgroundColor: '#55cc70',
+        backgroundColor: '#258B3E',
         borderRadius: 42.5,
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 15,
-        shadowColor: "#55cc70",
+        shadowColor: "#258B3E",
         shadowOffset: { width: 0, height: 10 },
         shadowOpacity: 0.3,
         shadowRadius: 15,
@@ -582,7 +582,7 @@ const styles = StyleSheet.create({
         lineHeight: 16,
     },
     termsLink: {
-        color: '#55cc70',
+        color: '#258B3E',
         fontFamily: 'Poppins-Medium',
     },
     loginPrompt: {
@@ -688,18 +688,18 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff',
     },
     otpInputFilled: {
-        borderColor: '#55cc70',
+        borderColor: '#258B3E',
         backgroundColor: '#f4fbf6',
     },
     verifyButton: {
-        backgroundColor: '#55cc70',
+        backgroundColor: '#258B3E',
         width: '100%',
         height: 55,
         borderRadius: 15,
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 20,
-        shadowColor: "#55cc70",
+        shadowColor: "#258B3E",
         shadowOffset: { width: 0, height: 5 },
         shadowOpacity: 0.3,
         shadowRadius: 10,
@@ -728,7 +728,7 @@ const styles = StyleSheet.create({
         color: '#7a7a7a',
     },
     resendLink: {
-        color: '#55cc70',
+        color: '#258B3E',
         fontFamily: 'Poppins-Medium',
     }
 });

@@ -41,7 +41,7 @@ const SECTIONS: PolicySection[] = [
     short: 'How we use it',
     title: 'How We Use Your Information',
     icon: 'settings',
-    color: '#55cc70',
+    color: '#258B3E',
     paragraphs: ['We use your information to run and improve our service.'],
     bullets: [
       'To process orders, deliveries and refunds.',
@@ -285,7 +285,7 @@ const PrivacyPolicyScreen = ({ navigation }: any) => {
           ]}
         >
           <View style={styles.introIcon}>
-            <Icon name="shield" size={28} color="#55cc70" />
+            <Icon name="shield" size={28} color="#258B3E" />
           </View>
           <LocalizedText style={styles.introTitle}>Your privacy matters</LocalizedText>
           <LocalizedText style={styles.introSubtitle}>
@@ -293,7 +293,7 @@ const PrivacyPolicyScreen = ({ navigation }: any) => {
             you have.
           </LocalizedText>
           <View style={styles.updatedBadge}>
-            <Icon name="clock" size={12} color="#55cc70" style={{ marginRight: 6 }} />
+            <Icon name="clock" size={12} color="#258B3E" style={{ marginRight: 6 }} />
             <LocalizedText style={styles.updatedText}>Last updated {LAST_UPDATED}</LocalizedText>
           </View>
         </Animated.View>
@@ -367,7 +367,7 @@ const PrivacyPolicyScreen = ({ navigation }: any) => {
             }
           >
             <View style={styles.contactIcon}>
-              <Icon name="mail" size={20} color="#55cc70" />
+              <Icon name="mail" size={20} color="#258B3E" />
             </View>
             <View style={{ flex: 1 }}>
               <LocalizedText style={styles.contactTitle}>Questions about your data?</LocalizedText>
@@ -377,7 +377,7 @@ const PrivacyPolicyScreen = ({ navigation }: any) => {
           </TouchableOpacity>
 
           <View style={styles.infoNote}>
-            <Icon name="info" size={16} color="#55cc70" style={{ marginRight: 10 }} />
+            <Icon name="info" size={16} color="#258B3E" style={{ marginRight: 10 }} />
             <LocalizedText style={styles.infoNoteText}>
               By using {APP_NAME}, you agree to the practices described in this policy.
             </LocalizedText>
@@ -501,7 +501,7 @@ const styles = StyleSheet.create({
   updatedText: {
     fontSize: 12,
     fontFamily: 'Poppins-SemiBold',
-    color: '#55cc70',
+    color: '#258B3E',
   },
 
   // Chips
@@ -514,18 +514,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 10,
     borderRadius: 14,
-    backgroundColor: '#f0faf3',
+    backgroundColor: '#EAF5ED',
     borderWidth: 1.5,
-    borderColor: '#d4f0dc',
+    borderColor: '#EAF5ED',
   },
   chipActive: {
-    backgroundColor: '#55cc70',
-    borderColor: '#55cc70',
+    backgroundColor: '#258B3E',
+    borderColor: '#258B3E',
   },
   chipText: {
     fontSize: 13,
     fontFamily: 'Poppins-Medium',
-    color: '#55cc70',
+    color: '#258B3E',
   },
   chipTextActive: {
     color: '#ffffff',
@@ -648,10 +648,10 @@ const styles = StyleSheet.create({
     width: 48,
     height: 48,
     borderRadius: 24,
-    backgroundColor: '#55cc70',
+    backgroundColor: '#258B3E',
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: '#55cc70',
+    shadowColor: '#258B3E',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 8,

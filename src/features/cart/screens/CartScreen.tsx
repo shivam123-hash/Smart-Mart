@@ -205,7 +205,7 @@ const CartScreen = ({ navigation }: any) => {
                     name: 'Smart Mart',
                     description: `Payment for ${totalItems} cart items`,
                     order_id: order.orderId,
-                    theme: { color: '#258e43' },
+                    theme: { color: '#258B3E' },
                 });
             } catch (error) {
                 const message =
@@ -296,7 +296,7 @@ const CartScreen = ({ navigation }: any) => {
                     ]}
                 >
                     <View style={styles.emptyIconWrapper}>
-                        <Icon name="shopping-bag" size={48} color="#55cc70" />
+                        <Icon name="shopping-bag" size={48} color="#258B3E" />
                     </View>
                     <LocalizedText style={styles.emptyTitle}>Your cart is empty</LocalizedText>
                     <LocalizedText style={styles.emptySubtitle}>
@@ -408,7 +408,7 @@ const CartScreen = ({ navigation }: any) => {
                         <View style={styles.offerCard}>
                             <View style={styles.offerHeading}>
                                 <View style={styles.offerIcon}>
-                                    <Icon name="tag" size={17} color="#258e43" />
+                                    <Icon name="tag" size={17} color="#258B3E" />
                                 </View>
                                 <View style={styles.offerHeadingCopy}>
                                     <LocalizedText style={styles.offerTitle}>Offers & coupons</LocalizedText>
@@ -449,7 +449,7 @@ const CartScreen = ({ navigation }: any) => {
                                     <Icon
                                         name={appliedCoupon ? 'check-circle' : 'info'}
                                         size={14}
-                                        color={appliedCoupon ? '#258e43' : '#9a6a12'}
+                                        color={appliedCoupon ? '#258B3E' : '#9a6a12'}
                                     />
                                     <LocalizedText style={[styles.couponMessage, appliedCoupon && styles.couponMessageSuccess]}>
                                         {couponMessage}
@@ -736,8 +736,8 @@ const styles = StyleSheet.create({
         borderColor: '#e8ece9',
     },
     qtyBtnPlus: {
-        backgroundColor: '#55cc70',
-        borderColor: '#55cc70',
+        backgroundColor: '#258B3E',
+        borderColor: '#258B3E',
     },
     qtyText: {
         fontSize: 14,
@@ -764,7 +764,7 @@ const styles = StyleSheet.create({
     },
     offerIcon: {
         alignItems: 'center',
-        backgroundColor: '#eaf8ed',
+        backgroundColor: '#EAF5ED',
         borderRadius: 10,
         height: 36,
         justifyContent: 'center',
@@ -804,7 +804,7 @@ const styles = StyleSheet.create({
     },
     applyCouponButton: {
         alignItems: 'center',
-        backgroundColor: '#eaf8ed',
+        backgroundColor: '#EAF5ED',
         borderRadius: 9,
         justifyContent: 'center',
         minHeight: 36,
@@ -815,7 +815,7 @@ const styles = StyleSheet.create({
         opacity: 0.5,
     },
     applyCouponText: {
-        color: '#258e43',
+        color: '#258B3E',
         fontFamily: 'Poppins-SemiBold',
         fontSize: 11,
     },
@@ -833,7 +833,7 @@ const styles = StyleSheet.create({
         marginLeft: 7,
     },
     couponMessageSuccess: {
-        color: '#258e43',
+        color: '#258B3E',
     },
     availableOffersLabel: {
         color: '#89938c',
@@ -862,7 +862,7 @@ const styles = StyleSheet.create({
         paddingVertical: 6,
     },
     offerCodeText: {
-        color: '#258e43',
+        color: '#258B3E',
         fontFamily: 'Poppins-Bold',
         fontSize: 9,
     },
@@ -888,7 +888,7 @@ const styles = StyleSheet.create({
         minWidth: 48,
     },
     offerActionText: {
-        color: '#258e43',
+        color: '#258B3E',
         fontFamily: 'Poppins-Bold',
         fontSize: 9,
     },
@@ -929,7 +929,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     discountValue: {
-        color: '#258e43',
+        color: '#258B3E',
         fontFamily: 'Poppins-SemiBold',
         fontSize: 14,
     },
@@ -956,7 +956,7 @@ const styles = StyleSheet.create({
     totalValue: {
         fontSize: 18,
         fontFamily: 'Poppins-Bold',
-        color: '#55cc70',
+        color: '#258B3E',
     },
 
     // Bottom Bar
@@ -994,12 +994,12 @@ const styles = StyleSheet.create({
     checkoutBtn: {
         flex: 1,
         height: 52,
-        backgroundColor: '#55cc70',
+        backgroundColor: '#258B3E',
         borderRadius: 16,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        shadowColor: '#55cc70',
+        shadowColor: '#258B3E',
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.3,
         shadowRadius: 8,
@@ -1048,7 +1048,7 @@ const styles = StyleSheet.create({
         marginBottom: 32,
     },
     shopNowBtn: {
-        backgroundColor: '#55cc70',
+        backgroundColor: '#258B3E',
         paddingHorizontal: 32,
         paddingVertical: 14,
         borderRadius: 16,

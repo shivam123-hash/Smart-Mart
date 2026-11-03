@@ -291,7 +291,7 @@ const styles = StyleSheet.create({
     top: 0,
   },
   frontItem: {
-    shadowColor: '#163b24',
+    shadowColor: '#1A632C',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.16,
     shadowRadius: 5,

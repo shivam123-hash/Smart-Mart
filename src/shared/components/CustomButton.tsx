@@ -25,7 +25,7 @@ const CustomButton = ({
     onPress,
     iconName,
     iconSize = 20,
-    color = '#55cc70',
+    color = '#258B3E',
     textColor = 'white',
     width = '100%',
     height = 55,

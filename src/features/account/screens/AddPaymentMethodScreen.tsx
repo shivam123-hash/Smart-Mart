@@ -159,7 +159,7 @@ const AddPaymentMethodScreen = ({ navigation }: any) => {
                   <Icon
                     name={t.icon as any}
                     size={18}
-                    color={type === t.id ? '#ffffff' : '#55cc70'}
+                    color={type === t.id ? '#ffffff' : '#258B3E'}
                     style={{ marginRight: 8 }}
                   />
                   <LocalizedText
@@ -259,7 +259,7 @@ const AddPaymentMethodScreen = ({ navigation }: any) => {
                 </View>
 
                 <View style={styles.hintBox}>
-                  <Icon name="info" size={16} color="#55cc70" style={{ marginRight: 10 }} />
+                  <Icon name="info" size={16} color="#258B3E" style={{ marginRight: 10 }} />
                   <LocalizedText style={styles.hintText}>
                     Enter your UPI ID linked with Google Pay, PhonePe, Paytm, etc.
                   </LocalizedText>
@@ -283,7 +283,7 @@ const AddPaymentMethodScreen = ({ navigation }: any) => {
                 </View>
 
                 <View style={styles.hintBox}>
-                  <Icon name="info" size={16} color="#55cc70" style={{ marginRight: 10 }} />
+                  <Icon name="info" size={16} color="#258B3E" style={{ marginRight: 10 }} />
                   <LocalizedText style={styles.hintText}>
                     You’ll be redirected to link your wallet securely.
                   </LocalizedText>
@@ -384,18 +384,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     paddingVertical: 12,
     borderRadius: 14,
-    backgroundColor: '#f0faf3',
+    backgroundColor: '#EAF5ED',
     borderWidth: 1.5,
-    borderColor: '#d4f0dc',
+    borderColor: '#EAF5ED',
   },
   typeChipActive: {
-    backgroundColor: '#55cc70',
-    borderColor: '#55cc70',
+    backgroundColor: '#258B3E',
+    borderColor: '#258B3E',
   },
   typeChipText: {
     fontSize: 13,
     fontFamily: 'Poppins-Medium',
-    color: '#55cc70',
+    color: '#258B3E',
   },
   typeChipTextActive: {
     color: '#ffffff',
@@ -454,8 +454,8 @@ const styles = StyleSheet.create({
     marginRight: 12,
   },
   checkboxActive: {
-    backgroundColor: '#55cc70',
-    borderColor: '#55cc70',
+    backgroundColor: '#258B3E',
+    borderColor: '#258B3E',
   },
   defaultText: {
     fontSize: 14,
@@ -474,12 +474,12 @@ const styles = StyleSheet.create({
     borderTopColor: '#f0f0f0',
   },
   saveBtn: {
-    backgroundColor: '#55cc70',
+    backgroundColor: '#258B3E',
     height: 54,
     borderRadius: 16,
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: '#55cc70',
+    shadowColor: '#258B3E',
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.3,
     shadowRadius: 8,

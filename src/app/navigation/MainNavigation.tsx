@@ -84,7 +84,7 @@ const MainNavigation = () => {
             <AnimatedTabIcon
               name={iconName as React.ComponentProps<typeof Icon>['name']}
               size={24}
-              color={focused ? '#55cc70' : '#1a1a1a'}
+              color={focused ? '#258B3E' : '#1a1a1a'}
               focused={focused}
             />
           );
@@ -149,10 +149,10 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    backgroundColor: '#55cc70',
+    backgroundColor: '#258B3E',
     opacity: 0.2,
     transform: [{ translateY: -25 }],
-    shadowColor: '#55cc70',
+    shadowColor: '#258B3E',
     shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 1,
     shadowRadius: 15,

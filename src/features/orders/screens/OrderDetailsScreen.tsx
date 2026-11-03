@@ -19,7 +19,7 @@ interface OrderItem {
 }
 
 const STATUS_COLORS: Record<string, string> = {
-    Delivered: '#55cc70',
+    Delivered: '#258B3E',
     'On the way': '#4A90E2',
     Processing: '#F39C12',
     Cancelled: '#ff4d4f',
@@ -72,7 +72,7 @@ const OrderDetailsScreen = ({ route, navigation }: any) => {
     const { addProducts } = useCart();
     const order = { ...DEFAULT_ORDER, ...(route?.params?.order || {}) };
     const items: OrderItem[] = order.items?.length ? order.items : DEFAULT_ITEMS;
-    const statusColor: string = order.statusColor ?? STATUS_COLORS[order.status] ?? '#55cc70';
+    const statusColor: string = order.statusColor ?? STATUS_COLORS[order.status] ?? '#258B3E';
 
     // Bill is always computed from the items, so the lines and the total can never disagree.
     const bill = useMemo(() => {
@@ -269,7 +269,7 @@ const OrderDetailsScreen = ({ route, navigation }: any) => {
                     <LocalizedText style={styles.sectionTitle}>Delivery Address</LocalizedText>
                     <View style={styles.addressCard}>
                         <View style={styles.addressIcon}>
-                            <Icon name="map-pin" size={18} color="#55cc70" />
+                            <Icon name="map-pin" size={18} color="#258B3E" />
                         </View>
                         <View style={{ flex: 1 }}>
                             <LocalizedText style={styles.addressType}>{order.addressType}</LocalizedText>
@@ -324,7 +324,7 @@ const OrderDetailsScreen = ({ route, navigation }: any) => {
                         activeOpacity={0.85}
                         onPress={() => navigation.navigate('LiveChatScreen', { orderId: order.id })}
                     >
-                        <Icon name="headphones" size={20} color="#55cc70" style={{ marginRight: 12 }} />
+                        <Icon name="headphones" size={20} color="#258B3E" style={{ marginRight: 12 }} />
                         <View style={{ flex: 1 }}>
                             <LocalizedText style={styles.helpTitle}>Need help with this order?</LocalizedText>
                             <LocalizedText style={styles.helpSubtitle}>Chat with our support team</LocalizedText>
@@ -527,7 +527,7 @@ const styles = StyleSheet.create({
     totalValue: {
         fontSize: 18,
         fontFamily: 'Poppins-Bold',
-        color: '#55cc70',
+        color: '#258B3E',
     },
 
     // Address
@@ -577,14 +577,14 @@ const styles = StyleSheet.create({
         height: 54,
         borderRadius: 16,
         borderWidth: 1.5,
-        borderColor: '#55cc70',
+        borderColor: '#258B3E',
         justifyContent: 'center',
         alignItems: 'center',
     },
     outlineBtnText: {
         fontSize: 15,
         fontFamily: 'Poppins-SemiBold',
-        color: '#55cc70',
+        color: '#258B3E',
     },
     ratedBtn: {
         flex: 1,
@@ -604,10 +604,10 @@ const styles = StyleSheet.create({
         flex: 1,
         height: 54,
         borderRadius: 16,
-        backgroundColor: '#55cc70',
+        backgroundColor: '#258B3E',
         justifyContent: 'center',
         alignItems: 'center',
-        shadowColor: '#55cc70',
+        shadowColor: '#258B3E',
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.3,
         shadowRadius: 8,
@@ -616,12 +616,12 @@ const styles = StyleSheet.create({
     primaryBtnFull: {
         height: 54,
         borderRadius: 16,
-        backgroundColor: '#55cc70',
+        backgroundColor: '#258B3E',
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
         marginBottom: 16,
-        shadowColor: '#55cc70',
+        shadowColor: '#258B3E',
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.3,
         shadowRadius: 8,

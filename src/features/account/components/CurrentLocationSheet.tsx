@@ -84,7 +84,7 @@ const CurrentLocationSheet = ({ visible, onClose, onConfirm }: Props) => {
           <View style={styles.handle} />
 
           <View style={styles.iconWrapper}>
-            <Icon name="navigation" size={28} color="#55cc70" />
+            <Icon name="navigation" size={28} color="#258B3E" />
           </View>
 
           <LocalizedText style={styles.title}>Use Current Location?</LocalizedText>
@@ -93,7 +93,7 @@ const CurrentLocationSheet = ({ visible, onClose, onConfirm }: Props) => {
           </LocalizedText>
 
           <View style={styles.locationPreview}>
-            <Icon name="map-pin" size={18} color="#55cc70" style={{ marginRight: 10 }} />
+            <Icon name="map-pin" size={18} color="#258B3E" style={{ marginRight: 10 }} />
             <LocalizedText style={styles.locationText} numberOfLines={2}>
               Detecting precise location...
             </LocalizedText>
@@ -164,12 +164,12 @@ const styles = StyleSheet.create({
   locationPreview: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#f0faf3',
+    backgroundColor: '#EAF5ED',
     borderRadius: 14,
     padding: 16,
     marginBottom: 24,
     borderWidth: 1,
-    borderColor: '#d4f0dc',
+    borderColor: '#EAF5ED',
   },
   locationText: {
     flex: 1,
@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
     color: '#1a1a1a',
   },
   confirmBtn: {
-    backgroundColor: '#55cc70',
+    backgroundColor: '#258B3E',
     height: 52,
     borderRadius: 16,
     justifyContent: 'center',

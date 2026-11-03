@@ -24,7 +24,7 @@ const MENU_ITEMS = [
         title: 'My Orders',
         subtitle: 'Track, return or buy again',
         icon: 'package',
-        color: '#55cc70',
+        color: '#258B3E',
     },
     {
         id: 'addresses',
@@ -217,7 +217,7 @@ const ProfileScreen = ({ navigation }: any) => {
                 >
                     <View style={styles.avatarWrapper}>
                         <View style={styles.avatar}>
-                            <Icon name="user" size={36} color="#55cc70" />
+                            <Icon name="user" size={36} color="#258B3E" />
                         </View>
                         <TouchableOpacity
                             style={styles.editAvatarBtn}
@@ -237,7 +237,7 @@ const ProfileScreen = ({ navigation }: any) => {
                         activeOpacity={0.85}
                         onPress={() => navigation.navigate('EditProfileScreen')}
                     >
-                        <Icon name="edit-2" size={15} color="#55cc70" style={{ marginRight: 8 }} />
+                        <Icon name="edit-2" size={15} color="#258B3E" style={{ marginRight: 8 }} />
                         <LocalizedText style={styles.editProfileText}>Edit Profile</LocalizedText>
                     </TouchableOpacity>
 
@@ -253,7 +253,7 @@ const ProfileScreen = ({ navigation }: any) => {
                         style={styles.switchRoleButton}
                     >
                         <View style={styles.switchRoleIcon}>
-                            <Icon name="truck" size={17} color="#258e43" />
+                            <Icon name="truck" size={17} color="#258B3E" />
                         </View>
                         <View style={styles.switchRoleCopy}>
                             <LocalizedText style={styles.switchRoleTitle}>Switch to delivery</LocalizedText>
@@ -261,7 +261,7 @@ const ProfileScreen = ({ navigation }: any) => {
                                 Open your delivery partner space
                             </LocalizedText>
                         </View>
-                        <Icon name="arrow-right" size={17} color="#258e43" />
+                        <Icon name="arrow-right" size={17} color="#258B3E" />
                     </TouchableOpacity>
                 </Animated.View>
 
@@ -442,7 +442,7 @@ const styles = StyleSheet.create({
         width: 30,
         height: 30,
         borderRadius: 15,
-        backgroundColor: '#55cc70',
+        backgroundColor: '#258B3E',
         justifyContent: 'center',
         alignItems: 'center',
         borderWidth: 2.5,
@@ -477,13 +477,13 @@ const styles = StyleSheet.create({
     editProfileText: {
         fontSize: 14,
         fontFamily: 'Poppins-SemiBold',
-        color: '#55cc70',
+        color: '#258B3E',
     },
     switchRoleButton: {
         alignItems: 'center',
         alignSelf: 'stretch',
         backgroundColor: '#f1faf3',
-        borderColor: '#d9efde',
+        borderColor: '#EAF5ED',
         borderRadius: 14,
         borderWidth: 1,
         flexDirection: 'row',
@@ -505,7 +505,7 @@ const styles = StyleSheet.create({
         alignItems: 'flex-start',
     },
     switchRoleTitle: {
-        color: '#258e43',
+        color: '#258B3E',
         fontFamily: 'Poppins-SemiBold',
         fontSize: 12,
     },

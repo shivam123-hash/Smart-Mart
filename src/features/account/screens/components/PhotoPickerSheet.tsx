@@ -126,7 +126,7 @@ const Option = ({
 }) => (
   <TouchableOpacity style={styles.option} activeOpacity={0.7} onPress={onPress}>
     <View style={[styles.optionIcon, danger && styles.optionIconDanger]}>
-      <Icon name={icon} size={20} color={danger ? '#e53935' : '#55cc70'} />
+      <Icon name={icon} size={20} color={danger ? '#e53935' : '#258B3E'} />
     </View>
     <LocalizedText style={[styles.optionText, danger && styles.optionTextDanger]}>
       {label}

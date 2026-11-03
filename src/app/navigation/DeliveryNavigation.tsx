@@ -234,7 +234,7 @@ const DeliveryDashboard = ({ navigation }: { navigation: any }) => {
                 </View>
               </View>
               <View style={styles.heroAvatar}>
-                <Icon name="truck" size={30} color="#239846" />
+                <Icon name="truck" size={30} color="#258B3E" />
               </View>
               <View style={styles.heroSparkle}>
                 <Icon name="star" size={12} color="#f3bc4d" />
@@ -341,7 +341,7 @@ const DeliveryDashboard = ({ navigation }: { navigation: any }) => {
               <LocalizedText style={styles.sectionHint}>Your delivery activity</LocalizedText>
             </View>
             <View style={styles.dateBadge}>
-              <Icon name="calendar" size={13} color="#258e43" />
+              <Icon name="calendar" size={13} color="#258B3E" />
               <LocalizedText style={styles.dateBadgeText}>Today</LocalizedText>
             </View>
           </View>
@@ -349,7 +349,7 @@ const DeliveryDashboard = ({ navigation }: { navigation: any }) => {
           <View style={styles.statsRow}>
             <View style={[styles.statCard, styles.deliveryStatCard]}>
               <View style={[styles.statIcon, styles.deliveryStatIcon]}>
-                <Icon name="package" size={19} color="#2fa64c" />
+                <Icon name="package" size={19} color="#258B3E" />
               </View>
               <LocalizedText style={styles.statValue}>3</LocalizedText>
               <LocalizedText style={styles.statLabel}>Deliveries</LocalizedText>
@@ -397,7 +397,7 @@ const DeliveryDashboard = ({ navigation }: { navigation: any }) => {
           <View style={styles.deliveryCard}>
             <View style={styles.deliveryCardTop}>
               <View style={styles.orderIcon}>
-                <Icon name="package" size={21} color="#258e43" />
+                <Icon name="package" size={21} color="#258B3E" />
               </View>
               <View style={styles.orderDetails}>
                 <LocalizedText style={styles.orderId}>Order #{ACTIVE_DELIVERY.orderId}</LocalizedText>
@@ -432,12 +432,12 @@ const DeliveryDashboard = ({ navigation }: { navigation: any }) => {
 
             <View style={styles.deliveryCardFooter}>
               <View style={styles.deliveryMeta}>
-                <Icon name="navigation" size={14} color="#258e43" />
+                <Icon name="navigation" size={14} color="#258B3E" />
                 <LocalizedText style={styles.deliveryMetaText}>{ACTIVE_DELIVERY.distance}</LocalizedText>
               </View>
               <View style={styles.metaDivider} />
               <View style={styles.deliveryMeta}>
-                <Icon name="clock" size={14} color="#258e43" />
+                <Icon name="clock" size={14} color="#258B3E" />
                 <LocalizedText style={styles.deliveryMetaText}>{ACTIVE_DELIVERY.eta} away</LocalizedText>
               </View>
               <TouchableOpacity
@@ -450,7 +450,7 @@ const DeliveryDashboard = ({ navigation }: { navigation: any }) => {
                 style={styles.orderDetailsButton}
               >
                 <LocalizedText style={styles.orderDetailsText}>View details</LocalizedText>
-                <Icon name="arrow-right" size={12} color="#258e43" />
+                <Icon name="arrow-right" size={12} color="#258B3E" />
               </TouchableOpacity>
             </View>
           </View>
@@ -524,7 +524,7 @@ const DeliveryOrderCard = ({
       >
       <View style={styles.listCardHeader}>
         <View style={styles.listOrderIcon}>
-          <Icon name="package" size={18} color="#258e43" />
+          <Icon name="package" size={18} color="#258B3E" />
         </View>
         <View style={styles.listOrderIdentity}>
           <LocalizedText style={styles.listOrderId}>Order #{order.orderId}</LocalizedText>
@@ -587,7 +587,7 @@ const DeliveryOrderCard = ({
       </View>
       <View style={styles.listCardAction}>
         <LocalizedText style={styles.listViewDetails}>View details</LocalizedText>
-        <Icon name="arrow-right" size={12} color="#258e43" />
+        <Icon name="arrow-right" size={12} color="#258B3E" />
       </View>
       </TouchableOpacity>
     </Animated.View>
@@ -618,7 +618,7 @@ const DeliveriesScreen = ({ navigation }: { navigation: any }) => {
 
         <View style={styles.deliveriesSummary}>
           <View style={styles.summaryIcon}>
-            <Icon name="layers" size={19} color="#258e43" />
+            <Icon name="layers" size={19} color="#258B3E" />
           </View>
           <View style={styles.summaryCopy}>
             <LocalizedText style={styles.summaryTitle}>3 deliveries today</LocalizedText>
@@ -696,7 +696,7 @@ const DELIVERY_PROFILE_OPTIONS: DeliveryProfileOption[] = [
     title: 'My deliveries',
     subtitle: 'View active and completed orders',
     icon: 'package',
-    color: '#2fa64c',
+    color: '#258B3E',
     route: 'Deliveries',
   },
   {
@@ -859,7 +859,7 @@ const DeliveryProfileScreen = ({ navigation }: { navigation: any }) => {
           ]}
         >
           <View style={styles.deliveryProfileAvatar}>
-            <Icon name="user" size={30} color="#2fa64c" />
+            <Icon name="user" size={30} color="#258B3E" />
           </View>
           <View style={styles.deliveryProfileCopy}>
             <LocalizedText style={styles.deliveryProfileName}>Delivery partner</LocalizedText>
@@ -867,7 +867,7 @@ const DeliveryProfileScreen = ({ navigation }: { navigation: any }) => {
               Manage your delivery account
             </LocalizedText>
             <View style={styles.partnerBadge}>
-              <Icon name="check-circle" size={12} color="#258e43" />
+              <Icon name="check-circle" size={12} color="#258B3E" />
               <LocalizedText style={styles.partnerBadgeText}>PARTNER ACCOUNT</LocalizedText>
             </View>
           </View>
@@ -877,7 +877,7 @@ const DeliveryProfileScreen = ({ navigation }: { navigation: any }) => {
             onPress={() => navigation.navigate('EditProfileScreen')}
             style={styles.profileEditButton}
           >
-            <Icon name="edit-2" size={16} color="#258e43" />
+            <Icon name="edit-2" size={16} color="#258B3E" />
           </TouchableOpacity>
         </Animated.View>
 
@@ -893,7 +893,7 @@ const DeliveryProfileScreen = ({ navigation }: { navigation: any }) => {
           style={styles.switchRoleButton}
         >
           <View style={styles.switchRoleIcon}>
-            <Icon name="shopping-bag" size={17} color="#258e43" />
+            <Icon name="shopping-bag" size={17} color="#258B3E" />
           </View>
           <View style={styles.switchRoleCopy}>
             <LocalizedText style={styles.switchRoleTitle}>Switch to customer</LocalizedText>
@@ -901,7 +901,7 @@ const DeliveryProfileScreen = ({ navigation }: { navigation: any }) => {
               Open your grocery shopping space
             </LocalizedText>
           </View>
-          <Icon name="arrow-right" size={17} color="#258e43" />
+          <Icon name="arrow-right" size={17} color="#258B3E" />
         </TouchableOpacity>
 
         <View style={styles.profileOptionsHeading}>
@@ -994,7 +994,7 @@ const DeliveryNavigation = () => (
   <Tab.Navigator
     screenOptions={{
       headerShown: false,
-      tabBarActiveTintColor: '#2fa64c',
+      tabBarActiveTintColor: '#258B3E',
       tabBarInactiveTintColor: '#777777',
       tabBarLabelStyle: styles.tabLabel,
       tabBarStyle: styles.tabBar,
@@ -1032,7 +1032,7 @@ const styles = StyleSheet.create({
     paddingBottom: 28,
   },
   dashboardHeader: {
-    backgroundColor: '#2fa64c',
+    backgroundColor: '#258B3E',
     borderBottomLeftRadius: 32,
     borderBottomRightRadius: 32,
     minHeight: 228,
@@ -1129,7 +1129,7 @@ const styles = StyleSheet.create({
     height: 64,
     justifyContent: 'center',
     width: 64,
-    shadowColor: '#15532a',
+    shadowColor: '#1A632C',
     shadowOffset: { width: 0, height: 5 },
     shadowOpacity: 0.2,
     shadowRadius: 8,
@@ -1188,7 +1188,7 @@ const styles = StyleSheet.create({
     width: 46,
   },
   statusIconOnline: {
-    backgroundColor: '#2fa64c',
+    backgroundColor: '#258B3E',
   },
   statusOnlineDot: {
     position: 'absolute',
@@ -1226,7 +1226,7 @@ const styles = StyleSheet.create({
   deliveriesSummary: {
     alignItems: 'center',
     backgroundColor: '#eaf7ed',
-    borderColor: '#d8efdd',
+    borderColor: '#EAF5ED',
     borderRadius: 17,
     borderWidth: 1,
     flexDirection: 'row',
@@ -1259,7 +1259,7 @@ const styles = StyleSheet.create({
     marginTop: 2,
   },
   summaryEarnings: {
-    color: '#258e43',
+    color: '#258B3E',
     fontFamily: 'Poppins-Bold',
     fontSize: 14,
   },
@@ -1281,8 +1281,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
   },
   filterChipSelected: {
-    backgroundColor: '#2fa64c',
-    borderColor: '#2fa64c',
+    backgroundColor: '#258B3E',
+    borderColor: '#258B3E',
   },
   filterText: {
     color: '#717a72',
@@ -1334,7 +1334,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 18,
     marginBottom: 12,
     padding: 14,
-    shadowColor: '#14381e',
+    shadowColor: '#1A632C',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.045,
     shadowRadius: 8,
@@ -1346,7 +1346,7 @@ const styles = StyleSheet.create({
   },
   listOrderIcon: {
     alignItems: 'center',
-    backgroundColor: '#eaf8ed',
+    backgroundColor: '#EAF5ED',
     borderRadius: 12,
     height: 40,
     justifyContent: 'center',
@@ -1375,7 +1375,7 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
   },
   activeStatusBadge: {
-    backgroundColor: '#eaf8ed',
+    backgroundColor: '#EAF5ED',
   },
   completedStatusBadge: {
     backgroundColor: '#f0f3f0',
@@ -1387,7 +1387,7 @@ const styles = StyleSheet.create({
     width: 6,
   },
   activeStatusDot: {
-    backgroundColor: '#2fa64c',
+    backgroundColor: '#258B3E',
   },
   completedStatusDot: {
     backgroundColor: '#8a938c',
@@ -1397,7 +1397,7 @@ const styles = StyleSheet.create({
     fontSize: 9,
   },
   activeStatusText: {
-    color: '#258e43',
+    color: '#258B3E',
   },
   completedStatusText: {
     color: '#707971',
@@ -1415,7 +1415,7 @@ const styles = StyleSheet.create({
     width: 15,
   },
   listPickupMarker: {
-    backgroundColor: '#2fa64c',
+    backgroundColor: '#258B3E',
     borderColor: '#dff3e4',
     borderRadius: 6,
     borderWidth: 3,
@@ -1423,7 +1423,7 @@ const styles = StyleSheet.create({
     width: 12,
   },
   listRouteLine: {
-    borderColor: '#b8dfc1',
+    borderColor: '#EAF5ED',
     borderStyle: 'dashed',
     borderLeftWidth: 1,
     flex: 1,
@@ -1474,7 +1474,7 @@ const styles = StyleSheet.create({
     width: StyleSheet.hairlineWidth,
   },
   listEarning: {
-    color: '#258e43',
+    color: '#258B3E',
     fontFamily: 'Poppins-Bold',
     fontSize: 13,
   },
@@ -1485,13 +1485,13 @@ const styles = StyleSheet.create({
     marginTop: 8,
   },
   listViewDetails: {
-    color: '#258e43',
+    color: '#258B3E',
     fontFamily: 'Poppins-SemiBold',
     fontSize: 9,
     marginRight: 4,
   },
   eyebrow: {
-    color: '#2fa64c',
+    color: '#258B3E',
     fontFamily: 'Poppins-SemiBold',
     fontSize: 11,
     letterSpacing: 1.2,
@@ -1521,7 +1521,7 @@ const styles = StyleSheet.create({
     marginTop: -20,
     marginBottom: 26,
     padding: 15,
-    shadowColor: '#14381e',
+    shadowColor: '#1A632C',
     shadowOffset: { width: 0, height: 5 },
     shadowOpacity: 0.08,
     shadowRadius: 14,
@@ -1552,8 +1552,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 13,
   },
   statusButtonReady: {
-    backgroundColor: '#2fa64c',
-    shadowColor: '#2fa64c',
+    backgroundColor: '#258B3E',
+    shadowColor: '#258B3E',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.22,
     shadowRadius: 6,
@@ -1563,7 +1563,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#f0f2f0',
   },
   statusButtonText: {
-    color: '#238b3d',
+    color: '#258B3E',
     fontFamily: 'Poppins-SemiBold',
     fontSize: 11,
   },
@@ -1607,21 +1607,21 @@ const styles = StyleSheet.create({
     paddingVertical: 7,
   },
   dateBadgeText: {
-    color: '#258e43',
+    color: '#258B3E',
     fontFamily: 'Poppins-Medium',
     fontSize: 10,
     marginLeft: 5,
   },
   nextDeliveryBadge: {
     alignItems: 'center',
-    backgroundColor: '#eaf8ed',
+    backgroundColor: '#EAF5ED',
     borderRadius: 10,
     flexDirection: 'row',
     paddingHorizontal: 9,
     paddingVertical: 6,
   },
   nextDeliveryBadgeText: {
-    color: '#258e43',
+    color: '#258B3E',
     fontFamily: 'Poppins-SemiBold',
     fontSize: 9,
     letterSpacing: 0.4,
@@ -1631,7 +1631,7 @@ const styles = StyleSheet.create({
     width: 7,
     height: 7,
     borderRadius: 4,
-    backgroundColor: '#2fa64c',
+    backgroundColor: '#258B3E',
   },
   statsRow: {
     flexDirection: 'row',
@@ -1646,13 +1646,13 @@ const styles = StyleSheet.create({
     flex: 1,
     minHeight: 154,
     padding: 15,
-    shadowColor: '#14381e',
+    shadowColor: '#1A632C',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.05,
     shadowRadius: 8,
   },
   deliveryStatCard: {
-    borderBottomColor: '#55cc70',
+    borderBottomColor: '#258B3E',
     borderBottomWidth: 3,
   },
   earningsStatCard: {
@@ -1695,7 +1695,7 @@ const styles = StyleSheet.create({
     elevation: 3,
     marginHorizontal: 20,
     padding: 17,
-    shadowColor: '#14381e',
+    shadowColor: '#1A632C',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.05,
     shadowRadius: 9,
@@ -1706,7 +1706,7 @@ const styles = StyleSheet.create({
   },
   orderIcon: {
     alignItems: 'center',
-    backgroundColor: '#eaf8ed',
+    backgroundColor: '#EAF5ED',
     borderRadius: 14,
     height: 46,
     justifyContent: 'center',
@@ -1761,7 +1761,7 @@ const styles = StyleSheet.create({
     width: 15,
   },
   pickupDot: {
-    backgroundColor: '#2fa64c',
+    backgroundColor: '#258B3E',
     borderColor: '#dff3e4',
     borderRadius: 6,
     borderWidth: 3,
@@ -1769,7 +1769,7 @@ const styles = StyleSheet.create({
     width: 12,
   },
   routeLine: {
-    borderColor: '#b8dfc1',
+    borderColor: '#EAF5ED',
     borderStyle: 'dashed',
     borderLeftWidth: 1,
     flex: 1,
@@ -1835,7 +1835,7 @@ const styles = StyleSheet.create({
     paddingVertical: 3,
   },
   orderDetailsText: {
-    color: '#258e43',
+    color: '#258B3E',
     fontFamily: 'Poppins-SemiBold',
     fontSize: 10,
     letterSpacing: 0.4,
@@ -1872,7 +1872,7 @@ const styles = StyleSheet.create({
     paddingBottom: 22,
   },
   profileHeaderEyebrow: {
-    color: '#2fa64c',
+    color: '#258B3E',
     fontFamily: 'Poppins-SemiBold',
     fontSize: 10,
     letterSpacing: 1.1,
@@ -1899,7 +1899,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 18,
     marginTop: 16,
     padding: 15,
-    shadowColor: '#14381e',
+    shadowColor: '#1A632C',
     shadowOffset: { width: 0, height: 3 },
     shadowOpacity: 0.05,
     shadowRadius: 8,
@@ -1907,7 +1907,7 @@ const styles = StyleSheet.create({
   },
   deliveryProfileAvatar: {
     alignItems: 'center',
-    backgroundColor: '#eaf8ed',
+    backgroundColor: '#EAF5ED',
     borderRadius: 29,
     height: 58,
     justifyContent: 'center',
@@ -1931,7 +1931,7 @@ const styles = StyleSheet.create({
   partnerBadge: {
     alignItems: 'center',
     alignSelf: 'flex-start',
-    backgroundColor: '#eaf8ed',
+    backgroundColor: '#EAF5ED',
     borderRadius: 8,
     flexDirection: 'row',
     marginTop: 7,
@@ -1939,7 +1939,7 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
   },
   partnerBadgeText: {
-    color: '#258e43',
+    color: '#258B3E',
     fontFamily: 'Poppins-SemiBold',
     fontSize: 7,
     letterSpacing: 0.4,
@@ -1961,7 +1961,7 @@ const styles = StyleSheet.create({
   switchRoleButton: {
     alignItems: 'center',
     backgroundColor: '#f1faf3',
-    borderColor: '#d9efde',
+    borderColor: '#EAF5ED',
     borderRadius: 15,
     borderWidth: 1,
     flexDirection: 'row',
@@ -1983,7 +1983,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   switchRoleTitle: {
-    color: '#258e43',
+    color: '#258B3E',
     fontFamily: 'Poppins-SemiBold',
     fontSize: 12,
   },
